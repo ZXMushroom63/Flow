@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <title>Flow</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" type="image/x-icon" href="res/favicon.png" />
+    <link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <div id="toolbar">
+      <table>
+        <tr>
+          <td>
+            <span style="padding-right: 4rem;">Flow</span>
+          </td>
+          <td>
+            <div class="btn" role="button" onclick="clearProject()">Clear</div>
+          </td>
+          <td>
+            <div class="btn" role="button" onclick="exportProject()">
+              Export
+            </div>
+          </td>
+          <td>
+            <div class="btn" role="button" onclick="loadProject()">Load</div>
+          </td>
+          <td>
+            <div
+              id="input"
+              contenteditable="true"
+              onblur="this.innerText = this.innerText.replaceAll('\n', '')"
+            >
+              add
+            </div>
+          </td>
+          <td>
+            <div id="insert" role="button" onclick="insertNode()">Insert</div>
+          </td>
+          <td>
+            <div id="run" role="button" onclick="dispOutput()">Run ></div>
+          </td>
+          <td>
+            <div
+              id="render"
+              class="hidden"
+              role="button"
+              onclick="renderTexture2D()"
+            >
+              Render
+            </div>
+          </td>
+          <td>
+            <div
+              id="rdownload"
+              class="hidden"
+              role="button"
+              onclick="downloadRenderTexture()"
+            >
+              Download
+            </div>
+          </td>
+          <td>
+            <div id="nOutputDisp">0</div>
+          </td>
+          <td>
+            <input type="checkbox" id="autoEval" name="autoEval" checked />
+            <label for="autoEval">Auto</label>
+          </td>
+          <td id="mode">
+            <label>Mode: </label>
+            <select id="modeSelect" onchange="rModeUpdate(this.value)">
+              <option default value="number">Number</option>
+              <option value="rentex">2D RenTex</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="canvas"></div>
+    <svg
+      id="linkCanvas"
+      width="1366"
+      height="768"
+      viewBox="0 0 1366 768"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+    ></svg>
+    <table id="zoomBtns">
+      <tr>
+        <td><div onclick="zoomIn()">+</div></td>
+      </tr>
+      <tr>
+        <td><div onclick="zoomOut()">-</div></td>
+      </tr>
+    </table>
+    <canvas class="hidden" id="rentex" width="300" height="300"
+      >Your browser sucks!</canvas
+    >
+    <script>
+      window.onerror = (err) => {
+        alert("An error occurred. Check the console for details.");
+      };
+      Math.tan;
+    </script>
+    <script src="scripts/termsAndConditions.js"></script>
+    <script src="libs/noise.js"></script>
+    <script src="libs/worley.js"></script>
+    <script src="scripts/dragElem.js"></script>
+    <script src="scripts/bLink.js"></script>
+    <script src="scripts/node.js"></script>
+    <script src="scripts/math.js"></script>
+    <script src="scripts/classes.js"></script>
+    <script src="scripts/zoom.js"></script>
+    <script src="scripts/autoEval.js"></script>
+    <script src="scripts/rentex.js"></script>
+    <script src="scripts/noiseClasses.js"></script>
+    <script src="scripts/serialise.js"></script>
+  </body>
+</html>
