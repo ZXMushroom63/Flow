@@ -45,7 +45,7 @@ window.addEventListener("keydown", (e) => {
   if (e.key === "+") {
     zoomIndex -= 0.25;
   }
-  zoomIndex = Math.max(zoomIndex, 0.75);
+  zoomIndex = Math.max(zoomIndex, 1.25);
   zoomIndex = Math.min(zoomIndex, 2.5);
   updateZoom();
 });

@@ -54,7 +54,7 @@ function deserialise(serialised) {
     zoomIndex = serialised.zoomIndex || 1;
     updateZoom();
     document.querySelector("#modeSelect").value = serialised.mode || "number";
-    rModeUpdate(serialised.mode || "number");
+    modeUpdate(serialised.mode || "number");
   } catch (err) {
     alert(err);
   }

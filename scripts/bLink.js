@@ -38,7 +38,9 @@ function linkDragHandler(outputElem) {
       "stroke:white;stroke-width:4;stroke-linecap:round;"
     );
     document.querySelector("#linkCanvas").appendChild(line);
+    soundEffect("click");
   }
+
   function elementDrag(e) {
     e = e || window.event;
     e.preventDefault();
@@ -74,6 +76,7 @@ function linkDragHandler(outputElem) {
       if (line.remove) {
         line.remove();
       }
+      soundEffect("connect");
       makeLink(outputElem, el);
     } else {
       if (line.remove) {
@@ -87,9 +90,11 @@ function linkDragHandler(outputElem) {
     document.ontouchmove = null;
   }
 }
+
 function lerp(a, b, k) {
   return (b - a) * k + a;
 }
+
 function resize() {
   document
     .querySelector("#linkCanvas")
@@ -101,6 +106,7 @@ function resize() {
     .querySelector("#linkCanvas")
     .setAttribute("viewBox", `0 0 ${window.innerWidth} ${window.innerHeight}`);
 }
+
 function makeLink(output, input) {
   var outRect = output.getBoundingClientRect();
   var inRect = input.getBoundingClientRect();

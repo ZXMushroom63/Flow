@@ -11,7 +11,8 @@ function getOutput(auto = false) {
   var outputNode = document.querySelector(
     ".node .header[data-flag-isOutput]"
   ).parentElement;
-  return outputNode.getValue();
+  var v = outputNode.getValue()
+  return v.func(...v.fields);
 }
 function dispOutput(auto = false) {
   document.getElementById("nOutputDisp").innerText =
@@ -128,8 +129,9 @@ function addNodeToCanvas(nodetype, x, y) {
       } else if (
         row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement?.["getValue"]
       ) {
+        var v = row.childNodes[0]["link"]["outputNode"].parentElement["getValue"]();
         fields.push(
-          row.childNodes[0]["link"]["outputNode"].parentElement["getValue"]() ||
+          v.func(...v.fields) ||
             0
         );
       } else {
@@ -144,7 +146,7 @@ function addNodeToCanvas(nodetype, x, y) {
         }
       }
     }
-    return nodetype.func(...fields);
+    return {func: nodetype.func, fields};
   };
   dragElem(node);
   document.querySelector("#canvas").append(node);

@@ -1,3 +1,8 @@
+:root {
+    color-scheme: light only;
+    touch-action: manipulation !important;
+}
+
 body, html {
     margin: 0;
     padding: 0;
@@ -92,7 +97,54 @@ body, html {
     background-color: grey;
 }
 
-.header {
+.node .header {
+    user-select: none;
+    display: block;
+    border-radius: 0.5rem;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 1.5rem;
+    color: white;
+    cursor: grab;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-bottom: 1rem;
+}
+
+#renderOutput {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 102;
+    background-color: rgb(60, 60, 60);
+    border-radius: 0.5rem;
+    max-width: 16rem;
+    max-height: 16rem;
+    overflow: scroll;
+    box-shadow: 0rem 0rem 0.4rem rgba(255, 255, 255, 0.5);
+}
+
+#renderOutput .header button {
+    cursor: pointer;
+    outline: 0;
+    border: 0;
+    background-color: rgb(80, 80, 80);
+    border-radius: 0.2rem;
+    border: 2px solid black;
+    color: white;
+    text-align: center;
+    padding: 0.2rem 0.4rem;
+    margin: 0.1rem;
+    margin-left: 0.3rem;
+}
+
+#renderOutput .header {
+    padding: 0.2rem;
     user-select: none;
     display: block;
     border-radius: 0.5rem;
@@ -107,7 +159,11 @@ body, html {
     overflow: hidden;
     overflow-x: hidden;
     overflow-y: hidden;
-    margin-bottom: 1rem;
+    background-color: rgb(40, 40, 40);
+}
+
+#renderOutput[grabbing] .header {
+    cursor: grabbing;
 }
 
 .node[grabbing]>.header {
@@ -128,6 +184,7 @@ body, html {
     background-color: lightgrey;
     cursor: text;
     font-size: 1.5rem;
+    white-space: nowrap;
 }
 
 .inputField {
@@ -251,15 +308,6 @@ body, html {
     padding-left: 2rem;
 }
 
-#rentex {
-    position: fixed;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    opacity: 0.7;
-}
-
 #modeSelect {
     border-radius: 0.2rem;
     color: white;
@@ -298,4 +346,57 @@ body, html {
     border: 2px solid black;
     user-select: none;
     cursor: pointer;
+}
+
+#trashbin {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 5;
+    width: 3.5rem;
+    opacity: 0.5;
+    margin: 0.5rem;
+    transition: 0.3s;
+}
+
+#trashbin:hover {
+    width: 4rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+    outline: 0 !important;
+}
+
+#suggestions {
+    position: fixed;
+    z-index: 300;
+    display: none;
+    background-color: lightgray;
+    border-radius: 0.5rem;
+    max-height: 10rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    transition: 0.1s;
+}
+
+#suggestions div {
+    padding: 0.5rem;
+    border-bottom: 1px solid grey;
+    cursor: pointer;
+}
+
+#suggestions[visible] {
+    display: block;
+}
+
+#rentex {
+    margin: auto 0;
 }

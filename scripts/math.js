@@ -5,7 +5,12 @@ addNode(
   () => {
     return Math.PI;
   },
-  "darkmagenta"
+  "darkmagenta",
+  {},
+  {
+    dynamic: true,
+    doc: `Returns pi.`,
+  }
 );
 addNode(
   "e",
@@ -14,7 +19,12 @@ addNode(
   () => {
     return Math.E;
   },
-  "darkmagenta"
+  "darkmagenta",
+  {},
+  {
+    dynamic: true,
+    doc: `Returns e.`,
+  }
 );
 
 addNode(
@@ -24,7 +34,12 @@ addNode(
   (x) => {
     return Math.sqrt(x);
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    dynamic: true,
+    doc: `Returns the square-root of x.`,
+  }
 );
 addNode(
   "cbrt",
@@ -33,7 +48,12 @@ addNode(
   (x) => {
     return Math.cbrt(x);
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    dynamic: true,
+    doc: `Returns the cube-root of x.`,
+  }
 );
 
 addNode(
@@ -43,7 +63,11 @@ addNode(
   (x) => {
     return Math.floor(x);
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Returns the floor of N; can be described as rounding down or removes decimals.`,
+  }
 );
 addNode(
   "ceil",
@@ -52,7 +76,11 @@ addNode(
   (x) => {
     return Math.floor(x);
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Returns the ceil of N; can be described as rounding up.`,
+  }
 );
 addNode(
   "round",
@@ -61,7 +89,11 @@ addNode(
   (x) => {
     return Math.round(x);
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Rounds N.`,
+  }
 );
 addNode(
   "tan",
@@ -70,5 +102,9 @@ addNode(
   (deg) => {
     return Math.tan(deg * (Math.PI / 180));
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Returns the tangent of the input angle.`,
+  }
 );

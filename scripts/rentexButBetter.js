@@ -182,7 +182,7 @@ function renderTexture2D() {
     data[i + 3] = getAlpha(true);
   }
   rentex.duration = performance.now() - rentex.duration;
-  alert(rentex.duration+"ms");
+  alert(rentex.duration + "ms");
   ctx.putImageData(imageData, 0, 0);
   document.querySelector("#renderOutput").classList.remove("hidden");
   soundEffect("chime");
@@ -207,7 +207,8 @@ function getRed(auto = false) {
     return 0;
   }
   var outputNode = rentex.redNode.parentElement;
-  return outputNode.getValue();
+  var v = outputNode.getValue();
+  return v.func(...v.fields);
 }
 function getSize() {
   if (!document.querySelector(".node .header[data-sizeoutput]")) {
@@ -216,7 +217,8 @@ function getSize() {
   var outputNode = document.querySelector(
     ".node .header[data-sizeoutput]"
   ).parentElement;
-  outputNode.getValue();
+  var v = outputNode.getValue();
+  return v.func(...v.fields);
 }
 function getAlpha(auto = false) {
   if (!auto) {
@@ -233,7 +235,8 @@ function getAlpha(auto = false) {
     return 255;
   }
   var outputNode = rentex.alphaNode.parentElement;
-  return outputNode.getValue();
+  var v = outputNode.getValue();
+  return v.func(...v.fields);
 }
 function getGreen(auto = false) {
   if (!auto) {
@@ -251,7 +254,8 @@ function getGreen(auto = false) {
     return 0;
   }
   var outputNode = rentex.greenNode.parentElement;
-  return outputNode.getValue();
+  var v = outputNode.getValue();
+  return v.func(...v.fields);
 }
 function getBlue(auto = false) {
   if (!auto) {
@@ -266,5 +270,13 @@ function getBlue(auto = false) {
     return 0;
   }
   var outputNode = rentex.blueNode.parentElement;
-  return outputNode.getValue();
+  if (!auto) {
+    var v = outputNode.getValue();
+    rentex.blueFunc = v.func;
+    rentex.blueFields = v.fields;
+  }
+  debugger;
+  return rentex.blueFunc(...rentex.blueFields);
+  // var v = outputNode.getValue();
+  // return v.func(...v.fields);
 }

@@ -5,4 +5,4 @@ setInterval(() => {
   ) {
     dispOutput(true);
   }
-}, 500);
+}, 10);

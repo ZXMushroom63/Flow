@@ -16,8 +16,8 @@ function dragElem(elmnt) {
   function dragMouseDown(e) {
     e = e || window.event;
     /*/ get the mouse cursor position at startup:/*/
-    pos3 = (typeof e.touches === "object" ? e.touches[0].clientX : e.clientX);
-    pos4 = (typeof e.touches === "object" ? e.touches[0].clientY : e.clientY);
+    pos3 = typeof e.touches === "object" ? e.touches[0].clientX : e.clientX;
+    pos4 = typeof e.touches === "object" ? e.touches[0].clientY : e.clientY;
     document.onmouseup = closeDragElement;
     document.ontouchend = closeDragElement;
     document.ontouchcancel = closeDragElement;
@@ -37,7 +37,6 @@ function dragElem(elmnt) {
     pos3 = typeof e.touches === "object" ? e.touches[0].clientX : e.clientX;
     pos4 = typeof e.touches === "object" ? e.touches[0].clientY : e.clientY;
     /*/ set the element's new position:/*/
-    var bounds = document.querySelector("#canvas").getBoundingClientRect();
     elmnt.style.top = elmnt.offsetTop - pos2 + "px";
     elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
     elmnt.setAttribute("data-y", elmnt.offsetTop - pos2);
@@ -52,11 +51,34 @@ function dragElem(elmnt) {
 
   function closeDragElement() {
     /*/ stop moving when mouse button is released:/*/
+
     document.onmouseup = null;
     document.onmousemove = null;
     document.ontouchend = null;
     document.ontouchcancel = null;
     document.ontouchmove = null;
     elmnt.removeAttribute("grabbing");
+    if (elmnt.className.includes("node")) {
+      if (!document.querySelector("#trashbin")) {
+        return;
+      }
+      var trashBounds = document
+        .querySelector("#trashbin")
+        .getBoundingClientRect();
+      if (
+        trashBounds.x < pos3 &&
+        trashBounds.x + trashBounds.width > pos3 &&
+        trashBounds.y < pos4 &&
+        trashBounds.y + trashBounds.width > pos4
+      ) {
+        if (elmnt["removeListeners"]) {
+          elmnt["removeListeners"].forEach((func) => {
+            func();
+          });
+          elmnt.remove();
+          soundEffect("delete");
+        }
+      }
+    }
   }
 }

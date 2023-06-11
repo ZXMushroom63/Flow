@@ -8,7 +8,11 @@ addNode(
     }
     return a + b;
   },
-  "darkcyan"
+  "darkcyan",
+  {},
+  {
+    doc: "Adds inputs A and B together and then returns it.",
+  }
 );
 addNode(
   "subtract",
@@ -20,7 +24,11 @@ addNode(
     }
     return a - b;
   },
-  "darkcyan"
+  "darkcyan",
+  {},
+  {
+    doc: "Subtracts B from A and then returns it.",
+  }
 );
 addNode(
   "multiply",
@@ -32,7 +40,11 @@ addNode(
     }
     return a * b;
   },
-  "darkcyan"
+  "darkcyan",
+  {},
+  {
+    doc: "Multiples A by B and then returns it.",
+  }
 );
 addNode(
   "divide",
@@ -44,7 +56,11 @@ addNode(
     }
     return a / b;
   },
-  "darkcyan"
+  "darkcyan",
+  {},
+  {
+    doc: "Divides A by B and then returns it.",
+  }
 );
 addNode(
   "const",
@@ -67,6 +83,9 @@ addNode(
   {
     contentEditable: true,
     onblur: "this.innerText = this.innerText.replaceAll('\\n', '')",
+  },
+  {
+    doc: "A constant. Can be used to reroute flow or as an input.",
   }
 );
 addNode(
@@ -76,7 +95,11 @@ addNode(
   (base, exp) => {
     return Math.pow(base, exp);
   },
-  "darkcyan"
+  "darkcyan",
+  {},
+  {
+    doc: "Returns Base to the power Exponent and then returns it.",
+  }
 );
 addNode(
   "if",
@@ -91,7 +114,14 @@ addNode(
       return aeb;
     }
   },
-  "darkgreen"
+  "darkgreen",
+  {},
+  {
+    doc: `Takes in inputs 'A' and 'B', then if 'A' is greater than 'B', it returns the value of the input labeled 'A>B'.
+    If 'A' is less than 'B', it returns the value of the input labeled 'A<B'.
+    If 'A' is equal to 'B', it returns the value of the input labeled 'A=B'.
+    `,
+  }
 );
 addNode(
   "mod",
@@ -100,7 +130,14 @@ addNode(
   (n, mod) => {
     return n % mod;
   },
-  "darkcyan"
+  "darkcyan",
+  {},
+  {
+    doc: `Finds the remainder of 'N' over 'Mod'. Eg:
+    <br> 0 mod 2 = 0;
+    <br> 1 mod 2 = 1;
+    <br> 2 mod 2 = 0;`,
+  }
 );
 addNode(
   "min",
@@ -109,7 +146,11 @@ addNode(
   (a, b) => {
     return Math.min(a, b);
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Returns the smallest of A and B.`,
+  }
 );
 addNode(
   "max",
@@ -118,7 +159,11 @@ addNode(
   (a, b) => {
     return Math.max(a, b);
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Returns the largest of A and B.`,
+  }
 );
 addNode(
   "unknown",
@@ -131,6 +176,7 @@ addNode(
   {},
   {
     no_out: true,
+    doc: "Replaces any nodes whose type does not exist when loading from a save.",
   }
 );
 addNode(
@@ -140,9 +186,12 @@ addNode(
   (v, min, max) => {
     return Math.min(Math.max(v, min), max);
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Limits 'V' to the Minimum and Maximum values provided.`,
+  }
 );
-
 
 addNode(
   "rnd",
@@ -155,6 +204,7 @@ addNode(
   {},
   {
     dynamic: true,
+    doc: `Returns a random decimal between 0.0 to 1.0.`,
   }
 );
 addNode(
@@ -168,6 +218,7 @@ addNode(
   {},
   {
     dynamic: true,
+    doc: `Returns a random integer between Min and Max.`,
   }
 );
 addNode(
@@ -178,17 +229,14 @@ addNode(
     var b = Math.pow(i, -1);
     return Math.pow(n, b);
   },
-  "darkred"
-);
-addNode(
-  "debug",
-  ["Debug", "print", "alert"],
-  ["In"],
-  (input) => {
-    alert("Type: " + typeof input + "\nValue: " + input);
-    return input;
-  },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Gets the root of a number. Eg:
+    <br>25 root 2 = 5;
+    <br>125 root 3 = 5;
+    <br>36 root 2 = 6;`,
+  }
 );
 addNode(
   "output",
@@ -203,6 +251,7 @@ addNode(
   },
   {
     no_out: true,
+    doc: `Serves as the output in number mode. The value it gets from 'Out' is displayed in the toolbar.`,
   }
 );
 addNode(
@@ -212,7 +261,11 @@ addNode(
   (deg) => {
     return Math.sin(deg * (Math.PI / 180));
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Gets the sine of the angle in degrees provided.`,
+  }
 );
 addNode(
   "cos",
@@ -221,7 +274,11 @@ addNode(
   (deg) => {
     return Math.cos(deg * (Math.PI / 180));
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Gets the cosine of the angle in degrees provided.`,
+  }
 );
 addNode(
   "abs",
@@ -230,7 +287,16 @@ addNode(
   (n) => {
     return Math.abs(n);
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Returns the absolute of the input number Can be described as removing the number's sign. Eg:
+    <br>Abs(4)=4;
+    <br>Abs(-3)=3;
+    <br>Abs(0)=0;
+    <br>Abs(-1)=1;
+    `,
+  }
 );
 addNode(
   "lerp",
@@ -239,7 +305,15 @@ addNode(
   (a, b, k) => {
     return (b - a) * k + a;
   },
-  "darkred"
+  "darkred",
+  {},
+  {
+    doc: `Linear Interpolates between A and B with an Alpha ranging from 0.0 to 1.0. Eg:
+    <br>Lerping with A=0, B=10, Alpha=0.0 returns 0.
+    <br>Lerping with A=0, B=10, Alpha=0.5 returns 5.
+    <br>Lerping with A=0, B=10, Alpha=1.0 returns 10.
+    `,
+  }
 );
 addNode(
   "time",
@@ -256,5 +330,6 @@ addNode(
   {},
   {
     dynamic: true,
+    doc: `Returns the current time in milliseconds (one thousandth of a second).`,
   }
 );
