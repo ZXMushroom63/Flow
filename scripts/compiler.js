@@ -21,6 +21,17 @@ function compileGraph(node) {
   return {
     func: func,
     argv: argv,
+    calculate: function () {
+      var values = [];
+      for (let arg = 0; arg < argv.length; arg++) {
+        const argument = argv[arg];
+        if (typeof argument === "object") {
+          return argument.calculate();
+        } else {
+          values.push(argument || 0);
+        }
+      }
+      return func(...values) | 0;
+    },
   };
 }
-function executeGraph() {}
