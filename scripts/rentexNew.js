@@ -182,7 +182,7 @@ function renderTexture2D() {
         data[i + 3] = getAlpha(true);
     }
     rentex.duration = performance.now() - rentex.duration;
-    alert(rentex.duration + "ms");
+    //alert(rentex.duration + "ms");
     ctx.putImageData(imageData, 0, 0);
     document.querySelector("#renderOutput").classList.remove("hidden");
     soundEffect("chime");
