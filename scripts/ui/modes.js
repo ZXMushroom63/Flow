@@ -19,7 +19,7 @@ function modeUpdate(mode) {
     document.querySelector(showSel).classList.remove("hidden");
   });
 }
-addMode("number", "Number", ["#nOutputDisp", "#run", "td:has(#autoEval)"]);
+addMode("number", "Number", ["#run", "td:has(#autoEval)"]);
 addMode("rentex", "2D RenTex", ["#renderOutput", "#rdownload", "#render"]);
 addMode("soundwave", "Soundwave", ["#playsp"]);
 modeUpdate("number");

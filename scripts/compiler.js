@@ -1,12 +1,8 @@
-let currentId = 0;
 function compileGraph(node) {
   var libraryEntry = window["library"][node.getAttribute("data-type")];
   var rows = node.querySelectorAll("tr");
   var func = libraryEntry.func;
   var argv = [];
-  if (node.refId === undefined) {
-    node.refId = currentId++;
-  }
   for (let i = 0; i < rows.length; i++) {
     var row = rows[i];
     if (

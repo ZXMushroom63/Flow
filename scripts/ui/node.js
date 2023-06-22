@@ -1,48 +1,10 @@
-window.library = {};
-function getOutput(auto = false) {
-  if (!document.querySelector(".node .header[data-flag-isOutput]")) {
-    if (!auto) {
-      alert(
-        "Unable to get output due to lack of an output node. Insert an output node to continue."
-      );
-    }
-    return 0;
-  }
-  var outputNode = document.querySelector(
-    ".node .header[data-flag-isOutput]"
-  ).parentElement;
-  return outputNode.getValue();
-}
-function dispOutput(auto = false) {
-  document.getElementById("nOutputDisp").innerText =
-    Math.round(getOutput(auto) * 1000000) / 1000000;
-}
-function addNode(
-  namespace,
-  alias,
-  argv,
-  func,
-  color,
-  headerAttrs = {},
-  attrs = {}
-) {
-  window.library[namespace] = {
-    namespace: namespace,
-    alias: alias,
-    title: alias[0] || "Untitled",
-    argv: argv || [],
-    func: func,
-    color: color || "darkcyan",
-    headerAttrs: headerAttrs,
-    attrs: attrs,
-  };
-  if (typeof attrs["doc"] === "string") {
-    window.documentation[namespace] = attrs["doc"];
-  }
-}
+let currentId = 0;
+
 function addNodeToCanvas(nodetype, x, y) {
   var bounds = document.querySelector("#canvas").getBoundingClientRect();
   var node = document.createElement("div");
+
+  node.refId = currentId++;
   node.setAttribute("data-type", nodetype.namespace);
   node.classList.add("node");
   node.style = `
@@ -118,6 +80,8 @@ function addNodeToCanvas(nodetype, x, y) {
     var fields = [];
     var iFields =
       node["cache.tr"] ?? (node["cache.tr"] = node.querySelectorAll("tr"));
+
+    var cache = {};
     for (let i = 0; i < iFields.length; i++) {
       const row = iFields[i];
       if (
@@ -128,10 +92,11 @@ function addNodeToCanvas(nodetype, x, y) {
       } else if (
         row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement?.["getValue"]
       ) {
-        fields.push(
-          row.childNodes[0]["link"]["outputNode"].parentElement["getValue"]() ||
-            0
-        );
+        const linkNode = row.childNodes[0]["link"]["outputNode"].parentElement;
+        if (cache[linkNode.refId] === undefined) {
+          cache[linkNode.refId] = row.childNodes[0]["link"]["outputNode"].parentElement["getValue"]() || 0;
+        }
+        fields.push(cache[linkNode.refId]);
       } else {
         fields.push(0);
       }

@@ -19,7 +19,6 @@ addNode(
     doc: `Returns the simplex noise of X and Y with the Seed, a number ranging from -1.0 to 1.0.`,
   }
 );
-
 addNode(
   "perlin",
   ["Perlin Noise", "noise"],
@@ -91,7 +90,6 @@ addNode(
     doc: `Returns the simplex noise of X, Y and Z with the Seed, a number ranging from -1.0 to 1.0.`,
   }
 );
-
 addNode(
   "worley_euclidean",
   [

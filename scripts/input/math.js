@@ -26,7 +26,6 @@ addNode(
     doc: `Returns e.`,
   }
 );
-
 addNode(
   "sqrt",
   ["Square-Root", "squareroot"],
@@ -55,7 +54,6 @@ addNode(
     doc: `Returns the cube-root of x.`,
   }
 );
-
 addNode(
   "floor",
   ["Floor", "truncate", "round down"],

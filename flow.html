@@ -41,7 +41,7 @@
     <div id="insert" role="button" onclick="insertNode()">Insert</div>
   </td>
   <td>
-    <div id="run" role="button" onclick="dispOutput()">Run ></div>
+    <div id="run" role="button" onclick="getOutput()">Run </div>
   </td>
 
   <td>
@@ -58,10 +58,7 @@
     </div>
   </td>
   <td>
-    <div id="nOutputDisp">0</div>
-  </td>
-  <td>
-    <input type="checkbox" id="autoEval" name="autoEval" checked />
+    <input type="checkbox" id="autoEval" name="autoEval" />
     <label for="autoEval">Auto</label>
   </td>
   <td id="mode">
@@ -101,24 +98,33 @@
       alert("An error occurred. Check the console for details.");
     };
   </script>
-  <script src="scripts/compiler.js"></script>
-  <script src="scripts/sfx.js"></script>
-  <script src="scripts/termsAndConditions.js"></script>
+
   <script src="libs/noise.js"></script>
   <script src="libs/worley.js"></script>
   <script src="libs/soundplayer.js"></script>
+
+  <script src="scripts/input/index.js"></script>
+  <script src="scripts/input/math.js"></script>
+  <script src="scripts/input/classes.js"></script>
+  <script src="scripts/input/noiseClasses.js"></script>
+  <script src="scripts/input/documentation.js"></script>
+
+  <script src="scripts/output/output.js"></script>
+  <script src="scripts/output/soundwave.js"></script>
+
+  <script src="scripts/modes/number.js"></script>
+
+  <script src="scripts/compiler.js"></script>
+  <script src="scripts/sfx.js"></script>
+  <script src="scripts/termsAndConditions.js"></script>
   <script src="scripts/ui/dragElem.js"></script>
   <script src="scripts/ui/bLink.js"></script>
-  <script src="scripts/documentation.js"></script>
   <script src="scripts/ui/node.js"></script>
-  <script src="scripts/nodes/math.js"></script>
-  <script src="scripts/nodes/classes.js"></script>
-  <script src="scripts/modes.js"></script>
+  <script src="scripts/ui/modes.js"></script>
+  <script src="scripts/ui/sound.js"></script>
   <script src="scripts/zoom.js"></script>
   <script src="scripts/autoEval.js"></script>
   <script src="scripts/rentex.js"></script>
-  <script src="scripts/nodes/soundwave.js"></script>
-  <script src="scripts/nodes/noiseClasses.js"></script>
   <script src="scripts/serialise.js"></script>
   <script src="scripts/suggestions.js"></script>
 </body>

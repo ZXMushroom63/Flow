@@ -239,22 +239,6 @@ addNode(
   }
 );
 addNode(
-  "output",
-  ["Output"],
-  ["Out"],
-  (output) => {
-    return output;
-  },
-  "darkorange",
-  {
-    "data-flag-isOutput": "true",
-  },
-  {
-    no_out: true,
-    doc: `Serves as the output in number mode. The value it gets from 'Out' is displayed in the toolbar.`,
-  }
-);
-addNode(
   "sin",
   ["Sine"],
   ["deg"],

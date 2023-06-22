@@ -1,4 +1,3 @@
-window.documentation = {};
 function displayDocumentation() {
   try {
     var docWin = window.open();
