@@ -16,7 +16,7 @@ function showSuggestions() {
 function hideSuggestions() {
   setTimeout(() => {
     document.querySelector("#suggestions").removeAttribute("visible");
-  }, 100);
+  }, 200);
 }
 function updateSuggestions() {
   document.querySelector("#suggestions").innerHTML = "";
