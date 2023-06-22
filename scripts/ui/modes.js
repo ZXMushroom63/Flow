@@ -1,3 +1,4 @@
+
 window.modes = {};
 window.currentMode = "number";
 function addMode(id, title, selectors) {
@@ -23,3 +24,4 @@ addMode("number", "Number", ["#run", "td:has(#autoEval)"]);
 addMode("rentex", "2D RenTex", ["#renderOutput", "#rdownload", "#render"]);
 addMode("soundwave", "Soundwave", ["#playsp"]);
 modeUpdate("number");
+dragElem(document.querySelector("#renderOutput"));

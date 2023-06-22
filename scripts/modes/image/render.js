@@ -1,6 +1,4 @@
-window.mode = "number";
 window.renderPreflight = false;
-dragElem(document.querySelector("#renderOutput"));
 
 function renderTexture2D() {
     window.renderPreflight = true;
@@ -29,17 +27,28 @@ function renderTexture2D() {
         data[i + 3] = getAlpha(true);
     }
     rentex.duration = performance.now() - rentex.duration;
-    //alert(rentex.duration + "ms");
+
     ctx.putImageData(imageData, 0, 0);
     document.querySelector("#renderOutput").classList.remove("hidden");
     document.querySelector("#renderOutTitle").textContent = ` (${Math.trunc(rentex.duration)}ms)`;
     soundEffect("chime");
 }
+
 function downloadRenderTexture() {
     var link = document.createElement("a");
     link.download = "rentex.png";
     link.href = document.querySelector("#rentex").toDataURL();
     link.click();
+}
+
+function getSize() {
+    if (!document.querySelector(".node .header[data-sizeoutput]")) {
+        return;
+    }
+    var outputNode = document.querySelector(
+        ".node .header[data-sizeoutput]"
+    ).parentElement;
+    outputNode.getValue();
 }
 
 function getGraph(type, def = 0) {
@@ -64,30 +73,7 @@ function getRed(auto = false) {
     }
     return rentex.redNode.calculate();
 }
-function getSize() {
-    if (!document.querySelector(".node .header[data-sizeoutput]")) {
-        return;
-    }
-    var outputNode = document.querySelector(
-        ".node .header[data-sizeoutput]"
-    ).parentElement;
-    outputNode.getValue();
-}
-function getAlpha(auto = false) {
-    if (!auto) {
-        rentex.alphaNode = getGraph("alphaout", 255);
-        rentex.alphaNode.calculate(true);
-    }
-    if (!rentex.alphaNode) {
-        if (!auto) {
-            alert(
-                "Unable to get alpha output due to lack of a alphaout node. Insert an alphaout node to continue."
-            );
-        }
-        return 255;
-    }
-    return rentex.alphaNode.calculate();
-}
+
 function getGreen(auto = false) {
     if (!auto) {
         rentex.greenNode = getGraph("greenout");
@@ -104,6 +90,7 @@ function getGreen(auto = false) {
     }
     return rentex.greenNode.calculate();
 }
+
 function getBlue(auto = false) {
     if (!auto) {
         rentex.blueNode = getGraph("blueout");
@@ -118,4 +105,20 @@ function getBlue(auto = false) {
         return 0;
     }
     return rentex.blueNode.calculate();
+}
+
+function getAlpha(auto = false) {
+    if (!auto) {
+        rentex.alphaNode = getGraph("alphaout", 255);
+        rentex.alphaNode.calculate(true);
+    }
+    if (!rentex.alphaNode) {
+        if (!auto) {
+            alert(
+                "Unable to get alpha output due to lack of a alphaout node. Insert an alphaout node to continue."
+            );
+        }
+        return 255;
+    }
+    return rentex.alphaNode.calculate();
 }
