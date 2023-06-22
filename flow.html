@@ -1,146 +1,125 @@
 <html>
-  <head>
-    <title>Flow</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="icon" type="image/x-icon" href="res/favicon.png" />
-    <link rel="manifest" href="manifest.json" />
-    <meta name="color-scheme" content="light only" />
-    <meta charset="UTF-8" />
-  </head>
-  <body>
-    <div id="toolbar">
-      <table>
-        <tr>
-          <td>
-            <span style="padding-right: 4rem">Flow</span>
-          </td>
-          <td>
-            <div
-              class="btn"
-              role="button"
-              style="width: 1.5rem"
-              onclick="displayDocumentation()"
-            >
-              ?
-            </div>
-          </td>
-          <td>
-            <div class="btn" role="button" onclick="clearProject()">Clear</div>
-          </td>
-          <td>
-            <div class="btn" role="button" onclick="exportProject()">
-              Export
-            </div>
-          </td>
-          <td>
-            <div class="btn" role="button" onclick="loadProject()">Load</div>
-          </td>
-          <td>
-            <div
-              id="input"
-              contenteditable="true"
-              onblur="this.innerText = this.innerText.replaceAll('\n', '')"
-            >
-              add
-            </div>
-          </td>
-          <td>
-            <div id="insert" role="button" onclick="insertNode()">Insert</div>
-          </td>
-          <td>
-            <div id="run" role="button" onclick="dispOutput()">Run ></div>
-          </td>
 
-          <td>
-            <div class="btn" id="playsp" onclick="togglePlay(this)">Play</div>
-          </td>
-          <td>
-            <div
-              id="render"
-              class="hidden"
-              role="button"
-              onclick="renderTexture2D()"
-            >
-              Render
-            </div>
-          </td>
-          <td>
-            <div
-              id="rdownload"
-              class="hidden"
-              role="button"
-              onclick="downloadRenderTexture()"
-            >
-              Download
-            </div>
-          </td>
-          <td>
-            <div id="nOutputDisp">0</div>
-          </td>
-          <td>
-            <input type="checkbox" id="autoEval" name="autoEval" checked />
-            <label for="autoEval">Auto</label>
-          </td>
-          <td id="mode">
-            <label>Mode: </label>
-            <select id="modeSelect" onchange="modeUpdate(this.value)"></select>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div id="suggestions"></div>
-    <div id="canvas"></div>
-    <svg
-      id="linkCanvas"
-      width="1366"
-      height="768"
-      viewBox="0 0 1366 768"
-      xmlns="http://www.w3.org/2000/svg"
-      version="1.1"
-    ></svg>
-    <table id="zoomBtns">
+<head>
+  <title>Flow</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/x-icon" href="res/favicon.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="color-scheme" content="light only" />
+  <meta charset="UTF-8" />
+</head>
+
+<body>
+  <div id="toolbar">
+    <table>
       <tr>
-        <td><div style="cursor: zoom-in" onclick="zoomIn()">+</div></td>
-      </tr>
-      <tr>
-        <td><div style="cursor: zoom-out" onclick="zoomOut()">-</div></td>
+        <td>
+          <span style="padding-right: 4rem">Flow</span>
+        </td>
+        <td>
+          <div class="btn" role="button" style="width: 1.5rem" onclick="displayDocumentation()">
+            ?
+          </div>
+        </td>
+        <td>
+          <div class="btn" role="button" onclick="clearProject()">Clear</div>
+        </td>
+        <td>
+          <div class="btn" role="button" onclick="exportProject()">
+            Export
+          </div>
+        </td>
+        <td>
+          <div class="btn" role="button" onclick="loadProject()">Load</div>
+        </td>
+        <td>
+          <div id="input" contenteditable="true" onblur="this.innerText = this.innerText.replaceAll('\n', '')">
+            add
+          </div>
+        </td>
+        <td>
+          <div id="insert" role="button" onclick="insertNode()">Insert</div>
+        </td>
+        <td>
+          <div id="run" role="button" onclick="dispOutput()">Run ></div>
+        </td>
+
+        <td>
+          <div class="btn" id="playsp" onclick="togglePlay(this)">Play</div>
+        </td>
+        <td>
+          <div id="render" class="hidden" role="button" onclick="renderTexture2D()">
+            Render
+          </div>
+        </td>
+        <td>
+          <div id="rdownload" class="hidden" role="button" onclick="downloadRenderTexture()">
+            Download
+          </div>
+        </td>
+        <td>
+          <div id="nOutputDisp">0</div>
+        </td>
+        <td>
+          <input type="checkbox" id="autoEval" name="autoEval" checked />
+          <label for="autoEval">Auto</label>
+        </td>
+        <td id="mode">
+          <label>Mode: </label>
+          <select id="modeSelect" onchange="modeUpdate(this.value)"></select>
+        </td>
       </tr>
     </table>
-    <div id="renderOutput" class="hidden">
-      <span class="header"
-        >Render
-        <button
-          onclick="this.parentElement.parentElement.classList.add('hidden')"
-        >
-          X
-        </button></span
-      >
-      <canvas id="rentex" width="300" height="300">Your browser sucks!</canvas>
-    </div>
-    <image id="trashbin" src="res/rodbin.svg"></image>
-    <script>
-      window.onerror = (err) => {
-        alert("An error occurred. Check the console for details.");
-      };
-    </script>
-    <script src="scripts/sfx.js"></script>
-    <script src="scripts/termsAndConditions.js"></script>
-    <script src="libs/noise.js"></script>
-    <script src="libs/worley.js"></script>
-    <script src="libs/soundplayer.js"></script>
-    <script src="scripts/dragElem.js"></script>
-    <script src="scripts/bLink.js"></script>
-    <script src="scripts/documentation.js"></script>
-    <script src="scripts/node.js"></script>
-    <script src="scripts/math.js"></script>
-    <script src="scripts/classes.js"></script>
-    <script src="scripts/modes.js"></script>
-    <script src="scripts/zoom.js"></script>
-    <script src="scripts/autoEval.js"></script>
-    <script src="scripts/rentex.js"></script>
-    <script src="scripts/soundwave.js"></script>
-    <script src="scripts/noiseClasses.js"></script>
-    <script src="scripts/serialise.js"></script>
-    <script src="scripts/suggestions.js"></script>
-  </body>
+  </div>
+  <div id="suggestions"></div>
+  <div id="canvas"></div>
+  <svg id="linkCanvas" width="1366" height="768" viewBox="0 0 1366 768" xmlns="http://www.w3.org/2000/svg"
+    version="1.1"></svg>
+  <table id="zoomBtns">
+    <tr>
+      <td>
+        <div style="cursor: zoom-in" onclick="zoomIn()">+</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="cursor: zoom-out" onclick="zoomOut()">-</div>
+      </td>
+    </tr>
+  </table>
+  <div id="renderOutput" class="hidden">
+    <span class="header">Render
+      <button onclick="this.parentElement.parentElement.classList.add('hidden')">
+        X
+      </button></span>
+    <canvas id="rentex" width="300" height="300">Your browser sucks!</canvas>
+  </div>
+  <image id="trashbin" src="res/rodbin.svg"></image>
+  <script>
+    window.onerror = (err) => {
+      alert("An error occurred. Check the console for details.");
+    };
+  </script>
+  <script src="scripts/compiler.js"></script>
+  <script src="scripts/sfx.js"></script>
+  <script src="scripts/termsAndConditions.js"></script>
+  <script src="libs/noise.js"></script>
+  <script src="libs/worley.js"></script>
+  <script src="libs/soundplayer.js"></script>
+  <script src="scripts/dragElem.js"></script>
+  <script src="scripts/bLink.js"></script>
+  <script src="scripts/documentation.js"></script>
+  <script src="scripts/node.js"></script>
+  <script src="scripts/math.js"></script>
+  <script src="scripts/classes.js"></script>
+  <script src="scripts/modes.js"></script>
+  <script src="scripts/zoom.js"></script>
+  <script src="scripts/autoEval.js"></script>
+  <script src="scripts/rentexNew.js"></script>
+  <script src="scripts/soundwave.js"></script>
+  <script src="scripts/noiseClasses.js"></script>
+  <script src="scripts/serialise.js"></script>
+  <script src="scripts/suggestions.js"></script>
+</body>
+
 </html>
