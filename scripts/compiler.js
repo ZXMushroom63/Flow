@@ -1,8 +1,12 @@
+let currentId = 0;
 function compileGraph(node) {
   var libraryEntry = window["library"][node.getAttribute("data-type")];
   var rows = node.querySelectorAll("tr");
   var func = libraryEntry.func;
   var argv = [];
+  if (node.refId === undefined) {
+    node.refId = currentId++;
+  }
   for (let i = 0; i < rows.length; i++) {
     var row = rows[i];
     if (
@@ -23,17 +27,22 @@ function compileGraph(node) {
     argv: argv,
     nodeRef: node,
     fields: undefined,
+    refId: node.refId,
     calculate: function (label = false) {
-      var values = [];
+      let values = [];
+      let cache = {};
       for (let arg = 0; arg < this.argv.length; arg++) {
         const argument = this.argv[arg];
         if (typeof argument === "object") {
-          values.push(argument.calculate(label));
+          if (!cache[argument.refId]) {
+            cache[argument.refId] = argument.calculate(label);
+          }
+          values.push(cache[argument.refId]);
         } else {
           values.push(argument || 0);
         }
       }
-      if (label && this.nodeRef?.childNodes) {
+      if (label) {
         if (!this.fields) this.fields = this.nodeRef.querySelectorAll("input");
         values.forEach((v, i) => {
           this.fields[i]?.setAttribute("placeholder", v);

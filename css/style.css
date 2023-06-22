@@ -3,7 +3,8 @@
     touch-action: manipulation !important;
 }
 
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     background-color: rgb(60, 60, 60);
@@ -123,8 +124,8 @@ body, html {
     z-index: 102;
     background-color: rgb(60, 60, 60);
     border-radius: 0.5rem;
-    max-width: 16rem;
-    max-height: 16rem;
+    max-width: 20rem;
+    max-height: 20rem;
     overflow: scroll;
     box-shadow: 0rem 0rem 0.4rem rgba(255, 255, 255, 0.5);
 }

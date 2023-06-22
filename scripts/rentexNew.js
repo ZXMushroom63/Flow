@@ -185,6 +185,7 @@ function renderTexture2D() {
     //alert(rentex.duration + "ms");
     ctx.putImageData(imageData, 0, 0);
     document.querySelector("#renderOutput").classList.remove("hidden");
+    document.querySelector("#renderOutTitle").textContent = ` (${Math.trunc(rentex.duration)}ms)`;
     soundEffect("chime");
 }
 function downloadRenderTexture() {
