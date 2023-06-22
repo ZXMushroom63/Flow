@@ -1,8 +1,6 @@
 function compileGraph(node) {
   var libraryEntry = window["library"][node.getAttribute("data-type")];
   var rows = node.querySelectorAll("tr");
-  console.log(libraryEntry);
-  console.log(node);
   var func = libraryEntry.func;
   var argv = [];
   for (let i = 0; i < rows.length; i++) {
@@ -23,15 +21,23 @@ function compileGraph(node) {
   return {
     func: func,
     argv: argv,
-    calculate: function () {
+    nodeRef: node,
+    fields: undefined,
+    calculate: function (label = false) {
       var values = [];
       for (let arg = 0; arg < this.argv.length; arg++) {
         const argument = this.argv[arg];
         if (typeof argument === "object") {
-          values.push(argument.calculate());
+          values.push(argument.calculate(label));
         } else {
           values.push(argument || 0);
         }
+      }
+      if (label && this.nodeRef?.childNodes) {
+        if (!this.fields) this.fields = this.nodeRef.querySelectorAll("input");
+        values.forEach((v, i) => {
+          this.fields[i]?.setAttribute("placeholder", v);
+        });
       }
       return this.func(...values) || 0;
     },

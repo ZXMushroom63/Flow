@@ -204,6 +204,7 @@ function getGraph(type, def = 0) {
 function getRed(auto = false) {
     if (!auto) {
         rentex.redNode = getGraph("redout");
+        rentex.redNode.calculate(true);
     }
     if (!rentex.redNode) {
         if (!auto) {
@@ -227,6 +228,7 @@ function getSize() {
 function getAlpha(auto = false) {
     if (!auto) {
         rentex.alphaNode = getGraph("alphaout", 255);
+        rentex.alphaNode.calculate(true);
     }
     if (!rentex.alphaNode) {
         if (!auto) {
@@ -241,6 +243,7 @@ function getAlpha(auto = false) {
 function getGreen(auto = false) {
     if (!auto) {
         rentex.greenNode = getGraph("greenout");
+        rentex.greenNode.calculate(true);
     }
 
     if (!rentex.greenNode) {
@@ -256,6 +259,7 @@ function getGreen(auto = false) {
 function getBlue(auto = false) {
     if (!auto) {
         rentex.blueNode = getGraph("blueout");
+        rentex.blueNode.calculate(true);
     }
     if (!rentex.blueNode) {
         if (!auto) {
