@@ -100,7 +100,7 @@ function addNodeToCanvas(nodetype, x, y) {
       } else {
         fields.push(0);
       }
-      if (window.mode === "number" || window.renderPreflight) {
+      if (window.currentMode === "number" || window.renderPreflight) {
         if (row.childNodes[1]?.childNodes[0]) {
           row.childNodes[1].childNodes[0].setAttribute(
             "placeholder",
