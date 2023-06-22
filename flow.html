@@ -33,43 +33,43 @@
           <div class="btn" role="button" onclick="loadProject()">Load</div>
         </td>
         <td>
-          <div id="input" contenteditable="true" onblur="this.innerText = this.innerText.replaceAll('\n', '')">
-            add
-          </div>
-        </td>
-        <td>
-          <div id="insert" role="button" onclick="insertNode()">Insert</div>
-        </td>
-        <td>
-          <div id="run" role="button" onclick="dispOutput()">Run ></div>
-        </td>
+          <input id="input" contenteditable="true" onblur="this.innerText = this.innerText.replaceAll('\n', '')"
+            placeholder="search">
+  </div>
+  </td>
+  <td>
+    <div id="insert" role="button" onclick="insertNode()">Insert</div>
+  </td>
+  <td>
+    <div id="run" role="button" onclick="dispOutput()">Run ></div>
+  </td>
 
-        <td>
-          <div class="btn" id="playsp" onclick="togglePlay(this)">Play</div>
-        </td>
-        <td>
-          <div id="render" class="hidden" role="button" onclick="renderTexture2D()">
-            Render
-          </div>
-        </td>
-        <td>
-          <div id="rdownload" class="hidden" role="button" onclick="downloadRenderTexture()">
-            Download
-          </div>
-        </td>
-        <td>
-          <div id="nOutputDisp">0</div>
-        </td>
-        <td>
-          <input type="checkbox" id="autoEval" name="autoEval" checked />
-          <label for="autoEval">Auto</label>
-        </td>
-        <td id="mode">
-          <label>Mode: </label>
-          <select id="modeSelect" onchange="modeUpdate(this.value)"></select>
-        </td>
-      </tr>
-    </table>
+  <td>
+    <div class="btn" id="playsp" onclick="togglePlay(this)">Play</div>
+  </td>
+  <td>
+    <div id="render" class="hidden" role="button" onclick="renderTexture2D()">
+      Render
+    </div>
+  </td>
+  <td>
+    <div id="rdownload" class="hidden" role="button" onclick="downloadRenderTexture()">
+      Download
+    </div>
+  </td>
+  <td>
+    <div id="nOutputDisp">0</div>
+  </td>
+  <td>
+    <input type="checkbox" id="autoEval" name="autoEval" checked />
+    <label for="autoEval">Auto</label>
+  </td>
+  <td id="mode">
+    <label>Mode: </label>
+    <select id="modeSelect" onchange="modeUpdate(this.value)"></select>
+  </td>
+  </tr>
+  </table>
   </div>
   <div id="suggestions"></div>
   <div id="canvas"></div>

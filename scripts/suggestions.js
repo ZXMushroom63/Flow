@@ -3,14 +3,13 @@ function positionSuggestions() {
   var bounds = document.querySelector("#input").getBoundingClientRect();
   s.setAttribute(
     "style",
-    `top: ${bounds.y + bounds.height}px; left: ${bounds.x}px; width: ${
-      bounds.width
+    `top: ${bounds.y + bounds.height}px; left: ${bounds.x}px; width: ${bounds.width
     }px;`
   );
 }
 function showSuggestions() {
   positionSuggestions();
-  updateSuggestions();
+  updateSuggestions({ target: document.querySelector("#input") });
   document.querySelector("#suggestions").setAttribute("visible", "true");
 }
 function hideSuggestions() {
@@ -18,10 +17,10 @@ function hideSuggestions() {
     document.querySelector("#suggestions").removeAttribute("visible");
   }, 200);
 }
-function updateSuggestions() {
+function updateSuggestions(e) {
   document.querySelector("#suggestions").innerHTML = "";
   var results = {};
-  var name = document.querySelector("#input").innerText;
+  var name = e.target.value;
   var keys = Object.keys(window.library);
   keys.forEach((key) => {
     if (key.toLowerCase().includes(name.toLowerCase())) {
@@ -39,7 +38,7 @@ function updateSuggestions() {
       var r = document.createElement("div");
       r.innerText = results[key];
       r.onclick = () => {
-        document.querySelector("#input").innerText = key;
+        e.target.value = "";
         addNodeToCanvas(window.library[key], 0, 0);
       };
       document.querySelector("#suggestions").append(r);
@@ -48,7 +47,11 @@ function updateSuggestions() {
   displayResults();
 }
 window.addEventListener("resize", positionSuggestions);
-document.querySelector("#input").addEventListener("focus", showSuggestions);
-document.querySelector("#input").addEventListener("keyup", updateSuggestions);
-document.querySelector("#input").addEventListener("blur", hideSuggestions);
+
+const search = document.querySelector("#input");
+
+search.addEventListener("focus", showSuggestions);
+search.addEventListener("keyup", updateSuggestions);
+search.addEventListener("blur", hideSuggestions);
+
 positionSuggestions();
