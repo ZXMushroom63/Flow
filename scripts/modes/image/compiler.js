@@ -44,7 +44,7 @@ function compileGraph(node) {
           this.fields[i]?.setAttribute("placeholder", v);
         });
       }
-      return this.func(...values) || 0;
+      return this.func.apply(this.nodeRef, values) || 0;
     },
   };
 }

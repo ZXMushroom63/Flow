@@ -37,7 +37,7 @@ addNode(
   "darkgreen",
   {},
   {
-    doc: `Returns the perlin noise of X and Y with the Seed, a number ranging from -1.0 to 1.0.`,
+    doc: `Returns the perlin noise of X and Y with the Seed, a number ranging from -1.0 to 1.0. Please note that perlin noise will always be zero for integers (whole numbers).`,
   }
 );
 addNode(
@@ -62,7 +62,7 @@ addNode(
   "darkgreen",
   {},
   {
-    doc: `Returns the perlin noise of X, Y and Z with the Seed, a number ranging from -1.0 to 1.0.`,
+    doc: `Returns the perlin noise of X, Y and Z with the Seed, a number ranging from -1.0 to 1.0. Please note that perlin noise will always be zero for integers (whole numbers).`,
   }
 );
 addNode(
