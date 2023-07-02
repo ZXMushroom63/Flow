@@ -23,15 +23,12 @@ function addNodeToCanvas(nodetype, x, y) {
   });
   node.append(title);
 
-  if (!nodetype.attrs["no_out"]) {
+  if (!nodetype["no_out"]) {
     var output = document.createElement("div");
     output.innerText = "O";
     output.classList.add("output");
     linkDragHandler(output);
     node.append(output);
-  }
-  if (nodetype.attrs["dynamic"]) {
-    node.setAttribute("data-dynamic", true);
   }
 
   var inputs = document.createElement("table");
@@ -100,19 +97,20 @@ function addNodeToCanvas(nodetype, x, y) {
       } else {
         fields.push(0);
       }
-      if (window.currentMode === "number" || window.renderPreflight) {
-        if (row.childNodes[1]?.childNodes[0]) {
-          row.childNodes[1].childNodes[0].setAttribute(
-            "placeholder",
-            fields[i]
-          );
-        }
+      if (row.childNodes[1]?.childNodes[0]) {
+        row.childNodes[1].childNodes[0].setAttribute(
+          "placeholder",
+          fields[i]
+        );
       }
     }
     return nodetype.func(...fields);
   };
   dragElem(node);
   document.querySelector("#canvas").append(node);
+  if(typeof nodetype.init === "function"){
+    nodetype.init.apply(node);
+  }
   return node;
 }
 function insertNode() {

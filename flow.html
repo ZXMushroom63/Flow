@@ -33,37 +33,12 @@
           <div class="btn" role="button" onclick="loadProject()">Load</div>
         </td>
         <td>
-          <input id="input" contenteditable="true" onblur="this.innerText = this.innerText.replaceAll('\n', '')"
-            placeholder="search">
+          <input id="input" contenteditable="true"
+            placeholder="Search..." autocomplete="off" spellcheck="false" >
   </div>
   </td>
   <td>
     <div id="insert" role="button" onclick="insertNode()">Insert</div>
-  </td>
-  <td>
-    <div id="run" role="button" onclick="getOutput()">Run </div>
-  </td>
-
-  <td>
-    <div class="btn" id="playsp" onclick="togglePlay(this)">Play</div>
-  </td>
-  <td>
-    <div id="render" class="hidden" role="button" onclick="renderTexture2D()">
-      Render
-    </div>
-  </td>
-  <td>
-    <div id="rdownload" class="hidden" role="button" onclick="downloadRenderTexture()">
-      Download
-    </div>
-  </td>
-  <td>
-    <input type="checkbox" id="autoEval" name="autoEval" />
-    <label for="autoEval">Auto</label>
-  </td>
-  <td id="mode">
-    <label>Mode: </label>
-    <select id="modeSelect" onchange="modeUpdate(this.value)"></select>
   </td>
   </tr>
   </table>
@@ -114,7 +89,6 @@
   <script src="scripts/output/soundwave.js"></script>
   <script src="scripts/output/image.js"></script>
 
-  <script src="scripts/modes/number.js"></script>
   <script src="scripts/modes/image/index.js"></script>
   <script src="scripts/modes/image/compiler.js"></script>
   <script src="scripts/modes/image/render.js"></script>
@@ -123,7 +97,6 @@
   <script src="scripts/ui/dragElem.js"></script>
   <script src="scripts/ui/bLink.js"></script>
   <script src="scripts/ui/node.js"></script>
-  <script src="scripts/ui/modes.js"></script>
   <script src="scripts/ui/sound.js"></script>
   <script src="scripts/ui/zoom.js"></script>
   <script src="scripts/ui/serialise.js"></script>

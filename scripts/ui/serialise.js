@@ -50,16 +50,14 @@ function deserialise(serialised) {
     });
     node.remove();
   }
-  try {
-    zoomIndex = serialised.zoomIndex || 1;
-    updateZoom();
-    document.querySelector("#modeSelect").value = serialised.mode || "number";
-    modeUpdate(serialised.mode || "number");
-  } catch (err) {
-    alert(err);
-  }
+  zoomIndex = serialised.zoomIndex || 1;
+  updateZoom();
   serialised.nodes.forEach((nodeData) => {
-    var n = addNodeToCanvas(window.library[nodeData.type] || window.library["unknown"], 0, 0);
+    var n = addNodeToCanvas(
+      window.library[nodeData.type] || window.library["unknown"],
+      0,
+      0
+    );
     n.setAttribute("style", `top: ${nodeData.y}px; left: ${nodeData.x}px;`);
     n.setAttribute("data-x", nodeData.x);
     n.setAttribute("data-y", nodeData.y);
