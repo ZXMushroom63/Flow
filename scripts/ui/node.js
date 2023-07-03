@@ -30,7 +30,12 @@ function addNodeToCanvas(nodetype, x, y) {
     linkDragHandler(output);
     node.append(output);
   }
-
+  node.addEventListener("mousedown", function (e) {
+    if(e.button===2){
+      e.stopPropagation;
+      e.stopImmediatePropagation();
+    }
+  });
   var inputs = document.createElement("table");
   nodetype.argv.forEach((argv) => {
     var tr = document.createElement("tr");
