@@ -7,7 +7,7 @@ body,
 html {
     margin: 0;
     padding: 0;
-    background-color: rgb(60, 60, 60);
+    background-color: rgb(40, 40, 40);
     overflow-y: hidden;
     user-select: none;
     overflow-x: hidden;
@@ -29,6 +29,8 @@ html {
     overflow-y: hidden;
     overflow-x: scroll;
     color: white;
+    position: relative;
+    z-index: 10;
 }
 
 #toolbar span {
@@ -290,17 +292,6 @@ html {
 
 .hidden {
     display: none !important;
-}
-
-#mode {
-    padding-left: 2rem;
-}
-
-#modeSelect {
-    border-radius: 0.2rem;
-    color: white;
-    background-color: rgb(60, 60, 60);
-    outline: none !important;
 }
 
 .fullscreenPopup {

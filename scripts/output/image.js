@@ -1,35 +1,99 @@
+window.rentex = {
+  width: 255,
+  height: 255,
+  rx: 0,
+  ry: 0,
+};
+addNode("canvas", {
+  alias: ["Canvas (2D)", "render", "rentex", "2drentex", "pixel"],
+  inputs: ["R", "G", "B", "A", "Width", "Height"],
+  no_out: true,
+  func: function (r, g, b, a, width, height) {
+    this.r = r;
+    this.g = g;
+    this.b = b;
+    this.a = a;
+    this.width = width || 255;
+    this.height = height || 255;
+    return 0;
+  },
+  init: function () {
+    let self = this;
+    var canvas = document.createElement("canvas");
+    var table = this.querySelector("table");
+    var s = document.createElement("style");
+    s.innerHTML = `.eleven { max-width: 20rem; overflow: hidden; }`;
+    document.head.append(s);
+    table.style.display = "inline-block";
+    table.style.verticalAlign = "top";
+    canvas.width = 255;
+    canvas.height = 255;
+    canvas.style.display = "inline-block";
+    this.append(canvas);
+    this.classList.add("eleven");
+    var renderBtn = document.createElement("div");
+    renderBtn.classList.add("btn");
+    renderBtn.style.display = "inline-block";
+    renderBtn.style.float = "right";
+    renderBtn.innerText = "Render";
+    this.append(renderBtn);
+    var downloadBtn = document.createElement("div");
+    downloadBtn.classList.add("btn");
+    downloadBtn.style.display = "inline-block";
+    downloadBtn.style.float = "right";
+    downloadBtn.innerText = "Download";
+    this.append(downloadBtn);
+    downloadBtn.addEventListener("click", function () {
+      var link = document.createElement("a");
+      link.download = "rentex.png";
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+    renderBtn.addEventListener("click", function () {
+      window.rentex.rx = 0;
+      window.rentex.ry = 0;
+      
+      var graph = compileGraph(self);
+      graph.calculate(true);
+      
+      canvas.width = self.width;
+      rentex.width = canvas.width;
+      canvas.height = self.height;
+      rentex.height = canvas.height;
+      var ctx = canvas.getContext("2d");
+      var imageData = ctx.createImageData(self.width, self.height);
+      var data = imageData.data;
+      for (let i = 0; i < data.length; i += 4) {
+        rentex.rx = (i / 4) % self.width;
+        rentex.ry = Math.floor(i / 4 / self.height);
+        graph.calculate();
+        data[i] = self.r;
+        data[i + 1] = self.g;
+        data[i + 2] = self.b;
+        data[i + 3] = self.a;
+      }
+      ctx.putImageData(imageData, 0, 0);
+      soundEffect("chime");
+      self.dragListeners.forEach(func => {
+        func();
+      });
+    });
+  },
+  doc: `Used to make renders. 
+  <br>The R, G and B inputs represent the red, green and blue value of an image. 0 is the minimum, and 255 is the maximum. 
+  <br>A: the opacity. 255 is fully opaque, and 0 is fully transparent. 
+  <br>Width and Height: The width and height of the render in pixels. How to use: press (Render) to draw the image, and (Download) to save it to your device.`,
+});
+
 addNode(
   "xpos",
-  ["X Position", "xcoord", "X"],
-  [],
-  () => {
+  {alias: ["X Position", "xcoord", "X"],
+  func: () => {
     return rentex.rx;
   },
-  "grey",
-  {},
-  {
-    dynamic: true,
-    doc: `In 2D RenTex mode: The X position of the pixel, 0 being the very left most column.`,
-  }
-);
-
-addNode("size", {
-  alias: ["Render Size", "render"],
-  inputs: ["Width", "Height"],
-  func: (width, height) => {
-    rentex.width = width || 300;
-    rentex.height = height || 300;
-    document.querySelector("#rentex").setAttribute("width", rentex.width);
-    document.querySelector("#rentex").setAttribute("height", rentex.height);
-    return;
-  },
   color: "grey",
-  headerAttrs: {
-    "data-sizeoutput": "true",
-  },
-  doc: `In 2D RenText mode, this node sets the width and height of the rendered image.`,
-  no_out: true,
-});
+  doc: `The X position of the pixel, 0 being the very left most column.`,}
+);
 
 addNode("width", {
   alias: ["Render Width", "image width"],
@@ -37,7 +101,7 @@ addNode("width", {
     return rentex.width;
   },
   color: "grey",
-  doc: `Returns the width of the render, 300 by default.`,
+  doc: `Returns the width of the render, 255 by default.`,
 });
 
 addNode("height", {
@@ -46,7 +110,7 @@ addNode("height", {
     return rentex.height;
   },
   color: "grey",
-  doc: `Returns the height of the render, 300 by default.`,
+  doc: `Returns the height of the render, 255 by default.`,
 });
 
 addNode("ypos", {
@@ -55,57 +119,5 @@ addNode("ypos", {
     return rentex.ry;
   },
   color: "grey",
-  doc: `In 2D RenTex mode: The Y position of the pixel, 0 being the very top most row.`,
-});
-addNode("redout", {
-  alias: ["Red (0-255)", "r", "red"],
-  inputs: ["R"],
-  func: (output) => {
-    return output;
-  },
-  color: "darkred",
-  headerAttrs: {
-    "data-redoutput": "true",
-  },
-  no_out: true,
-  doc: `Sets the red value of the pixel in 2D RenTex mode.`,
-});
-addNode("greenout", {
-  alias: ["Green (0-255)", "g", "green"],
-  inputs: ["G"],
-  func: (output) => {
-    return output;
-  },
-  color: "darkgreen",
-  headerAttrs: {
-    "data-greenoutput": "true",
-  },
-  no_out: true,
-  doc: `Sets the green value of the pixel in 2D RenTex mode.`,
-});
-addNode("blueout", {
-  alias: ["Blue (0-255)", "b", "blue"],
-  inputs: ["B"],
-  func: (output) => {
-    return output;
-  },
-  color: "darkblue",
-  headerAttrs: {
-    "data-blueoutput": "true",
-  },
-  no_out: true,
-  doc: `Sets the blue value of the pixel in 2D RenTex mode.`,
-});
-addNode("alphaout", {
-  alias: ["Opacity (0-255)", "a", "alpha", "opacity"],
-  inputs: ["A"],
-  func: (output) => {
-    return output;
-  },
-  color: "grey",
-  headerAttrs: {
-    "data-alphaoutput": "true",
-  },
-  no_out: true,
-  doc: `Sets the alpha value of the pixel in 2D RenTex mode. 0 means transparent, 255 means fully opaque.`,
+  doc: `The Y position of the pixel, 0 being the very top most row.`,
 });

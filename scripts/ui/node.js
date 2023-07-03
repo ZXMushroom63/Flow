@@ -115,7 +115,7 @@ function addNodeToCanvas(nodetype, x, y) {
 }
 function insertNode() {
   var results = [];
-  var name = document.querySelector("#input").innerText;
+  var name = document.querySelector("#input").value;
   var keys = Object.keys(window.library);
   try {
     keys.forEach((key) => {

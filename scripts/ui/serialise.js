@@ -3,9 +3,10 @@ function serialise() {
   var serialised = {
     nodes: [],
     zoomIndex: zoomIndex,
-    mode: document.querySelector("#modeSelect").value,
   };
+  console.log("Parsed "+nodes.length+" nodes.");
   for (let i = 0; i < nodes.length; i++) {
+    
     const node = nodes[i];
     var inputRows = node.querySelectorAll(".inputRow");
     var inputs = [];
@@ -52,6 +53,7 @@ function deserialise(serialised) {
   }
   zoomIndex = serialised.zoomIndex || 1;
   updateZoom();
+  
   serialised.nodes.forEach((nodeData) => {
     var n = addNodeToCanvas(
       window.library[nodeData.type] || window.library["unknown"],
@@ -77,9 +79,7 @@ function deserialise(serialised) {
           row.childNodes[0]
         );
       }
-      if (window.library[nodeData.type].headerAttrs.contentEditable) {
-        node.querySelector(".header").innerText = nodeData.label;
-      }
+      node.querySelector(".header").innerText = nodeData.label;
     });
   });
 }

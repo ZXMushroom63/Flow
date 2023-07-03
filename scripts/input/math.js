@@ -76,6 +76,9 @@ addNode("collatz", {
     step=Math.max(0,step);
     step=Math.min(step, 1000);
     for (let i = 0; i < step; i++) {
+      if(num===1){
+        break;
+      }
       if(num % 2 === 0) {
         num /= 2;
       } else {

@@ -6,7 +6,7 @@ addNode("output", {
   },
   color: "darkorange",
   no_out: true,
-  doc: `Serves as an output for an individual value. The value it gets from 'Out' is displayed in the toolbar.`,
+  doc: `Serves as an output for a number.`,
   init: function () {
     let calculationsPerSecond = 5;
 
