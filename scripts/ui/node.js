@@ -8,11 +8,11 @@ function addNodeToCanvas(nodetype, x, y) {
   node.setAttribute("data-type", nodetype.namespace);
   node.classList.add("node");
   node.style = `
-    top:${y + bounds.y};
-    left:${x + bounds.x};
+    top:${y - bounds.y + 20};
+    left:${x - bounds.x};
     `;
-  node.setAttribute("data-y", y + bounds.y);
-  node.setAttribute("data-x", x + bounds.x);
+  node.setAttribute("data-y", y - bounds.y + 20);
+  node.setAttribute("data-x", x - bounds.x);
   var title = document.createElement("span");
   title.innerText = nodetype.title;
   ``;
@@ -31,7 +31,7 @@ function addNodeToCanvas(nodetype, x, y) {
     node.append(output);
   }
   node.addEventListener("mousedown", function (e) {
-    if(e.button===2){
+    if (e.button === 2) {
       e.stopPropagation;
       e.stopImmediatePropagation();
     }
@@ -72,6 +72,7 @@ function addNodeToCanvas(nodetype, x, y) {
         func();
       });
       node.remove();
+      node.removeAttribute("grabbing");
       soundEffect("delete");
     }
   });
@@ -96,24 +97,24 @@ function addNodeToCanvas(nodetype, x, y) {
       ) {
         const linkNode = row.childNodes[0]["link"]["outputNode"].parentElement;
         if (cache[linkNode.refId] === undefined) {
-          cache[linkNode.refId] = row.childNodes[0]["link"]["outputNode"].parentElement["getValue"]() || 0;
+          cache[linkNode.refId] =
+            row.childNodes[0]["link"]["outputNode"].parentElement[
+              "getValue"
+            ]() || 0;
         }
         fields.push(cache[linkNode.refId]);
       } else {
         fields.push(0);
       }
       if (row.childNodes[1]?.childNodes[0]) {
-        row.childNodes[1].childNodes[0].setAttribute(
-          "placeholder",
-          fields[i]
-        );
+        row.childNodes[1].childNodes[0].setAttribute("placeholder", fields[i]);
       }
     }
     return nodetype.func.apply(node, fields);
   };
   dragElem(node);
   document.querySelector("#canvas").append(node);
-  if(typeof nodetype.init === "function"){
+  if (typeof nodetype.init === "function") {
     nodetype.init.apply(node);
   }
   return node;

@@ -77,7 +77,7 @@ addNode("soundwave", {
               player.setWaveType("sine");
               break;
           }
-          player.setVolume(self.vol || 0.5);
+          player.setVolume(self.vol || 0.0);
           player.setFrequency(self.hz || 256);
         }, 50);
       }

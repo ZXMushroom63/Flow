@@ -29,6 +29,7 @@ function dragElem(elmnt) {
 
   function elementDrag(e) {
     e = e || window.event;
+    var dIndex = false&&zoomIndex ? 1/zoomIndex : 1;
     /*/ calculate the new cursor position:/*/
     pos1 =
       pos3 - (typeof e.touches === "object" ? e.touches[0].clientX : e.clientX);
@@ -36,11 +37,12 @@ function dragElem(elmnt) {
       pos4 - (typeof e.touches === "object" ? e.touches[0].clientY : e.clientY);
     pos3 = typeof e.touches === "object" ? e.touches[0].clientX : e.clientX;
     pos4 = typeof e.touches === "object" ? e.touches[0].clientY : e.clientY;
+
     /*/ set the element's new position:/*/
-    elmnt.style.top = elmnt.offsetTop - pos2 + "px";
-    elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
-    elmnt.setAttribute("data-y", elmnt.offsetTop - pos2);
-    elmnt.setAttribute("data-x", elmnt.offsetLeft - pos1);
+    elmnt.style.top = elmnt.offsetTop - (pos2/dIndex) + "px";
+    elmnt.style.left = elmnt.offsetLeft - (pos1/dIndex) + "px";
+    elmnt.setAttribute("data-y", elmnt.offsetTop - (pos2/dIndex));
+    elmnt.setAttribute("data-x", elmnt.offsetLeft - (pos1/dIndex));
 
     if (elmnt.dragListeners) {
       elmnt.dragListeners.forEach((func) => {

@@ -12,6 +12,7 @@ html {
     user-select: none;
     overflow-x: hidden;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    touch-action: none;
 }
 
 #toolbar {
@@ -73,6 +74,7 @@ html {
     font-size: 1rem;
     user-select: none;
     cursor: grab;
+    white-space: nowrap;
 }
 
 .node .input:hover {
@@ -120,56 +122,6 @@ html {
     margin-bottom: 1rem;
 }
 
-#renderOutput {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 102;
-    background-color: rgb(60, 60, 60);
-    border-radius: 0.5rem;
-    max-width: 20rem;
-    max-height: 20rem;
-    overflow: scroll;
-    box-shadow: 0rem 0rem 0.4rem rgba(255, 255, 255, 0.5);
-}
-
-#renderOutput .header button {
-    cursor: pointer;
-    outline: 0;
-    border: 0;
-    background-color: rgb(80, 80, 80);
-    border-radius: 0.2rem;
-    border: 2px solid black;
-    color: white;
-    text-align: center;
-    padding: 0.2rem 0.4rem;
-    margin: 0.1rem;
-    margin-left: 0.3rem;
-}
-
-#renderOutput .header {
-    padding: 0.2rem;
-    user-select: none;
-    display: block;
-    border-radius: 0.5rem;
-    top: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    height: 2rem;
-    font-size: 1.5rem;
-    color: white;
-    cursor: grab;
-    overflow: hidden;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    background-color: rgb(40, 40, 40);
-}
-
-#renderOutput[grabbing] .header {
-    cursor: grabbing;
-}
-
 .node[grabbing]>.header {
     cursor: grabbing;
 }
@@ -205,50 +157,6 @@ html {
 }
 
 #insert {
-    background-color: grey;
-    height: 2rem;
-    border-radius: 1rem;
-    width: 6rem;
-    text-align: center;
-    color: white;
-    padding-top: 1rem;
-    border: 1px solid white;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    user-select: none;
-}
-
-#run {
-    margin-left: 8rem;
-    background-color: grey;
-    height: 2rem;
-    border-radius: 1rem;
-    width: 6rem;
-    text-align: center;
-    color: white;
-    padding-top: 1rem;
-    border: 1px solid white;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    user-select: none;
-}
-
-#render {
-    margin-left: 8rem;
-    background-color: grey;
-    height: 2rem;
-    border-radius: 1rem;
-    width: 6rem;
-    text-align: center;
-    color: white;
-    padding-top: 1rem;
-    border: 1px solid white;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    user-select: none;
-}
-
-#rdownload {
     background-color: grey;
     height: 2rem;
     border-radius: 1rem;
@@ -377,6 +285,6 @@ input[type=number] {
     display: block;
 }
 
-#rentex {
-    margin: auto 0;
+#nodecount {
+    padding-left: 2rem;
 }

@@ -5,22 +5,43 @@ var scrollingUI = {
   oldX: 0,
   oldY: 0,
 };
-document.querySelector("html").addEventListener("contextmenu", (e) => {
+window.addEventListener("contextmenu", (e) => {
   e.preventDefault();
 });
-document.querySelector("html").addEventListener("mousedown", (e) => {
+window.addEventListener("mousedown", (e) => {
   if (e.button === 2) {
     scrollingUI.scrolling = true;
     scrollingUI.oldX = e.x;
     scrollingUI.oldY = e.y;
   }
 });
-
-document.querySelector("html").addEventListener("mouseup", (e) => {
+window.addEventListener("touchstart", function (e) {
+  if (e.touches.length === 2) {
+    scrollingUI.scrolling = true;
+    scrollingUI.oldX = e.touches[0].clientX;
+    scrollingUI.oldY = e.touches[0].clientY;
+  }
+});
+window.addEventListener("touchend", function () {
+  scrollingUI.scrolling = false;
+});
+window.addEventListener("touchcancel", function () {
+  scrollingUI.scrolling = false;
+});
+window.addEventListener("touchmove", function (e) {
+  if (scrollingUI.scrolling) {
+    scrollingUI.x += e.touches[0].clientX - scrollingUI.oldX;
+    scrollingUI.y += e.touches[0].clientY - scrollingUI.oldY;
+    scrollingUI.oldX = e.touches[0].clientX;
+    scrollingUI.oldY = e.touches[0].clientY;
+    updateScroll();
+  }
+});
+window.addEventListener("mouseup", () => {
   scrollingUI.scrolling = false;
 });
 
-document.querySelector("html").addEventListener("mousemove", (e) => {
+window.addEventListener("mousemove", (e) => {
   if (scrollingUI.scrolling) {
     scrollingUI.x += e.x - scrollingUI.oldX;
     scrollingUI.y += e.y - scrollingUI.oldY;
