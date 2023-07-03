@@ -46,6 +46,7 @@ html {
     bottom: 0;
     background-color: rgb(40, 40, 40);
     overflow: hidden;
+    position: relative;
 }
 
 .node {

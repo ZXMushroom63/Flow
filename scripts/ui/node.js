@@ -104,7 +104,7 @@ function addNodeToCanvas(nodetype, x, y) {
         );
       }
     }
-    return nodetype.func(...fields);
+    return nodetype.func.apply(node, fields);
   };
   dragElem(node);
   document.querySelector("#canvas").append(node);
