@@ -16,7 +16,8 @@ window.addEventListener("mousedown", (e) => {
   }
 });
 window.addEventListener("touchstart", function (e) {
-  if (e.touches.length === 2) {
+  if (e.touches.length === 3) {
+    e.preventDefault();
     scrollingUI.scrolling = true;
     scrollingUI.oldX = e.touches[0].clientX;
     scrollingUI.oldY = e.touches[0].clientY;
@@ -30,6 +31,7 @@ window.addEventListener("touchcancel", function () {
 });
 window.addEventListener("touchmove", function (e) {
   if (scrollingUI.scrolling) {
+    e.preventDefault();
     scrollingUI.x += e.touches[0].clientX - scrollingUI.oldX;
     scrollingUI.y += e.touches[0].clientY - scrollingUI.oldY;
     scrollingUI.oldX = e.touches[0].clientX;
@@ -66,27 +68,19 @@ function updateScroll() {
     }
   });
 }
-document.querySelector("#toolbar").addEventListener("mousedown", function (e) {
-  if (e.button === 2) {
-    e.stopPropagation;
-    e.stopImmediatePropagation();
-  }
-});
-document.querySelector("#zoomout").addEventListener("mousedown", function (e) {
-  if (e.button === 2) {
-    e.stopPropagation;
-    e.stopImmediatePropagation();
-  }
-});
-document.querySelector("#zoomin").addEventListener("mousedown", function (e) {
-  if (e.button === 2) {
-    e.stopPropagation;
-    e.stopImmediatePropagation();
-  }
-});
-document.querySelector("#trashbin").addEventListener("mousedown", function (e) {
-  if (e.button === 2) {
-    e.stopPropagation;
-    e.stopImmediatePropagation();
-  }
-});
+["#toolbar", "#zoomout", "#zoomin", "#trashbin"].forEach(selector=>{
+  var elem = document.querySelector(selector);
+  elem.addEventListener("mousedown", function (e) {
+    if (e.button === 2) {
+      e.stopPropagation;
+      e.stopImmediatePropagation();
+    }
+  });
+  window.addEventListener("touchstart", function (e) {
+    if (e.touches.length===3) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
+  });
+})

@@ -36,6 +36,13 @@ function addNodeToCanvas(nodetype, x, y) {
       e.stopImmediatePropagation();
     }
   });
+  window.addEventListener("touchstart", function (e) {
+    if (e.touches.length===3) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
+  });
   var inputs = document.createElement("table");
   nodetype.argv.forEach((argv) => {
     var tr = document.createElement("tr");
