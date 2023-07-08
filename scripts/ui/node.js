@@ -7,11 +7,14 @@ function addNodeToCanvas(nodetype, x, y) {
   node.refId = currentId++;
   node.setAttribute("data-type", nodetype.namespace);
   node.classList.add("node");
+  debugger;
+  x === undefined ? (x = bounds.width / 4) : null;
+  y === undefined ? (y = bounds.height / 4) : null;
   node.style = `
-    top:${y - bounds.y + 20};
+    top:${y - bounds.y};
     left:${x - bounds.x};
     `;
-  node.setAttribute("data-y", y - bounds.y + 20);
+  node.setAttribute("data-y", y - bounds.y);
   node.setAttribute("data-x", x - bounds.x);
   var title = document.createElement("span");
   title.innerText = nodetype.title;
@@ -37,7 +40,7 @@ function addNodeToCanvas(nodetype, x, y) {
     }
   });
   window.addEventListener("touchstart", function (e) {
-    if (e.touches.length===3) {
+    if (e.touches.length === 3) {
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
@@ -147,5 +150,5 @@ function insertNode() {
   if (!window.library[results[0]]) {
     return;
   }
-  addNodeToCanvas(window.library[results[0]], 0, 0);
+  addNodeToCanvas(window.library[results[0]]);
 }

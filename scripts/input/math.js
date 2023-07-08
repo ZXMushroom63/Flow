@@ -71,23 +71,23 @@ addNode("tan", {
 addNode("collatz", {
   alias: ["3n+1"],
   inputs: ["n", "step"],
-  func: (n, step)=>{
+  func: (n, step) => {
     var num = Math.round(n);
-    step=Math.max(0,step);
-    step=Math.min(step, 1000);
+    step = Math.max(0, step);
+    step = Math.min(step, 1000);
     for (let i = 0; i < step; i++) {
-      if(num===1){
+      if (num === 1) {
         break;
       }
-      if(num % 2 === 0) {
+      if (num % 2 === 0) {
         num /= 2;
       } else {
         num *= 3;
-        num+=1;
+        num += 1;
       }
     }
     return num;
   },
   color: "darkred",
-  doc: `Oh no.`
-})
+  doc: `Oh no.`,
+});

@@ -39,7 +39,7 @@ function updateSuggestions(e) {
       r.innerText = results[key];
       r.onclick = () => {
         e.target.value = key;
-        addNodeToCanvas(window.library[key], 0, 0);
+        addNodeToCanvas(window.library[key]);
       };
       document.querySelector("#suggestions").append(r);
     });
