@@ -7,7 +7,6 @@ function addNodeToCanvas(nodetype, x, y) {
   node.refId = currentId++;
   node.setAttribute("data-type", nodetype.namespace);
   node.classList.add("node");
-  debugger;
   x === undefined ? (x = bounds.width / 4) : null;
   y === undefined ? (y = bounds.height / 4) : null;
   node.style = `
@@ -24,15 +23,19 @@ function addNodeToCanvas(nodetype, x, y) {
   Object.keys(nodetype.headerAttrs).forEach((attr) => {
     title.setAttribute(attr, nodetype.headerAttrs[attr]);
   });
+  title.contentEditable = nodetype.renameable;
   node.append(title);
-
-  if (!nodetype["no_out"]) {
+  var outputContainer = document.createElement("div");
+  outputContainer.classList.add("outputContainer");
+  nodetype.outputs.forEach((out, index)=>{
     var output = document.createElement("div");
-    output.innerText = "O";
+    output.innerText = out;
+    output["index"]=index;
     output.classList.add("output");
     linkDragHandler(output);
-    node.append(output);
-  }
+    outputContainer.append(output);
+  });
+  node.append(outputContainer);
   node.addEventListener("mousedown", function (e) {
     if (e.button === 2) {
       e.stopPropagation;
@@ -96,6 +99,7 @@ function addNodeToCanvas(nodetype, x, y) {
 
     var cache = {};
     for (let i = 0; i < iFields.length; i++) {
+      var ndex = 0;
       const row = iFields[i];
       if (
         row.childNodes[1]?.childNodes[0]?.value &&
@@ -103,16 +107,17 @@ function addNodeToCanvas(nodetype, x, y) {
       ) {
         fields.push(parseFloat(row.childNodes[1].childNodes[0].value));
       } else if (
-        row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement?.["getValue"]
+        row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement?.parentElement?.["getValue"]
       ) {
-        const linkNode = row.childNodes[0]["link"]["outputNode"].parentElement;
+        const linkNode = row.childNodes[0]["link"]["outputNode"].parentElement.parentElement;
+        ndex = row.childNodes[0]["link"]["outputNode"]["index"];
         if (cache[linkNode.refId] === undefined) {
           cache[linkNode.refId] =
-            row.childNodes[0]["link"]["outputNode"].parentElement[
+            row.childNodes[0]["link"]["outputNode"].parentElement.parentElement[
               "getValue"
-            ]() || 0;
+            ]() || [0];
         }
-        fields.push(cache[linkNode.refId]);
+        fields.push(cache[linkNode.refId][ndex]);
       } else {
         fields.push(0);
       }

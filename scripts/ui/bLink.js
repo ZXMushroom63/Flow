@@ -63,7 +63,7 @@ function linkDragHandler(outputElem) {
     if (
       el.tagName.toLowerCase() === "td" &&
       el.classList.contains("input") &&
-      outputElem.parentElement.outerHTML !==
+      outputElem.parentElement.parentElement.outerHTML !==
         el.parentElement.parentElement.parentElement.outerHTML
     ) {
       if (el["link"]) {

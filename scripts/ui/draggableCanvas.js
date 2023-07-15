@@ -16,7 +16,7 @@ window.addEventListener("mousedown", (e) => {
   }
 });
 window.addEventListener("touchstart", function (e) {
-  if (e.touches.length === 3) {
+  if (e.touches.length === 2) {
     e.preventDefault();
     scrollingUI.scrolling = true;
     scrollingUI.oldX = e.touches[0].clientX;
@@ -77,7 +77,7 @@ function updateScroll() {
     }
   });
   window.addEventListener("touchstart", function (e) {
-    if (e.touches.length===3) {
+    if (e.touches.length===2) {
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();

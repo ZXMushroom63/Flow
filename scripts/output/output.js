@@ -1,19 +1,20 @@
 addNode("output", {
   alias: ["Output"],
   inputs: ["Out"],
-  func: (output) => {
-    return output;
+  func: () => {
+    return [];
   },
   color: "darkorange",
-  no_out: true,
+  outputs: [],
   doc: `Serves as an output for a number.`,
+  renameable: true,
   init: function () {
     let calculationsPerSecond = 5;
 
     let delay = 1000 / calculationsPerSecond;
     let getVal = this.getValue;
     function run() {
-      setTimeout(() => { 
+      setTimeout(() => {
         getVal();
         run();
       }, delay);

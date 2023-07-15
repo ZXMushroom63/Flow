@@ -3,17 +3,20 @@ function serialise() {
   var serialised = {
     nodes: [],
     zoomIndex: zoomIndex,
+    cx: scrollingUI.x || 0,
+    cy: scrollingUI.y || 0,
   };
-  console.log("Parsed "+nodes.length+" nodes.");
+  console.log("Parsed " + nodes.length + " nodes.");
   for (let i = 0; i < nodes.length; i++) {
-    
     const node = nodes[i];
     var inputRows = node.querySelectorAll(".inputRow");
     var inputs = [];
     for (let x = 0; x < inputRows.length; x++) {
       var row = inputRows[x];
       var link = null;
+      var outputIndex = 0;
       if (row.childNodes[0]["link"]) {
+        outputIndex = row.childNodes[0]["link"]["outputNode"]["index"];
         link = Array.prototype.indexOf.call(
           nodes,
           row.childNodes[0]["link"]["outputNode"].closest(".node")
@@ -23,6 +26,7 @@ function serialise() {
         link = null;
       }
       inputs.push({
+        outputIndex: outputIndex || 0,
         link: link,
         value: row.childNodes[1].querySelector("input").value,
       });
@@ -53,7 +57,7 @@ function deserialise(serialised) {
   }
   zoomIndex = serialised.zoomIndex || 1;
   updateZoom();
-  
+
   serialised.nodes.forEach((nodeData) => {
     var n = addNodeToCanvas(
       window.library[nodeData.type] || window.library["unknown"],
@@ -75,13 +79,16 @@ function deserialise(serialised) {
       }
       if (typeof iData.link === "number") {
         makeLink(
-          newNodes[iData.link].querySelector(".output"),
+          newNodes[iData.link].querySelectorAll(".output")[iData.outputIndex || 0],
           row.childNodes[0]
         );
       }
       node.querySelector(".header").innerText = nodeData.label;
     });
   });
+  scrollingUI.x = serialised.cx || 0;
+  scrollingUI.y = serialised.cy || 0;
+  updateScroll ? updateScroll() : null;
 }
 
 function exportProject() {

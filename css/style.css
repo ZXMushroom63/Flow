@@ -1,6 +1,6 @@
 :root {
     color-scheme: light only;
-    touch-action: manipulation !important;
+    touch-action: none !important;
 }
 
 body,
@@ -93,9 +93,13 @@ html {
     text-align: right;
     border-radius: 1rem 0rem 0rem 1rem;
     margin-left: auto;
-    margin-top: 1rem;
+    margin-top: 0.4rem;
     user-select: none;
     cursor: grab;
+}
+
+.node .outputContainer {
+    float: right;
 }
 
 .node div.output:hover {

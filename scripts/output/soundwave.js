@@ -12,7 +12,7 @@ addNode("soundwave", {
   ],
   color: "darkviolet",
   inputs: ["Frequency (Hz)", "Volume (0.0-1.0)", "Wave Type ∿:0|⎍:1|△:2|⊿:3"],
-  no_out: true,
+  outputs: [],
   doc: `The Soundwave Node is used for making audio. It has three inputs: 
   <br>Frequency: The pitch of the sound, in Hertz. Default is 256 Hz, middle C. 
   <br>Volume: The volume of the soundwave. 0 is mute, and 1 full volume. Default is 0.5.
@@ -21,6 +21,7 @@ addNode("soundwave", {
     this.hz = hz;
     this.vol = vol;
     this.wave = wave;
+    return [];
   },
   init: function () {
     let self = this;

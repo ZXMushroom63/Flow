@@ -1,4 +1,4 @@
-function compileGraph(node) {
+function compileGraph(node, lIndex = 0) {
   var libraryEntry = window["library"][node.getAttribute("data-type")];
   var rows = node.querySelectorAll("tr");
   var func = libraryEntry.func;
@@ -10,9 +10,9 @@ function compileGraph(node) {
       parseFloat(row.childNodes[1].childNodes[0].value)
     ) {
       argv.push(parseFloat(row.childNodes[1].childNodes[0].value));
-    } else if (row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement) {
+    } else if (row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement?.parentElement) {
       argv.push(
-        compileGraph(row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement)
+        compileGraph(row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement?.parentElement, row.childNodes[0]?.["link"]?.["outputNode"]?.["index"])
       );
     } else {
       argv.push(0);
@@ -24,7 +24,8 @@ function compileGraph(node) {
     nodeRef: node,
     fields: undefined,
     refId: node.refId,
-    calculate: function (label = false) {
+    lIndex: lIndex || 0,
+    calculate: function (label = false, index = 0) {
       let values = [];
       let cache = {};
       for (let arg = 0; arg < this.argv.length; arg++) {
@@ -33,7 +34,7 @@ function compileGraph(node) {
           if (!cache[argument.refId]) {
             cache[argument.refId] = argument.calculate(label);
           }
-          values.push(cache[argument.refId]);
+          values.push(cache[argument.refId][argument.lIndex]);
         } else {
           values.push(argument || 0);
         }
@@ -44,7 +45,7 @@ function compileGraph(node) {
           this.fields[i]?.setAttribute("placeholder", v);
         });
       }
-      return this.func.apply(this.nodeRef, values) || 0;
+      return this.func.apply(this.nodeRef, values) || [0];
     },
   };
 }

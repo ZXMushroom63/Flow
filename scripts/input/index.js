@@ -11,7 +11,9 @@ function addNode(namespace, data = {}) {
   data.namespace = namespace;
   data.alias ||= [namespace];
   data.title ||= data.alias[0];
+  data.renameable ||= false;
   data.argv ||= data.inputs || [];
+  data.outputs ||= ["O"];
   data.func ||= function () {
     return 0;
   };

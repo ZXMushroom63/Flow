@@ -10,7 +10,7 @@ addNode("simplex", {
     } else {
       noise.seed(0);
     }
-    return noise.simplex2(x, y);
+    return [noise.simplex2(x, y)];
   },
   color: "darkgreen",
   doc: `Returns the simplex noise of X and Y with the Seed, a number ranging from -1.0 to 1.0.`,
@@ -27,7 +27,7 @@ addNode("perlin", {
     } else {
       noise.seed(0);
     }
-    return noise.perlin2(x, y);
+    return [noise.perlin2(x, y)];
   },
   color: "darkgreen",
   doc: `Returns the perlin noise of X and Y with the Seed, a number ranging from -1.0 to 1.0. Please note that perlin noise will always be zero for integers (whole numbers).`,
@@ -48,7 +48,7 @@ addNode("perlin3", {
     } else {
       noise.seed(0);
     }
-    return noise.perlin3(x, y, z);
+    return [noise.perlin3(x, y, z)];
   },
   color: "darkgreen",
   doc: `Returns the perlin noise of X, Y and Z with the Seed, a number ranging from -1.0 to 1.0. Please note that perlin noise will always be zero for integers (whole numbers).`,
@@ -69,7 +69,7 @@ addNode("simplex3", {
     } else {
       noise.seed(0);
     }
-    return noise.simplex3(x, y, z);
+    return [noise.simplex3(x, y, z)];
   },
   color: "darkgreen",
   doc: `Returns the simplex noise of X, Y and Z with the Seed, a number ranging from -1.0 to 1.0.`,
@@ -84,8 +84,9 @@ addNode("worley_euclidean", {
     "worley",
     "euclidean",
   ],
-  inputs: ["x", "y", "z", "seed", "Index"],
-  func: (x, y, z, seed, index) => {
+  inputs: ["x", "y", "z", "seed"],
+  outputs: ["0", "1", "2"],
+  func: (x, y, z, seed) => {
     if (
       typeof x !== "number" ||
       typeof y !== "number" ||
@@ -98,16 +99,10 @@ addNode("worley_euclidean", {
     } else {
       noise.worley.setSeed(0);
     }
-    if (typeof index === "number") {
-      var i = Math.floor(index);
-      i = Math.min(Math.max(i, 0), 2);
-      return window.noise.worley.Euclidean(x, y, z)[i];
-    } else {
-      return window.noise.worley.Euclidean(x, y, z)[0];
-    }
+    return window.noise.worley.Euclidean(x, y, z);
   },
   color: "darkgreen",
-  doc: `Returns the worley euclidean noise of X, Y and Z with the Seed and index, a number ranging from 0.0 to 1.0.`,
+  doc: `Returns the worley euclidean noise of X, Y and Z with the Seed, a number ranging from 0.0 to 1.0.`,
 });
 addNode("worley_manhattan", {
   alias: [
@@ -119,8 +114,9 @@ addNode("worley_manhattan", {
     "worley",
     "manhattan",
   ],
-  inputs: ["x", "y", "z", "seed", "Index"],
-  func: (x, y, z, seed, index) => {
+  inputs: ["x", "y", "z", "seed"],
+  outputs: ["0", "1", "2"],
+  func: (x, y, z, seed) => {
     if (
       typeof x !== "number" ||
       typeof y !== "number" ||
@@ -133,13 +129,7 @@ addNode("worley_manhattan", {
     } else {
       noise.worley.setSeed(0);
     }
-    if (typeof index === "number") {
-      var i = Math.floor(index);
-      i = Math.min(Math.max(i, 0), 2);
-      return window.noise.worley.Manhattan(x, y, z)[i];
-    } else {
-      return window.noise.worley.Manhattan(x, y, z)[0];
-    }
+    return window.noise.worley.Manhattan(x, y, z);
   },
   color: "darkgreen",
   doc: `Returns the worley manhattan noise of X, Y and Z with the Seed and index, a number ranging from 0.0 to 1.0.`,
@@ -154,8 +144,9 @@ addNode("worley_minkovski", {
     "worley",
     "minkovski",
   ],
-  inputs: ["x", "y", "z", "seed", "Index"],
-  func: (x, y, z, seed, index) => {
+  inputs: ["x", "y", "z", "seed"],
+  outputs: ["0", "1", "2"],
+  func: (x, y, z, seed) => {
     if (
       typeof x !== "number" ||
       typeof y !== "number" ||
@@ -168,13 +159,7 @@ addNode("worley_minkovski", {
     } else {
       noise.worley.setSeed(0);
     }
-    if (typeof index === "number") {
-      var i = Math.floor(index);
-      i = Math.min(Math.max(i, 0), 2);
-      return window.noise.worley.Minkovski(x, y, z)[i];
-    } else {
-      return window.noise.worley.Minkovski(x, y, z)[0];
-    }
+    return window.noise.worley.Minkovski(x, y, z);
   },
   color: "darkgreen",
   doc: `Returns the worley minkovski noise of X, Y and Z with the Seed and index, a number ranging from 0.0 to 1.0.`,

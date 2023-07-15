@@ -7,7 +7,7 @@ window.rentex = {
 addNode("canvas", {
   alias: ["Canvas (2D)", "render", "rentex", "2drentex", "pixel"],
   inputs: ["R", "G", "B", "A", "Width", "Height"],
-  no_out: true,
+  outputs: [],
   func: function (r, g, b, a, width, height) {
     this.r = r;
     this.g = g;
@@ -15,7 +15,7 @@ addNode("canvas", {
     this.a = a;
     this.width = width || 255;
     this.height = height || 255;
-    return 0;
+    return [];
   },
   init: function () {
     let self = this;
@@ -46,10 +46,10 @@ addNode("canvas", {
     renderBtn.addEventListener("click", function () {
       window.rentex.rx = 0;
       window.rentex.ry = 0;
-      
+
       var graph = compileGraph(self);
       graph.calculate(true);
-      
+
       canvas.width = self.width;
       rentex.width = canvas.width;
       canvas.height = self.height;
@@ -68,7 +68,7 @@ addNode("canvas", {
       }
       ctx.putImageData(imageData, 0, 0);
       soundEffect("chime");
-      self.dragListeners.forEach(func => {
+      self.dragListeners.forEach((func) => {
         func();
       });
     });
@@ -79,20 +79,19 @@ addNode("canvas", {
   <br>Width and Height: The width and height of the render in pixels. How to use: press (Render) to draw the image, and (Download) to save it to your device.`,
 });
 
-addNode(
-  "xpos",
-  {alias: ["X Position", "xcoord", "X"],
+addNode("xpos", {
+  alias: ["X Position", "xcoord", "X"],
   func: () => {
-    return rentex.rx;
+    return [rentex.rx];
   },
   color: "grey",
-  doc: `The X position of the pixel, 0 being the very left most column.`,}
-);
+  doc: `The X position of the pixel, 0 being the very left most column.`,
+});
 
 addNode("width", {
   alias: ["Render Width", "image width"],
   func: () => {
-    return rentex.width;
+    return [rentex.width];
   },
   color: "grey",
   doc: `Returns the width of the render, 255 by default.`,
@@ -101,7 +100,7 @@ addNode("width", {
 addNode("height", {
   alias: ["Render Height", "image height"],
   func: () => {
-    return rentex.height;
+    return [rentex.height];
   },
   color: "grey",
   doc: `Returns the height of the render, 255 by default.`,
@@ -110,7 +109,7 @@ addNode("height", {
 addNode("ypos", {
   alias: ["Y Position", "ycoord", "Y"],
   func: () => {
-    return rentex.ry;
+    return [rentex.ry];
   },
   color: "grey",
   doc: `The Y position of the pixel, 0 being the very top most row.`,

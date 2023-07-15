@@ -5,7 +5,7 @@ addNode("add", {
     if (typeof a !== "number" || typeof b !== "number") {
       return 0;
     }
-    return a + b;
+    return [a + b];
   },
   color: "darkcyan",
   doc: "Adds inputs A and B together and then returns it.",
@@ -17,7 +17,7 @@ addNode("subtract", {
     if (typeof a !== "number" || typeof b !== "number") {
       return 0;
     }
-    return a - b;
+    return [a - b];
   },
   color: "darkcyan",
   doc: "Subtracts B from A and then returns it.",
@@ -29,7 +29,7 @@ addNode("multiply", {
     if (typeof a !== "number" || typeof b !== "number") {
       return 0;
     }
-    return a * b;
+    return [a * b];
   },
   color: "darkcyan",
   doc: "Multiples A by B and then returns it.",
@@ -41,7 +41,7 @@ addNode("divide", {
     if (typeof a !== "number" || typeof b !== "number") {
       return 0;
     }
-    return a / b;
+    return [a / b];
   },
   color: "darkcyan",
   doc: "Divides A by B and then returns it.",
@@ -60,24 +60,17 @@ addNode("const", {
   ],
   inputs: ["N"],
   func: (n) => {
-    return n;
+    return [n];
   },
   color: "darkred",
-  init: function () {
-    var header = this.querySelector(".header");
-    header.contentEditable = true;
-    header.setAttribute(
-      "onblur",
-      "this.innerText = this.innerText.replaceAll('\\n', '')"
-    );
-  },
+  renameable: true,
   doc: "A constant. Can be used to reroute flow or as an input.",
 });
 addNode("power", {
   alias: ["Power", "exponent", "exp", "pow", "^"],
   inputs: ["Base", "Exp"],
   func: (base, exp) => {
-    return Math.pow(base, exp);
+    return [Math.pow(base, exp)];
   },
   color: "darkcyan",
   doc: "Returns Base to the power Exponent and then returns it.",
@@ -87,11 +80,11 @@ addNode("if", {
   inputs: ["A", "B", "A>B", "A=B", "A<B"],
   func: (a, b, agtb, aeb, alsb) => {
     if (a > b) {
-      return agtb;
+      return [agtb];
     } else if (b > a) {
-      return alsb;
+      return [alsb];
     } else {
-      return aeb;
+      return [aeb];
     }
   },
   color: "darkgreen",
@@ -104,7 +97,7 @@ addNode("mod", {
   alias: ["Modulo", "remainder", "%"],
   inputs: ["N", "Mod"],
   func: (n, mod) => {
-    return n % mod;
+    return [n % mod];
   },
   color: "darkcyan",
   doc: `Finds the remainder of 'N' over 'Mod'. Eg:
@@ -116,7 +109,7 @@ addNode("min", {
   alias: ["Smallest", "minimum"],
   inputs: ["A", "B"],
   func: (a, b) => {
-    return Math.min(a, b);
+    return [Math.min(a, b)];
   },
   color: "darkred",
   doc: `Returns the smallest of A and B.`,
@@ -125,7 +118,7 @@ addNode("max", {
   alias: ["Largest", "maximum", "biggest"],
   inputs: ["A", "B"],
   func: (a, b) => {
-    return Math.max(a, b);
+    return [Math.max(a, b)];
   },
   color: "darkred",
   doc: `Returns the largest of A and B.`,
@@ -134,17 +127,17 @@ addNode("unknown", {
   alias: ["Unknown Node"],
   inputs: [],
   func: () => {
-    return 0;
+    return [0];
   },
   color: "fuchsia",
-  no_out: true,
+  outputs: [],
   doc: "Replaces any nodes whose type does not exist when loading from a save.",
 });
 addNode("clamp", {
   alias: ["Clamp"],
   inputs: ["Value", "Min", "Max"],
   func: (v, min, max) => {
-    return Math.min(Math.max(v, min), max);
+    return [Math.min(Math.max(v, min), max)];
   },
   color: "darkred",
   doc: `Limits 'V' to the Minimum and Maximum values provided.`,
@@ -153,7 +146,7 @@ addNode("clamp", {
 addNode("rnd", {
   alias: ["Random (0.0-1.0)", "random", "rand", "ran"],
   func: () => {
-    return Math.random();
+    return [Math.random()];
   },
   color: "darkred",
   doc: `Returns a random decimal between 0.0 to 1.0.`,
@@ -162,7 +155,7 @@ addNode("rndint", {
   alias: ["Random Integer", "randomint", "randint", "ranint"],
   inputs: ["Min", "Max"],
   func: (min, max) => {
-    return Math.floor(Math.random() * (max - min) + min);
+    return [Math.floor(Math.random() * (max - min) + min)];
   },
   color: "darkred",
   doc: `Returns a random integer between Min and Max.`,
@@ -172,7 +165,7 @@ addNode("root", {
   inputs: ["Num", "Root Index"],
   func: (n, i) => {
     var b = Math.pow(i, -1);
-    return Math.pow(n, b);
+    return [Math.pow(n, b)];
   },
   color: "darkred",
   doc: `Gets the root of a number. Eg:
@@ -184,7 +177,7 @@ addNode("sin", {
   alias: ["Sine"],
   inputs: ["deg"],
   func: (deg) => {
-    return Math.sin(deg * (Math.PI / 180));
+    return [Math.sin(deg * (Math.PI / 180))];
   },
   color: "darkred",
   doc: `Gets the sine of the angle in degrees provided.`,
@@ -193,7 +186,7 @@ addNode("cos", {
   alias: ["Cosine"],
   inputs: ["deg"],
   func: (deg) => {
-    return Math.cos(deg * (Math.PI / 180));
+    return[ Math.cos(deg * (Math.PI / 180))];
   },
   color: "darkred",
   doc: `Gets the cosine of the angle in degrees provided.`,
@@ -202,7 +195,7 @@ addNode("abs", {
   alias: ["Absolute"],
   inputs: ["Num"],
   func: (n) => {
-    return Math.abs(n);
+    return [Math.abs(n)];
   },
   color: "darkred",
   doc: `Returns the absolute of the input number Can be described as removing the number's sign. Eg:
@@ -216,7 +209,7 @@ addNode("lerp", {
   alias: ["Linear Interpolate", "lerper"],
   inputs: ["A", "B", "Alpha"],
   func: (a, b, k) => {
-    return (b - a) * k + a;
+    return [(b - a) * k + a];
   },
   color: "darkred",
   doc: `Linear interpolates (blends) between A and B with an Alpha ranging from 0.0 to 1.0. Eg:
@@ -229,10 +222,10 @@ addNode(
   "time",
   {alias: ["Time (ms)", "current time", "t"],
   func: () => {
-    if (window.performance && window.performance.now) {
-      return performance.now();
+    if (performance && performance.now) {
+      return [performance.now()];
     } else {
-      return Date.now();
+      return [Date.now()];
     }
   },
   color: "grey",
