@@ -186,7 +186,7 @@ addNode("cos", {
   alias: ["Cosine"],
   inputs: ["deg"],
   func: (deg) => {
-    return[ Math.cos(deg * (Math.PI / 180))];
+    return [Math.cos(deg * (Math.PI / 180))];
   },
   color: "darkred",
   doc: `Gets the cosine of the angle in degrees provided.`,
@@ -218,9 +218,8 @@ addNode("lerp", {
     <br>Lerping with A=0, B=10, Alpha=1.0 returns 10.
     `,
 });
-addNode(
-  "time",
-  {alias: ["Time (ms)", "current time", "t"],
+addNode("time", {
+  alias: ["Time (ms)", "current time", "t"],
   func: () => {
     if (performance && performance.now) {
       return [performance.now()];
@@ -229,5 +228,20 @@ addNode(
     }
   },
   color: "grey",
-  doc: `Returns the current time in milliseconds (one thousandth of a second).`,}
-);
+  doc: `Returns the current time in milliseconds (one thousandth of a second).`,
+});
+addNode("comment", {
+  alias: ["Comment Node"],
+  inputs: [],
+  outputs: [],
+  renameable: true,
+  doc: `Used to annotate graphs.`,
+  init: function () {
+    var container = document.createElement("div");
+    container.innerText = "Comment Text Here";
+    container.style = `width: 100%; height: 100%; color: white; outline: 0 !important;`;
+    container.contentEditable = true;
+    container.setAttribute("data-container", "");
+    this.append(container);
+  }
+});

@@ -15,7 +15,7 @@ function addNode(namespace, data = {}) {
   data.argv ||= data.inputs || [];
   data.outputs ||= ["O"];
   data.func ||= function () {
-    return 0;
+    return [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
   };
   data.color ||= "darkcyan";
   data.init ||= () => {};

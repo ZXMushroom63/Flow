@@ -32,13 +32,17 @@ function serialise() {
       });
     }
     var label = node.querySelector(".header").innerText;
-    serialised.nodes.push({
+    var data = {
       type: node.getAttribute("data-type"),
       x: node.getAttribute("data-x"),
       y: node.getAttribute("data-y"),
       label: label,
       inputs: inputs,
-    });
+    };
+    if(data.type === "comment"){
+      data.commentText = node.querySelector("div[data-container]").innerText;
+    }
+    serialised.nodes.push(data);
   }
   return serialised;
 }
@@ -67,6 +71,9 @@ function deserialise(serialised) {
     n.setAttribute("style", `top: ${nodeData.y}px; left: ${nodeData.x}px;`);
     n.setAttribute("data-x", nodeData.x);
     n.setAttribute("data-y", nodeData.y);
+    if (nodeData.type === "comment") {
+      n.querySelector("div[data-container]").innerText = nodeData.commentText || "Comment Text Here";
+    }
   });
   var newNodes = document.querySelectorAll(".node");
   serialised.nodes.forEach((nodeData, index) => {
