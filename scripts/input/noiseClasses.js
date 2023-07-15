@@ -94,10 +94,8 @@ addNode("worley_euclidean", {
     ) {
       return 0;
     }
-    if (typeof seed === "number") {
+    if (typeof seed === "number" && seed !== noise.worley._seedValue) {
       noise.worley.setSeed(seed);
-    } else {
-      noise.worley.setSeed(0);
     }
     return window.noise.worley.Euclidean(x, y, z);
   },
@@ -124,10 +122,8 @@ addNode("worley_manhattan", {
     ) {
       return 0;
     }
-    if (typeof seed === "number") {
+    if (typeof seed === "number" && seed !== noise.worley._seedValue) {
       noise.worley.setSeed(seed);
-    } else {
-      noise.worley.setSeed(0);
     }
     return window.noise.worley.Manhattan(x, y, z);
   },
@@ -154,10 +150,8 @@ addNode("worley_minkovski", {
     ) {
       return 0;
     }
-    if (typeof seed === "number") {
+    if (typeof seed === "number" && seed !== noise.worley._seedValue) {
       noise.worley.setSeed(seed);
-    } else {
-      noise.worley.setSeed(0);
     }
     return window.noise.worley.Minkovski(x, y, z);
   },

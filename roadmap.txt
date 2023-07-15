@@ -5,4 +5,5 @@ Fix XPos bug - Done
 Add comment nodes - Done
 Optimise Compiler - Todo
 Worley Noise output all 3 layers - Done
-Optimise noise seeding algo - Todo
+Optimise noise seeding algo - Done
+Other noise optimisations - Todo
