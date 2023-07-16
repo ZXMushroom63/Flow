@@ -5,10 +5,8 @@ addNode("simplex", {
     if (typeof x !== "number" || typeof y !== "number") {
       return 0;
     }
-    if (typeof seed === "number") {
+    if (typeof seed === "number" && seed !== noise.currentSeed) {
       noise.seed(seed);
-    } else {
-      noise.seed(0);
     }
     return [noise.simplex2(x, y)];
   },
@@ -23,10 +21,8 @@ addNode("perlin", {
     if (typeof x !== "number" || typeof y !== "number") {
       return 0;
     }
-    if (typeof seed === "number") {
+    if (typeof seed === "number" && seed !== noise.currentSeed) {
       noise.seed(seed);
-    } else {
-      noise.seed(0);
     }
     return [noise.perlin2(x, y)];
   },
@@ -45,10 +41,8 @@ addNode("perlin3", {
     ) {
       return 0;
     }
-    if (typeof seed === "number") {
+    if (typeof seed === "number" && seed !== noise.currentSeed) {
       noise.seed(seed);
-    } else {
-      noise.seed(0);
     }
     return [noise.perlin3(x, y, z)];
   },
@@ -67,10 +61,8 @@ addNode("simplex3", {
     ) {
       return 0;
     }
-    if (typeof seed === "number") {
+    if (typeof seed === "number" && seed !== noise.currentSeed) {
       noise.seed(seed);
-    } else {
-      noise.seed(0);
     }
     return [noise.simplex3(x, y, z)];
   },
