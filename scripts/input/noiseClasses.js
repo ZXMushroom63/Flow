@@ -13,6 +13,7 @@ addNode("simplex", {
     return [noise.simplex2(x, y)];
   },
   color: "darkgreen",
+  usespkg: ["libs/noise.js"],
   doc: `Returns the simplex noise of X and Y with the Seed, a number ranging from -1.0 to 1.0.`,
 });
 addNode("perlin", {
@@ -30,6 +31,7 @@ addNode("perlin", {
     return [noise.perlin2(x, y)];
   },
   color: "darkgreen",
+  usespkg: ["libs/noise.js"],
   doc: `Returns the perlin noise of X and Y with the Seed, a number ranging from -1.0 to 1.0. Please note that perlin noise will always be zero for integers (whole numbers).`,
 });
 addNode("perlin3", {
@@ -51,6 +53,7 @@ addNode("perlin3", {
     return [noise.perlin3(x, y, z)];
   },
   color: "darkgreen",
+  usespkg: ["libs/noise.js"],
   doc: `Returns the perlin noise of X, Y and Z with the Seed, a number ranging from -1.0 to 1.0. Please note that perlin noise will always be zero for integers (whole numbers).`,
 });
 addNode("simplex3", {
@@ -72,6 +75,7 @@ addNode("simplex3", {
     return [noise.simplex3(x, y, z)];
   },
   color: "darkgreen",
+  usespkg: ["libs/noise.js"],
   doc: `Returns the simplex noise of X, Y and Z with the Seed, a number ranging from -1.0 to 1.0.`,
 });
 addNode("worley_euclidean", {
@@ -100,6 +104,7 @@ addNode("worley_euclidean", {
     return window.noise.worley.Euclidean(x, y, z);
   },
   color: "darkgreen",
+  usespkg: ["libs/worley.js"],
   doc: `Returns the worley euclidean noise of X, Y and Z with the Seed, a number ranging from 0.0 to 1.0.`,
 });
 addNode("worley_manhattan", {
@@ -128,6 +133,7 @@ addNode("worley_manhattan", {
     return window.noise.worley.Manhattan(x, y, z);
   },
   color: "darkgreen",
+  usespkg: ["libs/worley.js"],
   doc: `Returns the worley manhattan noise of X, Y and Z with the Seed and index, a number ranging from 0.0 to 1.0.`,
 });
 addNode("worley_minkovski", {
@@ -156,5 +162,6 @@ addNode("worley_minkovski", {
     return window.noise.worley.Minkovski(x, y, z);
   },
   color: "darkgreen",
+  usespkg: ["libs/worley.js"],
   doc: `Returns the worley minkovski noise of X, Y and Z with the Seed and index, a number ranging from 0.0 to 1.0.`,
 });

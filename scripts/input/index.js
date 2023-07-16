@@ -19,6 +19,7 @@ function addNode(namespace, data = {}) {
   };
   data.color ||= "darkcyan";
   data.init ||= () => {};
+  data.usespkg ||= [];
   data.headerAttrs ||= {};
   window.library[namespace] = data;
   if (typeof data["doc"] === "string") {

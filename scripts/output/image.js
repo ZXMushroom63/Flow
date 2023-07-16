@@ -82,7 +82,7 @@ addNode("canvas", {
 addNode("xpos", {
   alias: ["X Position", "xcoord", "X"],
   func: () => {
-    return [rentex.rx];
+    return [window?.rentex?.rx || 0];
   },
   color: "grey",
   doc: `The X position of the pixel, 0 being the very left most column.`,
@@ -91,7 +91,7 @@ addNode("xpos", {
 addNode("width", {
   alias: ["Render Width", "image width"],
   func: () => {
-    return [rentex.width];
+    return [window?.rentex?.width || 0];
   },
   color: "grey",
   doc: `Returns the width of the render, 255 by default.`,
@@ -100,7 +100,7 @@ addNode("width", {
 addNode("height", {
   alias: ["Render Height", "image height"],
   func: () => {
-    return [rentex.height];
+    return [window?.rentex?.height || 0];
   },
   color: "grey",
   doc: `Returns the height of the render, 255 by default.`,
@@ -109,7 +109,7 @@ addNode("height", {
 addNode("ypos", {
   alias: ["Y Position", "ycoord", "Y"],
   func: () => {
-    return [rentex.ry];
+    return [window?.rentex?.ry || 0];
   },
   color: "grey",
   doc: `The Y position of the pixel, 0 being the very top most row.`,

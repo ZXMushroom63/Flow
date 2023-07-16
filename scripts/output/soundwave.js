@@ -32,7 +32,7 @@ addNode("soundwave", {
     playBtn.style.float = "left";
     playBtn.innerText = "Play";
     self.append(playBtn);
-
+    
     var ctx = new AudioContext();
     var player = new SoundPlayer(ctx);
     var SoundPlayerOn = false;

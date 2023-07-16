@@ -1,5 +1,21 @@
-function compileGraph(node, lIndex = 0, stripped = false) {
+function compileGraph(
+  node,
+  stripped = false,
+  alertMessages = false,
+  lIndex = 0
+) {
   var libraryEntry = window["library"][node.getAttribute("data-type")];
+  if (alertMessages) {
+    libraryEntry.usespkg.forEach((lib) => {
+      alert(
+        "Node type " +
+          node.getAttribute("data-type") +
+          " uses package " +
+          lib +
+          `\n\nMake sure that this package is loaded when using the compiled graph.`
+      );
+    });
+  }
   var rows = node.querySelectorAll("tr");
   var func = libraryEntry.func;
   var argv = [];
@@ -17,6 +33,8 @@ function compileGraph(node, lIndex = 0, stripped = false) {
         compileGraph(
           row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement
             ?.parentElement,
+          stripped,
+          alertMessages,
           row.childNodes[0]?.["link"]?.["outputNode"]?.["index"]
         )
       );
@@ -54,4 +72,27 @@ function compileGraph(node, lIndex = 0, stripped = false) {
       return this.func.apply(this?.nodeRef || null, values) || [0];
     },
   };
+}
+
+function stringifyGraph(graph) {
+  function stringifyArg(arg) {
+    if (typeof arg === "object") {
+      return stringifyGraph(arg);
+    } else {
+      return arg.toString();
+    }
+  }
+  function stringifyArgs(args) {
+    var js = "[";
+    var l = args.length;
+    args.forEach((arg, i) => {
+      js += stringifyArg(arg) + (i !== l - 1 ? "," : "");
+    });
+    return js + `]`;
+  }
+  return `{func: ${graph.func.toString()},refId: ${graph.refId},lIndex: ${
+    graph.lIndex
+  },calculate: ${graph.calculate.toString()},argv: ${stringifyArgs(
+    graph.argv
+  )}}`;
 }

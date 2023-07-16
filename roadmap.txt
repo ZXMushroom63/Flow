@@ -7,3 +7,5 @@ Optimise Compiler - Todo
 Worley Noise output all 3 layers - Done
 Optimise noise seeding algo - Done
 Other noise optimisations - Todo
+Add stripped compiler option - Done
+Add export output node button - Todo
