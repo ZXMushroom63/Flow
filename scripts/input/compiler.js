@@ -1,4 +1,4 @@
-function compileGraph(node, lIndex = 0) {
+function compileGraph(node, lIndex = 0, stripped = false) {
   var libraryEntry = window["library"][node.getAttribute("data-type")];
   var rows = node.querySelectorAll("tr");
   var func = libraryEntry.func;
@@ -10,9 +10,15 @@ function compileGraph(node, lIndex = 0) {
       parseFloat(row.childNodes[1].childNodes[0].value)
     ) {
       argv.push(parseFloat(row.childNodes[1].childNodes[0].value));
-    } else if (row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement?.parentElement) {
+    } else if (
+      row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement?.parentElement
+    ) {
       argv.push(
-        compileGraph(row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement?.parentElement, row.childNodes[0]?.["link"]?.["outputNode"]?.["index"])
+        compileGraph(
+          row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement
+            ?.parentElement,
+          row.childNodes[0]?.["link"]?.["outputNode"]?.["index"]
+        )
       );
     } else {
       argv.push(0);
@@ -21,7 +27,7 @@ function compileGraph(node, lIndex = 0) {
   return {
     func: func,
     argv: argv,
-    nodeRef: node,
+    nodeRef: stripped ? undefined : node,
     fields: undefined,
     refId: node.refId,
     lIndex: lIndex || 0,
@@ -39,13 +45,13 @@ function compileGraph(node, lIndex = 0) {
           values.push(argument || 0);
         }
       }
-      if (label) {
+      if (label && this.nodeRef) {
         if (!this.fields) this.fields = this.nodeRef.querySelectorAll("input");
         values.forEach((v, i) => {
           this.fields[i]?.setAttribute("placeholder", v);
         });
       }
-      return this.func.apply(this.nodeRef, values) || [0];
+      return this.func.apply(this?.nodeRef || null, values) || [0];
     },
   };
 }
