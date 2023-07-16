@@ -76,7 +76,7 @@ function updateScroll() {
       e.stopImmediatePropagation();
     }
   });
-  window.addEventListener("touchstart", function (e) {
+  elem.addEventListener("touchstart", function (e) {
     if (e.touches.length===2) {
       e.preventDefault();
       e.stopPropagation();

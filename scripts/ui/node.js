@@ -42,8 +42,8 @@ function addNodeToCanvas(nodetype, x, y) {
       e.stopImmediatePropagation();
     }
   });
-  window.addEventListener("touchstart", function (e) {
-    if (e.touches.length === 3) {
+  node.addEventListener("touchstart", function (e) {
+    if (e.touches.length === 2) {
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
