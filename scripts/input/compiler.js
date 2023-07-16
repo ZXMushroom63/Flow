@@ -83,16 +83,16 @@ function stringifyGraph(graph) {
     }
   }
   function stringifyArgs(args) {
-    var js = "[";
+    var js = "[\n";
     var l = args.length;
     args.forEach((arg, i) => {
-      js += stringifyArg(arg) + (i !== l - 1 ? "," : "");
+      js += stringifyArg(arg) + (i !== l - 1 ? ",\n" : "");
     });
-    return js + `]`;
+    return js + `\n]`;
   }
-  return `{func: ${graph.func.toString()},refId: ${graph.refId},lIndex: ${
+  return `{\nfunc: ${graph.func.toString()},\nrefId: ${graph.refId},\nlIndex: ${
     graph.lIndex
-  },calculate: ${graph.calculate.toString()},argv: ${stringifyArgs(
+  },\ncalculate: ${graph.calculate.toString()},\nargv: ${stringifyArgs(
     graph.argv
   )}}`;
 }
