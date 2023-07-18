@@ -10,4 +10,4 @@ Other noise optimisations - Done
 Add stripped compiler option - Done
 Add export output node button - Done
 Make a better solution than my hacky fix in suggestions.js (Remove setTimeout call) - Done
-Fix metatag parse errors - Todo
+Fix metatag parse errors - Done
