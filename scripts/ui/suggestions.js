@@ -13,9 +13,7 @@ function showSuggestions() {
   document.querySelector("#suggestions").setAttribute("visible", "true");
 }
 function hideSuggestions() {
-  setTimeout(() => {
-    document.querySelector("#suggestions").removeAttribute("visible");
-  }, 200);
+  document.querySelector("#suggestions").removeAttribute("visible");
 }
 function updateSuggestions(e) {
   document.querySelector("#suggestions").innerHTML = "";
@@ -37,7 +35,7 @@ function updateSuggestions(e) {
     rKeys.forEach((key) => {
       var r = document.createElement("div");
       r.innerText = results[key];
-      r.onclick = () => {
+      r.onmousedown = () => {
         e.target.value = key;
         addNodeToCanvas(window.library[key]);
       };
