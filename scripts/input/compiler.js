@@ -4,6 +4,9 @@ function compileGraph(
   alertMessages = false,
   lIndex = 0
 ) {
+  if (flags.benchmarking) {
+    var start = performance.now();
+  }
   var libraryEntry = window["library"][node.getAttribute("data-type")];
   if (alertMessages) {
     libraryEntry.usespkg.forEach((lib) => {
@@ -41,6 +44,11 @@ function compileGraph(
     } else {
       argv.push(0);
     }
+  }
+  if (flags.benchmarking) {
+    console.log(
+      "Compiled graph in " + (performance.now() - start).toFixed(2) + "ms"
+    );
   }
   return {
     func: func,
@@ -95,4 +103,31 @@ function stringifyGraph(graph) {
   },\ncalculate: ${graph.calculate.toString()},\nargv: ${stringifyArgs(
     graph.argv
   )}}`;
+}
+
+function _DEEPCOMPILE(graph, surface = false) {
+  function stringifyArg(arg) {
+    if (typeof arg === "object") {
+      return "(" + _DEEPCOMPILE(arg) + ")";
+    } else {
+      return arg.toString();
+    }
+  }
+  function stringifyArgs(args) {
+    var l = args.length;
+    var j = "";
+    args.forEach((arg, i) => {
+      j += stringifyArg(arg) + (i !== l - 1 ? "," : "");
+    });
+    return j;
+  }
+  return `(${graph.func.toString()})(${stringifyArgs(graph.argv)})${
+    surface ? "" : `[${graph.lIndex}]`
+  }`;
+}
+function stringifyGraphV2(graph, name = "main") {
+  return `(()=>{\nfunction ${name} () {\nvar result = ${_DEEPCOMPILE(
+    graph,
+    true
+  )};\n return result;\n}\nreturn ${name}\n})()`;
 }

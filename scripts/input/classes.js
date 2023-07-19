@@ -155,7 +155,17 @@ addNode("rndint", {
   alias: ["Random Integer", "randomint", "randint", "ranint"],
   inputs: ["Min", "Max"],
   func: (min, max) => {
-    return [Math.floor(Math.random() * (max - min) + min)];
+    return [Math.floor(Math.random() * (max + 1 - min) + min)];
+  },
+  color: "darkred",
+  doc: `Returns a random integer between Min and Max.`,
+});
+addNode("rndpass", {
+  alias: ["Random A/B", "randomab"],
+  inputs: ["A", "B"],
+  func: (a, b) => {
+    var rng = Math.floor(Math.random() * 2);
+    return [rng === 0 ? a : b];
   },
   color: "darkred",
   doc: `Returns a random integer between Min and Max.`,
@@ -243,5 +253,5 @@ addNode("comment", {
     container.contentEditable = true;
     container.setAttribute("data-container", "");
     this.append(container);
-  }
+  },
 });

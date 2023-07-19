@@ -17,6 +17,9 @@ addNode("output", {
     margin-top: 2rem;
     `;
     exportBtn.addEventListener("click", () => {
+      if (flags.benchmarking) {
+        var start = performance.now();
+      }
       function sanitise(str, arr) {
         var newStr = str;
         arr.forEach((x) => {
@@ -49,12 +52,17 @@ addNode("output", {
 
         document.body.removeChild(element);
       }
-      dl(
-        title + ".js",
-        `//Check for missing dependencies! If the exporter gave any alert messages, pay attention to them!\nconst graph = ${stringifyGraph(
-          compileGraph(self, true, true)
-        )};\n//Call graph.calculate() to get the results.`
-      );
+      // var gStr = stringifyGraph(
+      //   compileGraph(self, true, true)
+      // );
+      // if (flags.benchmarking) {
+      //   console.log("Compiled graph in "+(performance.now()-start).toFixed(2)+"ms");
+      // }
+      // dl(
+      //   title + ".js",
+      //   `//Check for missing dependencies! If the exporter gave any alert messages, pay attention to them!\nconst graph = ${gStr};\n//Call graph.calculate() to get the results.`
+      // );
+      dl("d.js", DEEPCOMPILE(compileGraph(self)));
     });
     self.append(exportBtn);
 

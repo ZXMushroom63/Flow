@@ -44,6 +44,9 @@ addNode("canvas", {
       link.click();
     });
     renderBtn.addEventListener("click", function () {
+      if (flags.benchmarking) {
+        var start = performance.now();
+      }
       window.rentex.rx = 0;
       window.rentex.ry = 0;
 
@@ -67,6 +70,9 @@ addNode("canvas", {
         data[i + 3] = self.a;
       }
       ctx.putImageData(imageData, 0, 0);
+      if (flags.benchmarking) {
+        console.log("Rendered image with graph in "+(performance.now()-start).toFixed(2)+"ms");
+      }
       soundEffect("chime");
       self.dragListeners.forEach((func) => {
         func();
