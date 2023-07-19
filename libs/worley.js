@@ -1,3 +1,4 @@
+//Sourced from https://github.com/jackunion/tooloud/blob/master/src/Worley.js
 class Worley {
   constructor(seed = 3000) {
     this._seedValue = seed;
