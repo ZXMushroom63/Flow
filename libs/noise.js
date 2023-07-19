@@ -1,3 +1,4 @@
+//Sourced from https://github.com/josephg/noisejs/blob/master/perlin.js
 (function (global) {
   var module = (global.noise = {});
 
