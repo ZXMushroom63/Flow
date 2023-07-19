@@ -1,13 +1,24 @@
 addNode("pi", {
   alias: ["π", "3.14"],
+  outputs: ["π"],
   func: () => {
     return [Math.PI];
   },
   color: "darkmagenta",
   doc: `Returns pi.`,
 });
+addNode("infinity", {
+  alias: ["∞", "3.14"],
+  outputs: ["∞"],
+  func: () => {
+    return [Infinity];
+  },
+  color: "darkmagenta",
+  doc: `Returns infinity.`,
+});
 addNode("e", {
   alias: ["e", "2.71"],
+  outputs: ["e"],
   func: () => {
     return [Math.E];
   },
@@ -90,4 +101,49 @@ addNode("collatz", {
   },
   color: "darkred",
   doc: `Oh no.`,
+});
+addNode("acos", {
+  alias: ["Arccos"],
+  inputs: ["cos"],
+  outputs: ["deg"],
+  func: (cos) => {
+    return [Math.acos(cos) * (180 / Math.PI)];
+  },
+  color: "darkred",
+  doc: `Returns the inverse cosine (in degrees) of a number.`,
+});
+addNode("asin", {
+  alias: ["Arcsine"],
+  inputs: ["sin"],
+  outputs: ["deg"],
+  func: (sin) => {
+    return [Math.asin(sin) * (180 / Math.PI)];
+  },
+  color: "darkred",
+  doc: `Returns the inverse sine (in degrees) of a number.`,
+});
+addNode("atan", {
+  alias: ["Arctan"],
+  inputs: ["tan"],
+  outputs: ["deg"],
+  func: (tan) => {
+    return [Math.atan(tan) * (180 / Math.PI)];
+  },
+  color: "darkred",
+  doc: `Returns the inverse tangent (in degrees) of a number.`,
+});
+addNode("atan2", {
+  alias: ["Angle from A to B"],
+  inputs: ["x1", "y1", "x2", "y2"],
+  outputs: ["deg"],
+  func: (nx1, ny1, nx2, ny2) => {
+    function getAngle(x1, y1, x2, y2) {
+      var dx = x2 - x1,
+        dy = y2 - y1;
+      return Math.atan2(dy, dx) * (180 / Math.PI);
+    }
+    return [getAngle(nx1, ny1, nx2, ny2)];
+  },
+  color: "darkred",
+  doc: `Returns the angle from point A to point B.`,
 });

@@ -81,7 +81,7 @@ function deserialise(serialised) {
     var inputRows = node.querySelectorAll(".inputRow");
     nodeData.inputs.forEach((iData, subindex) => {
       var row = inputRows[subindex];
-      if (iData.value && row?.childNodes?.[1]?.querySelector("input")?.value) {
+      if (iData.value && row?.childNodes?.[1]?.querySelector("input")) {
         row.childNodes[1].querySelector("input").value = iData.value;
       }
       if (typeof iData.link === "number" && newNodes?.[iData.link]?.querySelectorAll(".output")?.[iData.outputIndex || 0] && row?.childNodes?.[0]) {
