@@ -125,9 +125,53 @@ function _DEEPCOMPILE(graph, surface = false) {
     surface ? "" : `[${graph.lIndex}]`
   }`;
 }
-function stringifyGraphV2(graph, name = "main") {
-  return `(()=>{\nfunction ${name} () {\nvar result = ${_DEEPCOMPILE(
+function translateGraph(graph, name = "main") {
+  if (flags.benchmarking) {
+    var start = performance.now();
+  }
+  var value = `function ${name}() {\nvar result = ${_DEEPCOMPILE(
+    graph,
+    true
+  )};\n return result;\n}`;
+  if (flags.benchmarking) {
+    console.log(
+      "Translated graph in " + (performance.now() - start).toFixed(2) + "ms"
+    );
+  }
+  return value;
+}
+function _compressGraph(graph, surface = false) {
+  function stringifyArg(arg) {
+    if (typeof arg === "object") {
+      return "(" + _DEEPCOMPILE(arg) + ")";
+    } else {
+      return arg.toString();
+    }
+  }
+  function stringifyArgs(args) {
+    var l = args.length;
+    var j = "";
+    args.forEach((arg, i) => {
+      j += stringifyArg(arg) + (i !== l - 1 ? "," : "");
+    });
+    return j;
+  }
+  return `(${graph.func.toString()}).apply(window.nodemap[${
+    graph.refId
+  }], [${stringifyArgs(graph.argv)}])${surface ? "" : `[${graph.lIndex}]`}`;
+}
+function recompileGraph(graph, name = "main") {
+  if (flags.benchmarking) {
+    var start = performance.now();
+  }
+  var value = `(()=>{\nfunction ${name}() {\nvar result = ${_compressGraph(
     graph,
     true
   )};\n return result;\n}\nreturn ${name}\n})()`;
+  if (flags.benchmarking) {
+    console.log(
+      "Translated graph in " + (performance.now() - start).toFixed(2) + "ms"
+    );
+  }
+  return value;
 }

@@ -46,26 +46,6 @@ addNode("divide", {
   color: "darkcyan",
   doc: "Divides A by B and then returns it.",
 });
-addNode("const", {
-  alias: [
-    "Constant",
-    "vector",
-    "vector1",
-    "number",
-    "int",
-    "integer",
-    "float",
-    "float32",
-    "float64",
-  ],
-  inputs: ["N"],
-  func: (n) => {
-    return [n];
-  },
-  color: "darkred",
-  renameable: true,
-  doc: "A constant. Can be used to reroute flow or as an input.",
-});
 addNode("power", {
   alias: ["Power", "exponent", "exp", "pow", "^"],
   inputs: ["Base", "Exp"],
@@ -160,15 +140,15 @@ addNode("rndint", {
   color: "darkred",
   doc: `Returns a random integer between Min and Max.`,
 });
-addNode("rndpass", {
-  alias: ["Random A/B", "randomab"],
+addNode("rndchoose", {
+  alias: ["Random A/B", "randomab", "randomchoose"],
   inputs: ["A", "B"],
   func: (a, b) => {
     var rng = Math.floor(Math.random() * 2);
     return [rng === 0 ? a : b];
   },
   color: "darkred",
-  doc: `Returns a random integer between Min and Max.`,
+  doc: `Randomly returns A or B`,
 });
 addNode("root", {
   alias: ["Root", "n-root"],

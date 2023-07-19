@@ -126,4 +126,7 @@ class Worley {
     return this.noise({ x: x, y: y, z: z }, Worley.MinkovskiDistance);
   }
 }
+if (!window.noise) {
+  window.noise = {};
+}
 window.noise.worley = new Worley(0);

@@ -3,7 +3,7 @@ Save Multpile Outputs - Done
 Colorspace Nodes - Done
 Fix XPos bug - Done
 Add comment nodes - Done
-Optimise Compiler - Todo
+Optimise Compiler - Done
 Worley Noise output all 3 layers - Done
 Optimise noise seeding algo - Done
 Other noise optimisations - Done
@@ -11,3 +11,10 @@ Add stripped compiler option - Done
 Add export output node button - Done
 Make a better solution than my hacky fix in suggestions.js (Remove setTimeout call) - Done
 Fix metatag parse errors - Done
+Add regex sanitiser(s) to basic output nodes so i can have a custom named function - Done
+Add vector2 constants, vector3 constants and vector4 constants - Done
+Add vector2 outputs, vector3 outputs and vector4 outputs - Done
+Add more math nodes - Todo
+ - https://github.com/josdejong/mathjs/blob/develop/src/plain/number/
+Fix error when deserialise tries to make links to unknown nodes - Done
+Make serialise() not always save the label, only when it is renameable. - Todo

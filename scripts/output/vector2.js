@@ -1,12 +1,12 @@
-addNode("output", {
-  alias: ["Output", "out", "out1"],
-  inputs: ["x"],
-  func: (out) => {
-    return [out];
+addNode("output2", {
+  alias: ["Vec2 Output", "out2"],
+  inputs: ["x", "y"],
+  func: (x, y) => {
+    return [x, y];
   },
   color: "darkorange",
   outputs: [],
-  doc: `Serves as an output for a number.`,
+  doc: `Serves as an output for two numbers.`,
   renameable: true,
   init: function () {
     var self = this;

@@ -1,10 +1,14 @@
 let currentId = 0;
-
+window.nodemap = {};
+document.getNodeById = function (id) {
+  return window.nodemap[id];
+};
 function addNodeToCanvas(nodetype, x, y) {
   var bounds = document.querySelector("#canvas").getBoundingClientRect();
   var node = document.createElement("div");
 
   node.refId = currentId++;
+
   node.setAttribute("data-type", nodetype.namespace);
   node.classList.add("node");
   x === undefined ? (x = bounds.width / 4) : null;
@@ -27,10 +31,10 @@ function addNodeToCanvas(nodetype, x, y) {
   node.append(title);
   var outputContainer = document.createElement("div");
   outputContainer.classList.add("outputContainer");
-  nodetype.outputs.forEach((out, index)=>{
+  nodetype.outputs.forEach((out, index) => {
     var output = document.createElement("div");
     output.innerText = out;
-    output["index"]=index;
+    output["index"] = index;
     output.classList.add("output");
     linkDragHandler(output);
     outputContainer.append(output);
@@ -107,15 +111,16 @@ function addNodeToCanvas(nodetype, x, y) {
       ) {
         fields.push(parseFloat(row.childNodes[1].childNodes[0].value));
       } else if (
-        row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement?.parentElement?.["getValue"]
+        row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement
+          ?.parentElement?.["getValue"]
       ) {
-        const linkNode = row.childNodes[0]["link"]["outputNode"].parentElement.parentElement;
+        const linkNode =
+          row.childNodes[0]["link"]["outputNode"].parentElement.parentElement;
         ndex = row.childNodes[0]["link"]["outputNode"]["index"];
         if (cache[linkNode.refId] === undefined) {
-          cache[linkNode.refId] =
-            row.childNodes[0]["link"]["outputNode"].parentElement.parentElement[
-              "getValue"
-            ]() || [0];
+          cache[linkNode.refId] = row.childNodes[0]["link"][
+            "outputNode"
+          ].parentElement.parentElement["getValue"]() || [0];
         }
         fields.push(cache[linkNode.refId][ndex]);
       } else {
@@ -128,6 +133,7 @@ function addNodeToCanvas(nodetype, x, y) {
     return nodetype.func.apply(node, fields);
   };
   dragElem(node);
+  nodemap[node.refId] = node;
   document.querySelector("#canvas").append(node);
   if (typeof nodetype.init === "function") {
     nodetype.init.apply(node);

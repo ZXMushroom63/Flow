@@ -5,7 +5,7 @@ window.rentex = {
   ry: 0,
 };
 addNode("canvas", {
-  alias: ["Canvas (2D)", "render", "rentex", "2drentex", "pixel"],
+  alias: ["Canvas (2D)", "render", "rentex", "2drentex", "pixel", "rgb", "rgba"],
   inputs: ["R", "G", "B", "A", "Width", "Height"],
   outputs: [],
   func: function (r, g, b, a, width, height) {
@@ -20,7 +20,6 @@ addNode("canvas", {
   init: function () {
     let self = this;
     var canvas = document.createElement("canvas");
-    var table = this.querySelector("table");
     canvas.width = 255;
     canvas.height = 255;
     canvas.style.display = "block";
@@ -52,6 +51,7 @@ addNode("canvas", {
 
       var graph = compileGraph(self);
       graph.calculate(true);
+      var recompiled = eval(recompileGraph(graph));
 
       canvas.width = self.width;
       rentex.width = canvas.width;
@@ -63,7 +63,7 @@ addNode("canvas", {
       for (let i = 0; i < data.length; i += 4) {
         rentex.rx = (i / 4) % self.width;
         rentex.ry = Math.floor(i / 4 / self.height);
-        graph.calculate();
+        recompiled();
         data[i] = self.r;
         data[i + 1] = self.g;
         data[i + 2] = self.b;

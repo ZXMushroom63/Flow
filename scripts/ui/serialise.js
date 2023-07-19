@@ -81,16 +81,18 @@ function deserialise(serialised) {
     var inputRows = node.querySelectorAll(".inputRow");
     nodeData.inputs.forEach((iData, subindex) => {
       var row = inputRows[subindex];
-      if (iData.value) {
+      if (iData.value && row?.childNodes?.[1]?.querySelector("input")?.value) {
         row.childNodes[1].querySelector("input").value = iData.value;
       }
-      if (typeof iData.link === "number") {
+      if (typeof iData.link === "number" && newNodes?.[iData.link]?.querySelectorAll(".output")?.[iData.outputIndex || 0] && row?.childNodes?.[0]) {
         makeLink(
           newNodes[iData.link].querySelectorAll(".output")[iData.outputIndex || 0],
           row.childNodes[0]
         );
       }
-      node.querySelector(".header").innerText = nodeData.label;
+      if(nodeData.label) {
+        node.querySelector(".header").innerText = nodeData.label;
+      }
     });
   });
   scrollingUI.x = serialised.cx || 0;

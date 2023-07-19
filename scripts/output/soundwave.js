@@ -23,6 +23,7 @@ addNode("soundwave", {
     this.wave = wave;
     return [];
   },
+  usespkg: ["libs/soundplayer.js"],
   init: function () {
     let self = this;
 
