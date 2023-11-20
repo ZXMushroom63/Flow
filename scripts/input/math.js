@@ -34,6 +34,15 @@ addNode("sqrt", {
   color: "darkred",
   doc: `Returns the square-root of x.`,
 });
+addNode("log", {
+  alias: ["Logarithm"],
+  inputs: ["X"],
+  func: (x) => {
+    return [Math.log(x)];
+  },
+  color: "darkred",
+  doc: `Returns the logarithm of x.`,
+});
 addNode("cbrt", {
   alias: ["Cube-Root", "cuberoot"],
   inputs: ["X"],
