@@ -65,7 +65,7 @@ addNode("ceil", {
   alias: ["Ceiling", "round up"],
   inputs: ["N"],
   func: (x) => {
-    return [Math.floor(x)];
+    return [Math.ceil(x)];
   },
   color: "darkred",
   doc: `Returns the ceil of N; can be described as rounding up.`,
