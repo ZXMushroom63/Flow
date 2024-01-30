@@ -41,14 +41,19 @@ function serialise() {
       execIdx = node.querySelector(".execrow td")["link"]["outputNode"].index;
     }
     var label = node.querySelector(".header").innerText;
+    if (label === window.library[node.getAttribute("data-type")].title) {
+      label = null;
+    }
     var data = {
       type: node.getAttribute("data-type"),
       x: node.getAttribute("data-x"),
       y: node.getAttribute("data-y"),
-      label: label,
       inputs: inputs,
       execInput: [exec, execIdx]
     };
+    if (label) {
+      data.label = label;
+    }
     if(data.type === "comment"){
       data.commentText = node.querySelector("div[data-container]").innerText;
     }

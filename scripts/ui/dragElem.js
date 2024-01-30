@@ -71,11 +71,12 @@ function dragElem(elmnt) {
         .querySelector("#trashbin")
         .getBoundingClientRect();
       if (
-        trashBounds.x < oldX &&
-        trashBounds.x + trashBounds.width > oldX &&
-        trashBounds.y < oldY &&
-        trashBounds.y + trashBounds.width > oldY
+        trashBounds.x < posX &&
+        trashBounds.x + trashBounds.width > posX &&
+        trashBounds.y < posY &&
+        trashBounds.y + trashBounds.width > posY
       ) {
+
         if (elmnt["removeListeners"]) {
           elmnt["removeListeners"].forEach((func) => {
             func();
