@@ -8,8 +8,10 @@ function serialise() {
   };
   console.log("Parsed " + nodes.length + " nodes.");
   for (let i = 0; i < nodes.length; i++) {
+    var exec = null;
+    var execIdx = 0;
     const node = nodes[i];
-    var inputRows = node.querySelectorAll(".inputRow");
+    var inputRows = node.querySelectorAll(".inputRow:not(.execrow)");
     var inputs = [];
     for (let x = 0; x < inputRows.length; x++) {
       var row = inputRows[x];
@@ -31,6 +33,13 @@ function serialise() {
         value: row.childNodes[1].querySelector("input").value,
       });
     }
+    if (node.querySelector(".execrow td") && node.querySelector(".execrow td").link) {
+      exec = Array.prototype.indexOf.call(
+        nodes,
+        node.querySelector(".execrow td")["link"]["outputNode"].closest(".node")
+      );
+      execIdx = node.querySelector(".execrow td")["link"]["outputNode"].index;
+    }
     var label = node.querySelector(".header").innerText;
     var data = {
       type: node.getAttribute("data-type"),
@@ -38,6 +47,7 @@ function serialise() {
       y: node.getAttribute("data-y"),
       label: label,
       inputs: inputs,
+      execInput: [exec, execIdx]
     };
     if(data.type === "comment"){
       data.commentText = node.querySelector("div[data-container]").innerText;
@@ -59,8 +69,8 @@ function deserialise(serialised) {
     });
     node.remove();
   }
+  oldZoomIndex = serialised.zoomIndex || 1;
   zoomIndex = serialised.zoomIndex || 1;
-  updateZoom();
 
   serialised.nodes.forEach((nodeData) => {
     var n = addNodeToCanvas(
@@ -78,7 +88,7 @@ function deserialise(serialised) {
   var newNodes = document.querySelectorAll(".node");
   serialised.nodes.forEach((nodeData, index) => {
     var node = newNodes[index];
-    var inputRows = node.querySelectorAll(".inputRow");
+    var inputRows = node.querySelectorAll(".inputRow:not(.execrow)");
     nodeData.inputs.forEach((iData, subindex) => {
       var row = inputRows[subindex];
       if (iData.value && row?.childNodes?.[1]?.querySelector("input")) {
@@ -94,14 +104,17 @@ function deserialise(serialised) {
         node.querySelector(".header").innerText = nodeData.label;
       }
     });
+    if (nodeData.execInput[0] !== null) {
+      makeLink(newNodes[nodeData.execInput[0]].querySelectorAll(".output")[nodeData.execInput[1]], node.querySelector(".execrow td"));
+    }
   });
   scrollingUI.x = serialised.cx || 0;
   scrollingUI.y = serialised.cy || 0;
-  updateScroll ? updateScroll() : null;
+  updateScroll();
 }
 
 function exportProject() {
-  download("project.json", JSON.stringify(serialise()));
+  download("myProject.flow.json", JSON.stringify(serialise()));
 }
 
 function download(filename, text) {
@@ -122,7 +135,7 @@ function download(filename, text) {
 function loadProject() {
   var picker = document.createElement("input");
   picker.type = "file";
-  picker.accept = ".json";
+  picker.accept = ".flow.json";
   picker.oninput = () => {
     if (picker.files[0]) {
       var reader = new FileReader();
@@ -172,4 +185,7 @@ function clearProject() {
     });
     node.remove();
   }
+  scrollingUI.x = 0;
+  scrollingUI.y = 0;
+  updateScroll();
 }

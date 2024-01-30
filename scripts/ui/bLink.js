@@ -64,20 +64,37 @@ function linkDragHandler(outputElem) {
       el.tagName.toLowerCase() === "td" &&
       el.classList.contains("input") &&
       outputElem.parentElement.parentElement.outerHTML !==
-        el.parentElement.parentElement.parentElement.outerHTML
+      el.parentElement.parentElement.parentElement.outerHTML
     ) {
-      if (el["link"]) {
-        el["link"]["inputNode"] = null;
-        if (el["link"].remove) {
-          el["link"].remove();
+      if (el.innerText.includes("⏩") && !outputElem.innerText.includes("⏩") || !el.innerText.includes("⏩") && outputElem.innerText.includes("⏩")) {
+        if (line.remove) {
+          line.remove();
         }
-        el["link"] = null;
+      } else {
+        if (outputElem.innerText.includes("⏩")) {
+          if (outputElem["link"]) {
+            outputElem["link"]["inputNode"] = null;
+            outputElem["link"]["outputNode"] = null;
+            if (outputElem["link"].remove) {
+              outputElem["link"].remove();
+            }
+            outputElem["link"] = null;
+          }
+        }
+        if (el["link"]) {
+          el["link"]["inputNode"] = null;
+          if (el["link"].remove) {
+            el["link"].remove();
+          }
+          el["link"] = null;
+        }
+        if (line.remove) {
+          line.remove();
+        }
+        soundEffect("connect");
+
+        makeLink(outputElem, el);
       }
-      if (line.remove) {
-        line.remove();
-      }
-      soundEffect("connect");
-      makeLink(outputElem, el);
     } else {
       if (line.remove) {
         line.remove();

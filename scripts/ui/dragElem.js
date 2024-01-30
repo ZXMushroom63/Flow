@@ -1,8 +1,10 @@
 function dragElem(elmnt) {
-  var pos1 = 0,
-    pos2 = 0,
-    pos3 = 0,
-    pos4 = 0;
+  var posX = 0,
+    posY = 0,
+    oldX = 0,
+    oldY = 0,
+    oldOffsetLeft = 0,
+    oldOffsetTop = 0;
   if (elmnt.querySelector(".header")) {
     /*/ if present, the header is where you move the DIV from:/*/
     elmnt.querySelector(".header").onmousedown = dragMouseDown;
@@ -16,8 +18,10 @@ function dragElem(elmnt) {
   function dragMouseDown(e) {
     e = e || window.event;
     /*/ get the mouse cursor position at startup:/*/
-    pos3 = typeof e.touches === "object" ? e.touches[0].clientX : e.clientX;
-    pos4 = typeof e.touches === "object" ? e.touches[0].clientY : e.clientY;
+    oldOffsetLeft = elmnt.offsetLeft;
+    oldOffsetTop = elmnt.offsetTop;
+    oldX = typeof e.touches === "object" ? e.touches[0].clientX : e.clientX;
+    oldY = typeof e.touches === "object" ? e.touches[0].clientY : e.clientY;
     document.onmouseup = closeDragElement;
     document.ontouchend = closeDragElement;
     document.ontouchcancel = closeDragElement;
@@ -29,20 +33,19 @@ function dragElem(elmnt) {
 
   function elementDrag(e) {
     e = e || window.event;
-    var dIndex = false&&zoomIndex ? 1/zoomIndex : 1;
+    var dIndex = 1 / zoomIndex;
     /*/ calculate the new cursor position:/*/
-    pos1 =
-      pos3 - (typeof e.touches === "object" ? e.touches[0].clientX : e.clientX);
-    pos2 =
-      pos4 - (typeof e.touches === "object" ? e.touches[0].clientY : e.clientY);
-    pos3 = typeof e.touches === "object" ? e.touches[0].clientX : e.clientX;
-    pos4 = typeof e.touches === "object" ? e.touches[0].clientY : e.clientY;
+    posX =
+      (typeof e.touches === "object" ? e.touches[0].clientX : e.clientX);
+    posY =
+      (typeof e.touches === "object" ? e.touches[0].clientY : e.clientY);
+
 
     /*/ set the element's new position:/*/
-    elmnt.style.top = elmnt.offsetTop - (pos2/dIndex) + "px";
-    elmnt.style.left = elmnt.offsetLeft - (pos1/dIndex) + "px";
-    elmnt.setAttribute("data-y", elmnt.offsetTop - (pos2/dIndex));
-    elmnt.setAttribute("data-x", elmnt.offsetLeft - (pos1/dIndex));
+    elmnt.style.top = (((posY - oldY) / dIndex) + oldOffsetTop) + "px";
+    elmnt.style.left = (((posX - oldX) / dIndex) + oldOffsetLeft) + "px";
+    elmnt.setAttribute("data-y", (((posY - oldY) / dIndex) + oldOffsetTop));
+    elmnt.setAttribute("data-x", (((posX - oldX) / dIndex) + oldOffsetLeft));
 
     if (elmnt.dragListeners) {
       elmnt.dragListeners.forEach((func) => {
@@ -68,10 +71,10 @@ function dragElem(elmnt) {
         .querySelector("#trashbin")
         .getBoundingClientRect();
       if (
-        trashBounds.x < pos3 &&
-        trashBounds.x + trashBounds.width > pos3 &&
-        trashBounds.y < pos4 &&
-        trashBounds.y + trashBounds.width > pos4
+        trashBounds.x < oldX &&
+        trashBounds.x + trashBounds.width > oldX &&
+        trashBounds.y < oldY &&
+        trashBounds.y + trashBounds.width > oldY
       ) {
         if (elmnt["removeListeners"]) {
           elmnt["removeListeners"].forEach((func) => {

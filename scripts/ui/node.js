@@ -31,11 +31,15 @@ function addNodeToCanvas(nodetype, x, y) {
   node.append(title);
   var outputContainer = document.createElement("div");
   outputContainer.classList.add("outputContainer");
+
   nodetype.outputs.forEach((out, index) => {
     var output = document.createElement("div");
     output.innerText = out;
     output["index"] = index;
     output.classList.add("output");
+    if (out.includes("⏩")) {
+      output.classList.add("execout");
+    }
     linkDragHandler(output);
     outputContainer.append(output);
   });
@@ -54,6 +58,31 @@ function addNodeToCanvas(nodetype, x, y) {
     }
   });
   var inputs = document.createElement("table");
+  if (nodetype.command && !nodetype.hat) {
+    var tr = document.createElement("tr");
+    tr.classList.add("inputRow");
+    tr.classList.add("execrow");
+    var td = document.createElement("td");
+    td.classList.add("input");
+    td.onclick = () => {
+      if (td["link"]) {
+        td["link"]["outputNode"]["link"] = null;
+        if (td["link"].remove) {
+          td["link"].remove();
+        }
+        td["link"] = null;
+      }
+    };
+    td.innerText = "Exec ⏩";
+    tr.append(td);
+    inputs.append(tr);
+  }
+  if (nodetype.command) {
+    node.classList.add("command");
+  }
+  if (nodetype.hat) {
+    node.classList.add("hat");
+  }
   nodetype.argv.forEach((argv) => {
     var tr = document.createElement("tr");
     tr.classList.add("inputRow");
@@ -71,7 +100,9 @@ function addNodeToCanvas(nodetype, x, y) {
     var i = document.createElement("input");
     var td2 = document.createElement("td");
     i.classList.add("inputField");
-    i.setAttribute("type", "number");
+    i.setAttribute("type", "text");
+    i.setAttribute("autocomplete", "false");
+    i.setAttribute("spellcheck", "false");
     td2.append(i);
     td.innerText = argv;
     tr.append(td);
@@ -96,10 +127,19 @@ function addNodeToCanvas(nodetype, x, y) {
   node["removeListeners"] = [];
   node["dragListeners"] = [];
   node["cache.tr"] = null;
-  node["getValue"] = function () {
+  node["cache.execout"] = null;
+  node["exec"] = async function () {
+    if (!nodetype.command) {
+      return new Promise((resolve, reject) => {
+        resolve();
+      });
+    }
     var fields = [];
     var iFields =
-      node["cache.tr"] ?? (node["cache.tr"] = node.querySelectorAll("tr"));
+      node["cache.tr"] ?? (node["cache.tr"] = node.querySelectorAll("tr:not(.execrow)"));
+
+    var execout =
+      node["cache.execout"] ?? (node["cache.execout"] = node.querySelectorAll(".execout"));
 
     var cache = {};
     for (let i = 0; i < iFields.length; i++) {
@@ -107,9 +147,58 @@ function addNodeToCanvas(nodetype, x, y) {
       const row = iFields[i];
       if (
         row.childNodes[1]?.childNodes[0]?.value &&
-        parseFloat(row.childNodes[1].childNodes[0].value)
+        row.childNodes[1].childNodes[0].value
       ) {
-        fields.push(parseFloat(row.childNodes[1].childNodes[0].value));
+        fields.push(row.childNodes[1].childNodes[0].value);
+      } else if (
+        row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement
+          ?.parentElement?.["getValue"]
+      ) {
+        const linkNode =
+          row.childNodes[0]["link"]["outputNode"].parentElement.parentElement;
+        ndex = row.childNodes[0]["link"]["outputNode"]["index"];
+        if (cache[linkNode.refId] === undefined) {
+          cache[linkNode.refId] = row.childNodes[0]["link"][
+            "outputNode"
+          ].parentElement.parentElement["getValue"]() || [0];
+        }
+        fields.push(cache[linkNode.refId][ndex]);
+      } else {
+        fields.push(0);
+      }
+      if (row.childNodes[1]?.childNodes[0]) {
+        row.childNodes[1].childNodes[0].setAttribute("placeholder", fields[i]);
+      }
+    }
+    var branchIdx = await nodetype.func.apply(node, fields);
+    branchIdx ||= [0];
+    if (!Array.isArray(branchIdx)) {
+      branchIdx = [branchIdx];
+    }
+    for (let i = 0; i < branchIdx.length; i++) {
+      const idx = branchIdx[i];
+      if (execout[idx] && execout[idx].link) {
+        await execout[idx].link.inputNode.parentElement.parentElement.parentElement["exec"]();
+      }
+    }
+  }
+  node["getValue"] = function () {
+    if (nodetype.command) {
+      return [];
+    }
+    var fields = [];
+    var iFields =
+      node["cache.tr"] ?? (node["cache.tr"] = node.querySelectorAll("tr:not(.execrow)"));
+
+    var cache = {};
+    for (let i = 0; i < iFields.length; i++) {
+      var ndex = 0;
+      const row = iFields[i];
+      if (
+        row.childNodes[1]?.childNodes[0]?.value &&
+        row.childNodes[1].childNodes[0].value
+      ) {
+        fields.push(row.childNodes[1].childNodes[0].value);
       } else if (
         row.childNodes[0]?.["link"]?.["outputNode"]?.parentElement
           ?.parentElement?.["getValue"]

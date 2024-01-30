@@ -2,10 +2,7 @@ addNode("add", {
   alias: ["Add", "addition", "plus", "+"],
   inputs: ["A", "B"],
   func: (a, b) => {
-    if (typeof a !== "number" || typeof b !== "number") {
-      return 0;
-    }
-    return [a + b];
+    return [parseFloat(a) + parseFloat(b)];
   },
   color: "darkcyan",
   doc: "Adds inputs A and B together and then returns it.",
@@ -55,8 +52,8 @@ addNode("power", {
   color: "darkcyan",
   doc: "Returns Base to the power Exponent and then returns it.",
 });
-addNode("if", {
-  alias: ["If"],
+addNode("mathif", {
+  alias: ["Math If"],
   inputs: ["A", "B", "A>B", "A=B", "A<B"],
   func: (a, b, agtb, aeb, alsb) => {
     if (a > b) {

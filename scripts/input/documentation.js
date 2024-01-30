@@ -15,6 +15,7 @@ function displayDocumentation() {
       if (window.library[key].argv.length > 0) {
         var argumentsHeader = document.createElement("h4");
         argumentsHeader.innerText = "Arguments: ";
+        argumentsHeader.style = "margin-bottom: 0;"
         var inputsTable = document.createElement("table");
         for (let i = 0; i < window.library[key].argv.length; i++) {
           var arg = window.library[key].argv[i];

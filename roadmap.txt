@@ -18,3 +18,5 @@ Add more math nodes - Done
 Fix error when deserialise tries to make links to unknown nodes - Done
 Make serialise() not always save the label, only when it is renameable. - Todo
 Add video output node - Todo
+Add image input node - Done
+Fix image input scaling bug - Todo

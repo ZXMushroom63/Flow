@@ -57,6 +57,7 @@ html {
     min-width: 12rem;
     background-color: darkslategray;
     border: 3px solid black;
+    overflow: hidden;
 }
 
 .node .input {
@@ -89,13 +90,16 @@ html {
     border-left: 1px solid white;
     border-top: 1px solid white;
     border-bottom: 1px solid white;
-    width: 2rem;
+    padding-left: 0.2rem;
+    min-width: calc(2rem - 0.2rem);
     text-align: right;
     border-radius: 1rem 0rem 0rem 1rem;
     margin-left: auto;
     margin-top: 0.4rem;
     user-select: none;
     cursor: grab;
+    line-height: 1.5rem;
+    justify-items: center;
 }
 
 .node .outputContainer {
@@ -291,4 +295,23 @@ input[type=number] {
 
 #nodecount {
     padding-left: 2rem;
+}
+input[imageInput] {
+    visibility: hidden;
+    overflow: visible;
+}
+input[imageInput]::before {
+    content: "Select image...";
+    visibility: visible;
+    border: 2px solid rgb(80, 80, 80);
+    border-radius: 4px;
+    text-align: center;
+    background-color: rgb(40, 40, 40);
+    color: white;
+    display: block;
+    margin-top: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding: 0.2rem;
 }

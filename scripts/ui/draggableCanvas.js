@@ -3,8 +3,18 @@ var scrollingUI = {
   x: 0,
   y: 0,
   oldX: 0,
-  oldY: 0,
+  oldY: 0
 };
+function updateLinks() {
+  var n = document.querySelectorAll(".node");
+  n.forEach((node) => {
+    if (typeof node["dragListeners"] === "object") {
+      node["dragListeners"].forEach((func) => {
+        func();
+      });
+    }
+  });
+}
 window.addEventListener("contextmenu", (e) => {
   e.preventDefault();
 });
@@ -58,17 +68,10 @@ window.addEventListener("blur", function (e) {
 function updateScroll() {
   document.querySelector(
     "#canvas"
-  ).style = `transform: translate(${scrollingUI.x}px, ${scrollingUI.y}px);`;
-  var n = document.querySelectorAll(".node");
-  n.forEach((node) => {
-    if (typeof node["dragListeners"] === "object") {
-      node["dragListeners"].forEach((func) => {
-        func();
-      });
-    }
-  });
+  ).style = `transform: translate(${scrollingUI.x}px, ${scrollingUI.y}px) scale(${1 / zoomIndex});`;
+  updateLinks();
 }
-["#toolbar", "#zoomout", "#zoomin", "#trashbin"].forEach(selector=>{
+["#toolbar", "#zoomout", "#zoomin", "#trashbin"].forEach(selector => {
   var elem = document.querySelector(selector);
   elem.addEventListener("mousedown", function (e) {
     if (e.button === 2) {
@@ -77,7 +80,7 @@ function updateScroll() {
     }
   });
   elem.addEventListener("touchstart", function (e) {
-    if (e.touches.length===2) {
+    if (e.touches.length === 2) {
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
