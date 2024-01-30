@@ -34,6 +34,15 @@ addNode("sqrt", {
   color: "darkred",
   doc: `Returns the square-root of x.`,
 });
+addNode("log", {
+  alias: ["Logarithm"],
+  inputs: ["X"],
+  func: (x) => {
+    return [Math.log(x)];
+  },
+  color: "darkred",
+  doc: `Returns the logarithm of x.`,
+});
 addNode("cbrt", {
   alias: ["Cube-Root", "cuberoot"],
   inputs: ["X"],
@@ -56,7 +65,7 @@ addNode("ceil", {
   alias: ["Ceiling", "round up"],
   inputs: ["N"],
   func: (x) => {
-    return [Math.floor(x)];
+    return [Math.ceil(x)];
   },
   color: "darkred",
   doc: `Returns the ceil of N; can be described as rounding up.`,
