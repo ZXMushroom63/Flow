@@ -34,7 +34,7 @@ function addNode(namespace, data = {}) {
     }
   }
   data.func ||= function () {
-    return [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    return [];
   };
   data.color ||= "darkcyan";
   data.init ||= () => {};
