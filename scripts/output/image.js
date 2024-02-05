@@ -51,7 +51,7 @@ addNode("canvas", {
 
       var graph = compileGraph(self);
       graph.calculate(true);
-      var recompiled = eval(recompileGraph(graph));
+      var recompiled = recompileGraph(graph);
 
       canvas.width = self.width;
       rentex.width = canvas.width;

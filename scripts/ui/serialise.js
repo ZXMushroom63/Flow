@@ -109,7 +109,7 @@ function deserialise(serialised) {
         node.querySelector(".header").innerText = nodeData.label;
       }
     });
-    if (nodeData.execInput[0] !== null) {
+    if (nodeData.execInput && nodeData.execInput[0] !== null) {
       makeLink(newNodes[nodeData.execInput[0]].querySelectorAll(".output")[nodeData.execInput[1]], node.querySelector(".execrow td"));
     }
   });

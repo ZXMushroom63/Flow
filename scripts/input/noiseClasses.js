@@ -2,13 +2,10 @@ addNode("simplex", {
   alias: ["Simplex Noise", "noise"],
   inputs: ["x", "y", "seed"],
   func: (x, y, seed) => {
-    if (typeof x !== "number" || typeof y !== "number") {
-      return 0;
+    if ((parseFloat(seed) || 0) !== noise.currentSeed) {
+      noise.seed(parseFloat(seed) || 0);
     }
-    if (typeof seed === "number" && seed !== noise.currentSeed) {
-      noise.seed(seed);
-    }
-    return [noise.simplex2(x, y)];
+    return [noise.simplex2(parseFloat(x) || 0, parseFloat(y) || 0)];
   },
   color: "darkgreen",
   usespkg: ["libs/noise.js"],
@@ -18,13 +15,10 @@ addNode("perlin", {
   alias: ["Perlin Noise", "noise"],
   inputs: ["x", "y", "seed"],
   func: (x, y, seed) => {
-    if (typeof x !== "number" || typeof y !== "number") {
-      return 0;
+    if ((parseFloat(seed) || 0) !== noise.currentSeed) {
+      noise.seed(parseFloat(seed) || 0);
     }
-    if (typeof seed === "number" && seed !== noise.currentSeed) {
-      noise.seed(seed);
-    }
-    return [noise.perlin2(x, y)];
+    return [noise.perlin2(parseFloat(x) || 0, parseFloat(y) || 0)];
   },
   color: "darkgreen",
   usespkg: ["libs/noise.js"],
@@ -34,17 +28,10 @@ addNode("perlin3", {
   alias: ["3D Perlin Noise", "noise"],
   inputs: ["x", "y", "z", "seed"],
   func: (x, y, z, seed) => {
-    if (
-      typeof x !== "number" ||
-      typeof y !== "number" ||
-      typeof z !== "number"
-    ) {
-      return 0;
+    if ((parseFloat(seed) || 0) !== noise.currentSeed) {
+      noise.seed(parseFloat(seed) || 0);
     }
-    if (typeof seed === "number" && seed !== noise.currentSeed) {
-      noise.seed(seed);
-    }
-    return [noise.perlin3(x, y, z)];
+    return [noise.perlin3(parseFloat(x) || 0, parseFloat(y) || 0, parseFloat(z) || 0)];
   },
   color: "darkgreen",
   usespkg: ["libs/noise.js"],
@@ -54,17 +41,10 @@ addNode("simplex3", {
   alias: ["3D Simplex Noise", "noise"],
   inputs: ["x", "y", "z", "seed"],
   func: (x, y, z, seed) => {
-    if (
-      typeof x !== "number" ||
-      typeof y !== "number" ||
-      typeof z !== "number"
-    ) {
-      return 0;
+    if ((parseFloat(seed) || 0) !== noise.currentSeed) {
+      noise.seed(parseFloat(seed) || 0);
     }
-    if (typeof seed === "number" && seed !== noise.currentSeed) {
-      noise.seed(seed);
-    }
-    return [noise.simplex3(x, y, z)];
+    return [noise.simplex3(parseFloat(x) || 0, parseFloat(y) || 0, parseFloat(z) || 0)];
   },
   color: "darkgreen",
   usespkg: ["libs/noise.js"],
@@ -83,17 +63,10 @@ addNode("worley_euclidean", {
   inputs: ["x", "y", "z", "seed"],
   outputs: ["0", "1", "2"],
   func: (x, y, z, seed) => {
-    if (
-      typeof x !== "number" ||
-      typeof y !== "number" ||
-      typeof z !== "number"
-    ) {
-      return 0;
+    if ((parseFloat(seed) || 0) !== noise.worley._seedValue) {
+      noise.worley.setSeed(parseFloat(seed) || 0);
     }
-    if (typeof seed === "number" && seed !== noise.worley._seedValue) {
-      noise.worley.setSeed(seed);
-    }
-    return window.noise.worley.Euclidean(x, y, z);
+    return window.noise.worley.Euclidean(parseFloat(x) || 0, parseFloat(y) || 0, parseFloat(z) || 0);
   },
   color: "darkgreen",
   usespkg: ["libs/worley.js"],
@@ -112,17 +85,10 @@ addNode("worley_manhattan", {
   inputs: ["x", "y", "z", "seed"],
   outputs: ["0", "1", "2"],
   func: (x, y, z, seed) => {
-    if (
-      typeof x !== "number" ||
-      typeof y !== "number" ||
-      typeof z !== "number"
-    ) {
-      return 0;
+    if ((parseFloat(seed) || 0) !== noise.worley._seedValue) {
+      noise.worley.setSeed(parseFloat(seed) || 0);
     }
-    if (typeof seed === "number" && seed !== noise.worley._seedValue) {
-      noise.worley.setSeed(seed);
-    }
-    return window.noise.worley.Manhattan(x, y, z);
+    return window.noise.worley.Manhattan(parseFloat(x) || 0, parseFloat(y) || 0, parseFloat(z) || 0);
   },
   color: "darkgreen",
   usespkg: ["libs/worley.js"],
@@ -141,17 +107,10 @@ addNode("worley_minkovski", {
   inputs: ["x", "y", "z", "seed"],
   outputs: ["0", "1", "2"],
   func: (x, y, z, seed) => {
-    if (
-      typeof x !== "number" ||
-      typeof y !== "number" ||
-      typeof z !== "number"
-    ) {
-      return 0;
+    if ((parseFloat(seed) || 0) !== noise.worley._seedValue) {
+      noise.worley.setSeed(parseFloat(seed) || 0);
     }
-    if (typeof seed === "number" && seed !== noise.worley._seedValue) {
-      noise.worley.setSeed(seed);
-    }
-    return window.noise.worley.Minkovski(x, y, z);
+    return window.noise.worley.Minkovski(parseFloat(x) || 0, parseFloat(y) || 0, parseFloat(z) || 0);
   },
   color: "darkgreen",
   usespkg: ["libs/worley.js"],

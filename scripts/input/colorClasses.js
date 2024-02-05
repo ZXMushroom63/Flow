@@ -29,7 +29,7 @@ addNode("hsl2rgb", {
 
       return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
     }
-    return hslToRgb(h || 0, s || 0, l || 0);
+    return hslToRgb(parseFloat(h) || 0, parseFloat(s) || 0, parseFloat(l) || 0);
   },
   color: "fuchsia",
   outputs: ["R", "G", "B"],
@@ -59,7 +59,7 @@ addNode("rgb2hsl", {
         (100 * (2 * l - s)) / 2,
       ];
     };
-    return RGBToHSL(r || 0, g || 0, b || 0);
+    return RGBToHSL(parseFloat(r) || 0, parseFloat(g) || 0, parseFloat(b) || 0);
   },
   color: "fuchsia",
   outputs: ["H", "S", "L"],

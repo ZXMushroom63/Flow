@@ -38,7 +38,7 @@ addNode("log", {
   alias: ["Logarithm"],
   inputs: ["X"],
   func: (x) => {
-    return [Math.log(x)];
+    return [Math.log10(x)];
   },
   color: "darkred",
   doc: `Returns the logarithm of x.`,
@@ -93,7 +93,7 @@ addNode("collatz", {
   inputs: ["n", "step"],
   func: (n, step) => {
     var num = Math.round(n);
-    step = Math.max(0, step);
+    step = Math.max(0, parseFloat(step));
     step = Math.min(step, 1000);
     for (let i = 0; i < step; i++) {
       if (num === 1) {
@@ -142,7 +142,7 @@ addNode("atan", {
   doc: `Returns the inverse tangent (in degrees) of a number.`,
 });
 addNode("atan2", {
-  alias: ["Angle from A to B"],
+  alias: ["Angle from A to B", "arctan 2"],
   inputs: ["x1", "y1", "x2", "y2"],
   outputs: ["deg"],
   func: (nx1, ny1, nx2, ny2) => {

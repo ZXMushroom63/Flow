@@ -11,10 +11,7 @@ addNode("subtract", {
   alias: ["Minus", "subtract", "subtraction", "-"],
   inputs: ["A", "B"],
   func: (a, b) => {
-    if (typeof a !== "number" || typeof b !== "number") {
-      return 0;
-    }
-    return [a - b];
+    return [parseFloat(a) - parseFloat(b)];
   },
   color: "darkcyan",
   doc: "Subtracts B from A and then returns it.",
@@ -23,10 +20,7 @@ addNode("multiply", {
   alias: ["Multiply", "times", "product", "mult", "*"],
   inputs: ["A", "B"],
   func: (a, b) => {
-    if (typeof a !== "number" || typeof b !== "number") {
-      return 0;
-    }
-    return [a * b];
+    return [parseFloat(a) * parseFloat(b)];
   },
   color: "darkcyan",
   doc: "Multiples A by B and then returns it.",
@@ -35,10 +29,7 @@ addNode("divide", {
   alias: ["Divide", "div", "/"],
   inputs: ["A", "B"],
   func: (a, b) => {
-    if (typeof a !== "number" || typeof b !== "number") {
-      return 0;
-    }
-    return [a / b];
+    return [parseFloat(a) / parseFloat(b)];
   },
   color: "darkcyan",
   doc: "Divides A by B and then returns it.",
@@ -56,9 +47,9 @@ addNode("mathif", {
   alias: ["Math If"],
   inputs: ["A", "B", "A>B", "A=B", "A<B"],
   func: (a, b, agtb, aeb, alsb) => {
-    if (a > b) {
+    if (parseFloat(a) > parseFloat(b)) {
       return [agtb];
-    } else if (b > a) {
+    } else if (parseFloat(b) > parseFloat(a)) {
       return [alsb];
     } else {
       return [aeb];
@@ -74,7 +65,7 @@ addNode("mod", {
   alias: ["Modulo", "remainder", "%"],
   inputs: ["N", "Mod"],
   func: (n, mod) => {
-    return [n % mod];
+    return [parseFloat(n) % parseFloat(mod)];
   },
   color: "darkcyan",
   doc: `Finds the remainder of 'N' over 'Mod'. Eg:
@@ -86,7 +77,7 @@ addNode("min", {
   alias: ["Smallest", "minimum"],
   inputs: ["A", "B"],
   func: (a, b) => {
-    return [Math.min(a, b)];
+    return [Math.min(parseFloat(a), parseFloat(b))];
   },
   color: "darkred",
   doc: `Returns the smallest of A and B.`,
@@ -95,7 +86,7 @@ addNode("max", {
   alias: ["Largest", "maximum", "biggest"],
   inputs: ["A", "B"],
   func: (a, b) => {
-    return [Math.max(a, b)];
+    return [Math.max(parseFloat(a), parseFloat(b))];
   },
   color: "darkred",
   doc: `Returns the largest of A and B.`,
@@ -114,7 +105,7 @@ addNode("clamp", {
   alias: ["Clamp"],
   inputs: ["Value", "Min", "Max"],
   func: (v, min, max) => {
-    return [Math.min(Math.max(v, min), max)];
+    return [Math.min(Math.max(parseFloat(v), parseFloat(min)), parseFloat(max))];
   },
   color: "darkred",
   doc: `Limits 'V' to the Minimum and Maximum values provided.`,
@@ -132,7 +123,7 @@ addNode("rndint", {
   alias: ["Random Integer", "randomint", "randint", "ranint"],
   inputs: ["Min", "Max"],
   func: (min, max) => {
-    return [Math.floor(Math.random() * (max + 1 - min) + min)];
+    return [Math.floor(Math.random() * (parseFloat(max) + 1 - parseFloat(min)) + parseFloat(min))];
   },
   color: "darkred",
   doc: `Returns a random integer between Min and Max.`,
@@ -196,7 +187,7 @@ addNode("lerp", {
   alias: ["Linear Interpolate", "lerper"],
   inputs: ["A", "B", "Alpha"],
   func: (a, b, k) => {
-    return [(b - a) * k + a];
+    return [(parseFloat(b) - parseFloat(a)) * parseFloat(k) + parseFloat(a)];
   },
   color: "darkred",
   doc: `Linear interpolates (blends) between A and B with an Alpha ranging from 0.0 to 1.0. Eg:
