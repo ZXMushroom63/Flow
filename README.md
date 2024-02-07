@@ -1,6 +1,6 @@
 # Flow
-### A node-based programming language engine in JavaScript, geared towards stability, useability and portability.
-Flow itself is stored as a static webpage, which you can fork and customise to your liking. (Just don't remove the terms and conditions popup without reading it first).
+### It's a node editor web app in regular old HTML, CSS and JS.
+
 To use it offline, download the repo as a .zip, extract it, and open `flow.html`.
 
 If you want to use this, I encourage you to read the code. This helps learn a lot more than the tutorial in README.md.
