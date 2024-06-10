@@ -1,3 +1,5 @@
+const search = document.querySelector("#input");
+var previousAddedNodeType = "";
 function positionSuggestions() {
   var s = document.querySelector("#suggestions");
   var bounds = document.querySelector("#input").getBoundingClientRect();
@@ -15,7 +17,39 @@ function showSuggestions() {
 function hideSuggestions() {
   document.querySelector("#suggestions").removeAttribute("visible");
 }
+function enterSuggestions(e) {
+  if (e.key === "ArrowUp") {
+    search.value = previousAddedNodeType;
+    return;
+  }
+  if (e.key !== "Enter") {
+    return;
+  }
+  var value = search.value;
+  var keys = Object.keys(window.library);
+  if (keys.includes(value.toLowerCase())) {
+    previousAddedNodeType = search.value;
+    addNodeToCanvas(window.library[value.toLowerCase()]);
+    search.value = "";
+    hideSuggestions();
+    return;
+  }
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    if (window.library[key].alias.includes(value.toLowerCase())) {
+      previousAddedNodeType = search.value;
+      addNodeToCanvas(window.library[key]);
+      search.value = "";
+      hideSuggestions();
+      break;
+    }
+  }
+}
 function updateSuggestions(e) {
+  if (search.value !== "") {
+    positionSuggestions();
+    document.querySelector("#suggestions").setAttribute("visible", "true");
+  }
   document.querySelector("#suggestions").innerHTML = "";
   var results = {};
   var name = e.target.value;
@@ -37,6 +71,7 @@ function updateSuggestions(e) {
       r.innerText = results[key];
       r.onmousedown = () => {
         e.target.value = key;
+        previousAddedNodeType = key;
         addNodeToCanvas(window.library[key]);
       };
       document.querySelector("#suggestions").append(r);
@@ -46,10 +81,9 @@ function updateSuggestions(e) {
 }
 window.addEventListener("resize", positionSuggestions);
 
-const search = document.querySelector("#input");
-
 search.addEventListener("focus", showSuggestions);
 search.addEventListener("keyup", updateSuggestions);
+search.addEventListener("keydown", enterSuggestions);
 search.addEventListener("blur", hideSuggestions);
 
 positionSuggestions();

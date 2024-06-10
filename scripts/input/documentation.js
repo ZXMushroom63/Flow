@@ -4,9 +4,13 @@ function displayDocumentation() {
     var keys = Object.keys(documentation);
     keys.forEach((key) => {
       var title = window.library[key].alias[0];
+      var isCommand = window.library[key].command;
       var h2 = document.createElement("h2");
       h2.style.borderTop = "1px solid black";
       h2.innerText = title;
+      if (isCommand) {
+        h2.innerText = "⏩ " + h2.innerText;
+      }
       var p = document.createElement("p");
       p.innerHTML = window.documentation[key];
       docWin.document.body.appendChild(h2);

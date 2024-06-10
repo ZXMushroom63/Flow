@@ -94,15 +94,15 @@ addNode("worley_manhattan", {
   usespkg: ["libs/worley.js"],
   doc: `Returns the worley manhattan noise of X, Y and Z with the Seed and index, a number ranging from 0.0 to 1.0.`,
 });
-addNode("worley_minkovski", {
+addNode("worley_minkowski", {
   alias: [
-    "Worley Noise (Minkovski)",
+    "Worley Noise (Minkowski)",
     "cellnoise",
     "cell",
     "voronoi",
     "noise",
     "worley",
-    "minkovski",
+    "minkowski",
   ],
   inputs: ["x", "y", "z", "seed"],
   outputs: ["0", "1", "2"],
@@ -110,9 +110,31 @@ addNode("worley_minkovski", {
     if ((parseFloat(seed) || 0) !== noise.worley._seedValue) {
       noise.worley.setSeed(parseFloat(seed) || 0);
     }
-    return window.noise.worley.Minkovski(parseFloat(x) || 0, parseFloat(y) || 0, parseFloat(z) || 0);
+    return window.noise.worley.Minkowski(parseFloat(x) || 0, parseFloat(y) || 0, parseFloat(z) || 0);
   },
   color: "darkgreen",
   usespkg: ["libs/worley.js"],
-  doc: `Returns the worley minkovski noise of X, Y and Z with the Seed and index, a number ranging from 0.0 to 1.0.`,
+  doc: `Returns the worley minkowski noise of X, Y and Z with the Seed and index, a number ranging from 0.0 to 1.0.`,
+});
+addNode("worley_chebyshev", {
+  alias: [
+    "Worley Noise (Chebyshev)",
+    "cellnoise",
+    "cell",
+    "voronoi",
+    "noise",
+    "worley",
+    "chebyshev",
+  ],
+  inputs: ["x", "y", "z", "seed"],
+  outputs: ["0", "1", "2"],
+  func: (x, y, z, seed) => {
+    if ((parseFloat(seed) || 0) !== noise.worley._seedValue) {
+      noise.worley.setSeed(parseFloat(seed) || 0);
+    }
+    return window.noise.worley.Chebyshev(parseFloat(x) || 0, parseFloat(y) || 0, parseFloat(z) || 0);
+  },
+  color: "darkgreen",
+  usespkg: ["libs/worley.js"],
+  doc: `Returns the worley chebyshev noise of X, Y and Z with the Seed and index, a number ranging from 0.0 to 1.0.`,
 });

@@ -61,18 +61,6 @@ addNode("mathif", {
     <br>If 'A' is equal to 'B', it returns the value of the input labeled 'A=B'.
     `,
 });
-addNode("mod", {
-  alias: ["Modulo", "remainder", "%"],
-  inputs: ["N", "Mod"],
-  func: (n, mod) => {
-    return [parseFloat(n) % parseFloat(mod)];
-  },
-  color: "darkcyan",
-  doc: `Finds the remainder of 'N' over 'Mod'. Eg:
-    <br> 0 mod 2 = 0;
-    <br> 1 mod 2 = 1;
-    <br> 2 mod 2 = 0;`,
-});
 addNode("min", {
   alias: ["Smallest", "minimum"],
   inputs: ["A", "B"],
@@ -110,7 +98,6 @@ addNode("clamp", {
   color: "darkred",
   doc: `Limits 'V' to the Minimum and Maximum values provided.`,
 });
-
 addNode("rnd", {
   alias: ["Random (0.0-1.0)", "random", "rand", "ran"],
   func: () => {
@@ -123,7 +110,16 @@ addNode("rndint", {
   alias: ["Random Integer", "randomint", "randint", "ranint"],
   inputs: ["Min", "Max"],
   func: (min, max) => {
-    return [Math.floor(Math.random() * (parseFloat(max) + 1 - parseFloat(min)) + parseFloat(min))];
+    return [Math.floor(Math.random() * (parseInt(max) + 1 - parseInt(min)) + parseInt(min))];
+  },
+  color: "darkred",
+  doc: `Returns a random integer between Min and Max.`,
+});
+addNode("rndfloat", {
+  alias: ["Random Decimal", "randomfloat", "randfloat", "ranfloat"],
+  inputs: ["Min", "Max"],
+  func: (min, max) => {
+    return [Math.random() * (parseFloat(max) - parseFloat(min)) + parseFloat(min)];
   },
   color: "darkred",
   doc: `Returns a random integer between Min and Max.`,
@@ -137,64 +133,6 @@ addNode("rndchoose", {
   },
   color: "darkred",
   doc: `Randomly returns A or B`,
-});
-addNode("root", {
-  alias: ["Root", "n-root"],
-  inputs: ["Num", "Root Index"],
-  func: (n, i) => {
-    var b = Math.pow(i, -1);
-    return [Math.pow(n, b)];
-  },
-  color: "darkred",
-  doc: `Gets the root of a number. Eg:
-    <br>25 root 2 = 5;
-    <br>125 root 3 = 5;
-    <br>36 root 2 = 6;`,
-});
-addNode("sin", {
-  alias: ["Sine"],
-  inputs: ["deg"],
-  func: (deg) => {
-    return [Math.sin(deg * (Math.PI / 180))];
-  },
-  color: "darkred",
-  doc: `Gets the sine of the angle in degrees provided.`,
-});
-addNode("cos", {
-  alias: ["Cosine"],
-  inputs: ["deg"],
-  func: (deg) => {
-    return [Math.cos(deg * (Math.PI / 180))];
-  },
-  color: "darkred",
-  doc: `Gets the cosine of the angle in degrees provided.`,
-});
-addNode("abs", {
-  alias: ["Absolute"],
-  inputs: ["Num"],
-  func: (n) => {
-    return [Math.abs(n)];
-  },
-  color: "darkred",
-  doc: `Returns the absolute of the input number Can be described as removing the number's sign. Eg:
-    <br>Abs(4)=4;
-    <br>Abs(-3)=3;
-    <br>Abs(0)=0;
-    <br>Abs(-1)=1;
-    `,
-});
-addNode("lerp", {
-  alias: ["Linear Interpolate", "lerper"],
-  inputs: ["A", "B", "Alpha"],
-  func: (a, b, k) => {
-    return [(parseFloat(b) - parseFloat(a)) * parseFloat(k) + parseFloat(a)];
-  },
-  color: "darkred",
-  doc: `Linear interpolates (blends) between A and B with an Alpha ranging from 0.0 to 1.0. Eg:
-    <br>Lerping with A=0, B=10, Alpha=0.0 returns 0.
-    <br>Lerping with A=0, B=10, Alpha=0.5 returns 5.
-    <br>Lerping with A=0, B=10, Alpha=1.0 returns 10.
-    `,
 });
 addNode("time", {
   alias: ["Time (ms)", "current time", "t"],
@@ -217,9 +155,25 @@ addNode("comment", {
   init: function () {
     var container = document.createElement("div");
     container.innerText = "Comment Text Here";
-    container.style = `width: 100%; height: 100%; color: white; outline: 0 !important;`;
+    container.style = `width: 100%; height: 100%; color: white; outline: 0 !important; white-space: nowrap;`;
     container.contentEditable = true;
     container.setAttribute("data-container", "");
     this.append(container);
   },
+});
+addNode("hash", {
+  alias: ["Hash"],
+  inputs: ["x"],
+  func: (x) => {
+    const inputString = "" + x;
+    let hash = 0;
+    for (let i = 0; i < inputString.length; i++) {
+      const charCode = inputString.charCodeAt(i);
+      hash = (hash << 5) - hash + charCode;
+      hash = hash & hash;
+    }
+    return [(Math.abs(hash) / 32767) % 1];
+  },
+  color: "darkred",
+  doc: `Calculated a hash between 0.0 and 1.0 for the input provided.`,
 });

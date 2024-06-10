@@ -19,8 +19,18 @@
           <span style="padding-right: 4rem">Flow</span>
         </td>
         <td>
-          <div class="btn" role="button" style="width: 1.5rem" onclick="displayDocumentation()">
+          <div class="btn" role="button" style="width: 1.3rem" onclick="displayDocumentation()">
             ?
+          </div>
+        </td>
+        <td>
+          <div class="btn" role="button" style="width: 1.3rem" onclick="gotoCenter()">
+            🎯
+          </div>
+        </td>
+        <td>
+          <div class="btn" role="button" style="width: 1.3rem" onclick="openExtensionMenu()">
+            🧩
           </div>
         </td>
         <td>
@@ -35,8 +45,8 @@
           <div class="btn" role="button" onclick="loadProject()">Load</div>
         </td>
         <td>
-          <input id="input" contenteditable="true"
-            placeholder="Search..." autocomplete="off" spellcheck="false" >
+          <input id="input" contenteditable="true" placeholder="Search..." autocomplete="off" spellcheck="false">
+        </td>
   </div>
   </td>
   <td>
@@ -44,9 +54,6 @@
   </td>
   <td id="nodecount">
     0⬒
-  </td>
-  <td>
-    <div class="btn" role="button" onclick="startHats('start')">Run</div>
   </td>
   </tr>
   </table>
@@ -82,11 +89,12 @@
   <script src="libs/worley.js"></script>
   <script src="libs/soundplayer.js"></script>
   <script src="libs/sfx.js"></script>
+  <script src="libs/varmap.js"></script>
 
   <!-- Value, Logic & Hat Nodes -->
   <script src="scripts/input/index.js"></script>
-  <script src="scripts/input/logic.js"></script>
   <script src="scripts/input/math.js"></script>
+  <script src="scripts/input/image.js"></script>
   <script src="scripts/input/classes.js"></script>
   <script src="scripts/input/vectorClasses.js"></script>
   <script src="scripts/input/colorClasses.js"></script>
@@ -102,7 +110,9 @@
   <script src="scripts/output/vector3.js"></script>
   <script src="scripts/output/vector4.js"></script>
   <script src="scripts/output/soundwave.js"></script>
+  <script src="scripts/output/graph.js"></script>
   <script src="scripts/output/image.js"></script>
+  <script src="scripts/extensions.js"></script>
 
   <!-- UI stuff -->
   <script src="scripts/ui/events.js"></script>
@@ -116,8 +126,6 @@
   <script src="scripts/ui/suggestions.js"></script>
   <script src="scripts/ui/nodecount.js"></script>
 
-  <!-- Mod loader with no front-end -->
-  <script src="scripts/mods.js"></script>
 </body>
 
 </html>

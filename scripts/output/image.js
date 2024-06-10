@@ -8,13 +8,14 @@ addNode("canvas", {
   alias: ["Canvas (2D)", "render", "rentex", "2drentex", "pixel", "rgb", "rgba"],
   inputs: ["R", "G", "B", "A", "Width", "Height"],
   outputs: [],
+  renameable: true,
   func: function (r, g, b, a, width, height) {
     this.r = r;
     this.g = g;
     this.b = b;
     this.a = a;
-    this.width = width || 255;
-    this.height = height || 255;
+    this.width = Math.floor(width) || 255;
+    this.height = Math.floor(height) || 255;
     return [];
   },
   init: function () {
@@ -39,8 +40,11 @@ addNode("canvas", {
     downloadBtn.addEventListener("click", function () {
       var link = document.createElement("a");
       link.download = "rentex.png";
-      link.href = canvas.toDataURL();
-      link.click();
+      canvas.toBlob(blob => {
+        link.href = URL.createObjectURL(blob);
+        link.click();
+        URL.revokeObjectURL(blob);
+      });
     });
     renderBtn.addEventListener("click", function () {
       if (flags.benchmarking) {
@@ -52,7 +56,6 @@ addNode("canvas", {
       var graph = compileGraph(self);
       graph.calculate(true);
       var recompiled = recompileGraph(graph);
-
       canvas.width = self.width;
       rentex.width = canvas.width;
       canvas.height = self.height;
@@ -60,9 +63,10 @@ addNode("canvas", {
       var ctx = canvas.getContext("2d");
       var imageData = ctx.createImageData(self.width, self.height);
       var data = imageData.data;
+      var aspectRatio = (self.width / self.height);
       for (let i = 0; i < data.length; i += 4) {
         rentex.rx = (i / 4) % self.width;
-        rentex.ry = Math.floor(i / 4 / self.height);
+        rentex.ry = Math.floor(i / 4 / self.height / aspectRatio);
         recompiled();
         data[i] = self.r;
         data[i + 1] = self.g;

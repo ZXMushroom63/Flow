@@ -89,6 +89,9 @@ function deserialise(serialised) {
     if (nodeData.type === "comment") {
       n.querySelector("div[data-container]").innerText = nodeData.commentText || "Comment Text Here";
     }
+    if(nodeData.label) {
+      n.querySelector(".header").innerText = nodeData.label;
+    }
   });
   var newNodes = document.querySelectorAll(".node");
   serialised.nodes.forEach((nodeData, index) => {
@@ -104,9 +107,6 @@ function deserialise(serialised) {
           newNodes[iData.link].querySelectorAll(".output")[iData.outputIndex || 0],
           row.childNodes[0]
         );
-      }
-      if(nodeData.label) {
-        node.querySelector(".header").innerText = nodeData.label;
       }
     });
     if (nodeData.execInput && nodeData.execInput[0] !== null) {
@@ -172,7 +172,23 @@ window.addEventListener("beforeunload", () => {
     valid = false;
   }
   if (valid) {
-    deserialise(json);
+    async function waitUntilReady() {
+      if (window.extensionsLoaded) {
+        deserialise(json);
+        return;
+      }
+      await (()=>{
+        return new Promise((res, rej)=>{
+          setTimeout(()=>{res()}, 50);
+        })
+      })();
+      if (window.extensionsLoaded) {
+        deserialise(json);
+      } else {
+        waitUntilReady();
+      }
+    }
+    waitUntilReady();
   } else {
     var constant = addNodeToCanvas(window.library["const"], 50, 50);
     var a = constant.querySelector(".output");

@@ -17,7 +17,7 @@ function zoomOut() {
   zoomIndex += 0.25;
   zoomIndex = Math.max(zoomIndex, 0.75);
   zoomIndex = Math.min(zoomIndex, 2.5);
-  updateScroll();
+  updateScroll(true);
 }
 window.addEventListener("keydown", (e) => {
   if (

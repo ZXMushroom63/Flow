@@ -11,14 +11,14 @@ function addNodeToCanvas(nodetype, x, y) {
 
   node.setAttribute("data-type", nodetype.namespace);
   node.classList.add("node");
-  x === undefined ? (x = bounds.width / 4) : null;
-  y === undefined ? (y = bounds.height / 4) : null;
+  x === undefined ? (x = bounds.width / 3) : null;
+  y === undefined ? (y = bounds.height / 3) : null;
   node.style = `
-    top:${y - bounds.y};
-    left:${x - bounds.x};
+    top:${(y - bounds.y)/(1/zoomIndex)};
+    left:${(x - bounds.x)/(1/zoomIndex)};
     `;
-  node.setAttribute("data-y", y - bounds.y);
-  node.setAttribute("data-x", x - bounds.x);
+  node.setAttribute("data-y", (y - bounds.y)/(1/zoomIndex));
+  node.setAttribute("data-x", (x - bounds.x)/(1/zoomIndex));
   var title = document.createElement("span");
   title.innerText = nodetype.title;
   ``;
@@ -56,7 +56,7 @@ function addNodeToCanvas(nodetype, x, y) {
       e.stopPropagation();
       e.stopImmediatePropagation();
     }
-  });
+  }, {passive: false});
   var inputs = document.createElement("table");
   if (nodetype.command && !nodetype.hat) {
     var tr = document.createElement("tr");
@@ -250,5 +250,6 @@ function insertNode() {
   if (!window.library[results[0]]) {
     return;
   }
+  previousAddedNodeType = results[0];
   addNodeToCanvas(window.library[results[0]]);
 }

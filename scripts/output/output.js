@@ -10,6 +10,23 @@ addNode("output", {
   renameable: true,
   init: function () {
     var self = this;
+    var display = document.createElement("div");
+    display.innerText = "0.00";
+    display.style = `
+    background-color: rgb(20,20,20);
+    color: rgb(240,240,240);
+    text-align: center;
+    height: 3rem;
+    line-height: 3rem;
+    font-size: 3rem;
+    border-radius: 0.5rem;
+    border: 2px solid rgb(40,40,40);
+    padding: 0.1rem;
+    margin-top: 1.5rem;
+    white-space: nowrap;
+    `;
+    self.append(display);
+    
     var exportBtn = document.createElement("div");
     exportBtn.classList.add("btn");
     exportBtn.innerText = "Export";
@@ -75,13 +92,19 @@ addNode("output", {
     });
     self.append(exportBtn);
 
-    let calculationsPerSecond = 3;
+    let calculationsPerSecond = 10;
 
     let delay = 1000 / calculationsPerSecond;
     let getVal = self.getValue;
     function run() {
       setTimeout(() => {
-        getVal();
+        display.innerText = (parseFloat(getVal()[0]) || 0.0).toFixed(3);
+        if (display.innerText.length > 7) {
+          display.innerText = display.innerText.split(".")[0];
+        }
+        if (display.innerText.length > 7) {
+          display.innerText = parseFloat(display.innerText).toExponential(2);
+        }
         run();
       }, delay);
     }

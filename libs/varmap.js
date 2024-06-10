@@ -1,0 +1,1 @@
+window.varMap = new Map();

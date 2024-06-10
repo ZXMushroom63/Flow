@@ -4,6 +4,7 @@ addNode("hsl2rgb", {
   func: (h, s, l) => {
     function hslToRgb(h, s, l) {
       h /= 360;
+      h = h % 1;
       s /= 100;
       l /= 100;
       var r, g, b;
@@ -35,7 +36,6 @@ addNode("hsl2rgb", {
   outputs: ["R", "G", "B"],
   doc: "Converts hue, saturation and lightness inputs into red, green and blue.",
 });
-
 addNode("rgb2hsl", {
   alias: ["RGB to HSL", "hsv", "rgb", "hsl"],
   inputs: ["R", "G", "B"],

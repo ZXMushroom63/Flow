@@ -93,8 +93,9 @@ addNode("collatz", {
   inputs: ["n", "step"],
   func: (n, step) => {
     var num = Math.round(n);
-    step = Math.max(0, parseFloat(step));
+    step = Math.max(0, parseInt(step));
     step = Math.min(step, 1000);
+    var idx = 0;
     for (let i = 0; i < step; i++) {
       if (num === 1) {
         break;
@@ -105,9 +106,38 @@ addNode("collatz", {
         num *= 3;
         num += 1;
       }
+      idx = i;
     }
-    return [num];
+    return [num, idx];
   },
+  outputs: ["O", "# Steps"],
+  color: "darkred",
+  doc: `Oh no.`,
+});
+addNode("ncollatz", {
+  alias: ["xn+1"],
+  inputs: ["n", "step", "x"],
+  func: (n, step, x) => {
+    var num = Math.round(n);
+    var xn = parseInt(x);
+    step = Math.max(0, parseInt(step));
+    step = Math.min(step, 1000);
+    var idx = 0;
+    for (let i = 0; i < step; i++) {
+      if (num === 1) {
+        break;
+      }
+      if (num % 2 === 0) {
+        num /= 2;
+      } else {
+        num *= xn;
+        num += 1;
+      }
+      idx = i;
+    }
+    return [num, idx];
+  },
+  outputs: ["O", "# Steps"],
   color: "darkred",
   doc: `Oh no.`,
 });
@@ -155,4 +185,74 @@ addNode("atan2", {
   },
   color: "darkred",
   doc: `Returns the angle from point A to point B.`,
+});
+addNode("sin", {
+  alias: ["Sine"],
+  inputs: ["deg"],
+  func: (deg) => {
+    return [Math.sin(deg * (Math.PI / 180))];
+  },
+  color: "darkred",
+  doc: `Gets the sine of the angle in degrees provided.`,
+});
+addNode("cos", {
+  alias: ["Cosine"],
+  inputs: ["deg"],
+  func: (deg) => {
+    return [Math.cos(deg * (Math.PI / 180))];
+  },
+  color: "darkred",
+  doc: `Gets the cosine of the angle in degrees provided.`,
+});
+addNode("abs", {
+  alias: ["Absolute"],
+  inputs: ["Num"],
+  func: (n) => {
+    return [Math.abs(n)];
+  },
+  color: "darkred",
+  doc: `Returns the absolute of the input number Can be described as removing the number's sign. Eg:
+    <br>Abs(4)=4;
+    <br>Abs(-3)=3;
+    <br>Abs(0)=0;
+    <br>Abs(-1)=1;
+    `,
+});
+addNode("lerp", {
+  alias: ["Linear Interpolate", "lerper"],
+  inputs: ["A", "B", "Alpha"],
+  func: (a, b, k) => {
+    return [(parseFloat(b) - parseFloat(a)) * parseFloat(k) + parseFloat(a)];
+  },
+  color: "darkred",
+  doc: `Linear interpolates (blends) between A and B with an Alpha ranging from 0.0 to 1.0. Eg:
+    <br>Lerping with A=0, B=10, Alpha=0.0 returns 0.
+    <br>Lerping with A=0, B=10, Alpha=0.5 returns 5.
+    <br>Lerping with A=0, B=10, Alpha=1.0 returns 10.
+    `,
+});
+addNode("root", {
+  alias: ["Root", "n-root"],
+  inputs: ["Num", "Root Index"],
+  func: (n, i) => {
+    var b = Math.pow(i, -1);
+    return [Math.pow(n, b)];
+  },
+  color: "darkred",
+  doc: `Gets the root of a number. Eg:
+    <br>25 root 2 = 5;
+    <br>125 root 3 = 5;
+    <br>36 root 2 = 6;`,
+});
+addNode("mod", {
+  alias: ["Modulo", "remainder", "%"],
+  inputs: ["N", "Mod"],
+  func: (n, mod) => {
+    return [parseFloat(n) % parseFloat(mod)];
+  },
+  color: "darkcyan",
+  doc: `Finds the remainder of 'N' over 'Mod'. Eg:
+    <br> 0 mod 2 = 0;
+    <br> 1 mod 2 = 1;
+    <br> 2 mod 2 = 0;`,
 });

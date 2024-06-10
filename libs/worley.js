@@ -35,14 +35,19 @@ class Worley {
     return Worley.d(p1, p2).reduce((sum, x) => sum + Math.abs(x), 0);
   }
 
-  static MinkovskiDistance(p1, p2) {
+  static MinkowskiDistance(p1, p2) {
     var x = Worley.d(p1, p2);
     return Math.pow(
       Math.pow(Math.abs(x[0]), 3) +
-        Math.pow(Math.abs(x[1]), 3) +
-        Math.pow(Math.abs(x[2]), 3),
+      Math.pow(Math.abs(x[1]), 3) +
+      Math.pow(Math.abs(x[2]), 3),
       0.33333
     );
+  }
+
+  static ChebyshevDistance(p1, p2) {
+    var x = Worley.d(p1, p2);
+    return Math.max(Math.abs(x[0]), Math.abs(x[1], Math.abs(x[2])));
   }
 
   static probLookup(value) {
@@ -123,8 +128,13 @@ class Worley {
   Manhattan(x, y, z) {
     return this.noise({ x: x, y: y, z: z }, Worley.ManhattanDistance);
   }
-  Minkovski(x, y, z) {
-    return this.noise({ x: x, y: y, z: z }, Worley.MinkovskiDistance);
+
+  Minkowski(x, y, z) {
+    return this.noise({ x: x, y: y, z: z }, Worley.MinkowskiDistance);
+  }
+
+  Chebyshev(x, y, z) {
+    return this.noise({ x: x, y: y, z: z }, Worley.ChebyshevDistance);
   }
 }
 if (!window.noise) {

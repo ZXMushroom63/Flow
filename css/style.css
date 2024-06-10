@@ -117,6 +117,7 @@ html {
     top: 0;
     left: 0;
     right: 0;
+    white-space: nowrap;
     text-align: center;
     height: 2rem;
     line-height: 2rem;
@@ -171,7 +172,8 @@ html {
     width: 6rem;
     text-align: center;
     color: white;
-    padding-top: 1rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.2rem;
     border: 1px solid white;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
     cursor: pointer;
@@ -186,11 +188,13 @@ html {
     background-color: grey;
     height: 1.5rem;
     border-radius: 1rem;
-    width: 4rem;
+    width: fit-content;
     text-align: center;
     color: white;
-    padding: 0.2rem;
-    padding-top: 0.5rem;
+    padding: 0.3rem;
+    padding-top: 0.4rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
     border: 1px solid white;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
     cursor: pointer;

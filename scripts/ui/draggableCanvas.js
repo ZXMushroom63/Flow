@@ -25,6 +25,13 @@ window.addEventListener("mousedown", (e) => {
     scrollingUI.oldY = e.y;
   }
 });
+window.addEventListener('wheel', event => {
+  const { ctrlKey } = event;
+  if (ctrlKey) {
+     event.preventDefault();
+     return;
+  }
+}, { passive: false });
 window.addEventListener("touchstart", function (e) {
   if (e.touches.length === 2) {
     e.preventDefault();
@@ -32,7 +39,7 @@ window.addEventListener("touchstart", function (e) {
     scrollingUI.oldX = e.touches[0].clientX;
     scrollingUI.oldY = e.touches[0].clientY;
   }
-});
+}, {passive: false});
 window.addEventListener("touchend", function () {
   scrollingUI.scrolling = false;
 });
@@ -65,7 +72,17 @@ window.addEventListener("mousemove", (e) => {
 window.addEventListener("blur", function (e) {
   scrollingUI.scrolling = false;
 });
-function updateScroll() {
+function gotoCenter() {
+  scrollingUI.x = 0;
+  scrollingUI.y = 0;
+  scrollingUI.oldX = 0;
+  scrollingUI.oldY = 0;
+  updateScroll();
+}
+function updateScroll(isZoomUpdate) {
+  if (isZoomUpdate) {
+    //
+  }
   document.querySelector(
     "#canvas"
   ).style = `transform: translate(${scrollingUI.x}px, ${scrollingUI.y}px) scale(${1 / zoomIndex});`;
@@ -85,5 +102,5 @@ function updateScroll() {
       e.stopPropagation();
       e.stopImmediatePropagation();
     }
-  });
+  }, {passive: false});
 })

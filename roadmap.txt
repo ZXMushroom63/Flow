@@ -17,6 +17,14 @@ Add vector2 outputs, vector3 outputs and vector4 outputs - Done
 Add more math nodes - Done
 Fix error when deserialise tries to make links to unknown nodes - Done
 Make serialise() not always save the label, only when it is renameable. - Done
-Add video output node - Cancelled
-Add image input node - Cancelled (Too unstable)
+Add video output node - Cancelled (performance unuseable)
+Add image input node - Done
 Keyboard nodes - Done
+Replace canvas download method with blob - Done
+Add chebyshev worley noise - Done
+Fix naming of Minkowski noise - Done
+Documentation of command nodes is now indicated in the title - Done
+Graph output - Done
+3D viz node - Done
+Logic extension - Done
+vector2 out has preview - Done
