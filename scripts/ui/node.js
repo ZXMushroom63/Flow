@@ -96,8 +96,10 @@ function addNodeToCanvas(nodetype, x, y) {
         }
         td["link"] = null;
       }
+      window.graphUpdateListeners.forEach(listener => {listener()});
     };
     var i = document.createElement("input");
+    i.addEventListener("blur", ()=>{window.graphUpdateListeners.forEach(listener => {listener()});});
     var td2 = document.createElement("td");
     i.classList.add("inputField");
     i.setAttribute("type", "text");
@@ -122,6 +124,7 @@ function addNodeToCanvas(nodetype, x, y) {
       node.remove();
       node.removeAttribute("grabbing");
       soundEffect("delete");
+      window.graphUpdateListeners.forEach(listener => {listener()});
     }
   });
   node["removeListeners"] = [];
@@ -227,6 +230,7 @@ function addNodeToCanvas(nodetype, x, y) {
   if (typeof nodetype.init === "function") {
     nodetype.init.apply(node);
   }
+  window.graphUpdateListeners.forEach(listener => {listener()});
   return node;
 }
 function insertNode() {

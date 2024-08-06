@@ -83,6 +83,7 @@ function dragElem(elmnt) {
           });
           elmnt.remove();
           soundEffect("delete");
+          window.graphUpdateListeners.forEach(listener => {listener()});
         }
       }
     }

@@ -39,6 +39,7 @@ function linkDragHandler(outputElem) {
     );
     document.querySelector("#linkCanvas").appendChild(line);
     soundEffect("click");
+    window.graphUpdateListeners.forEach(listener => {listener()});
   }
 
   function elementDrag(e) {
@@ -103,6 +104,7 @@ function linkDragHandler(outputElem) {
         soundEffect("connect");
 
         makeLink(outputElem, el);
+        window.graphUpdateListeners.forEach(listener => {listener()});
       }
     } else {
       if (line.remove) {

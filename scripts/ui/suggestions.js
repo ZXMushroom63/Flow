@@ -36,12 +36,22 @@ function enterSuggestions(e) {
   }
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
-    if (window.library[key].alias.includes(value.toLowerCase())) {
+    if (key.toLowerCase().includes(value.toLowerCase())) {
       previousAddedNodeType = search.value;
       addNodeToCanvas(window.library[key]);
       search.value = "";
       hideSuggestions();
-      break;
+      return;
+    }
+    for (let j = 0; j < window.library[key].alias.length; j++) {
+      const alias = window.library[key].alias[j];
+      if (alias.toLowerCase().includes(value.toLowerCase())) {
+        previousAddedNodeType = search.value;
+        addNodeToCanvas(window.library[key]);
+        search.value = "";
+        hideSuggestions();
+        return;
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 var extensionMap = {
     "logic": ["extensions/logic.js"],
     "3D Viewer": ["libs/three.min.js", "extensions/3dviewer.js"],
+    "Functions": ["libs/fnmap.js", "extensions/functions.js"]
 }
 window.extensionsLoaded = false;
 window.extensionCounter = 0;

@@ -67,10 +67,10 @@ addNode("3dplane", {
             var imageData = ctx.createImageData(canvas.width, canvas.height);
             var data = imageData.data;
             for (let i = 0; i < data.length; i += 4) {
-                rentex.rx = (i / 4) % canvas.width;
-                rentex.ry = Math.floor(i / 4 / canvas.height);
+                rentex.rx = ((i / 4) % canvas.width) / canvas.width;
+                rentex.ry = Math.floor(i / 4 / canvas.height) / canvas.height;
                 recompiled();
-                data[i] = self.displacement;
+                data[i] = self.displacement * 255;
                 data[i + 3] = 255;
             }
             ctx.putImageData(imageData, 0, 0);

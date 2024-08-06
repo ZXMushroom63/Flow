@@ -116,6 +116,7 @@ function deserialise(serialised) {
   scrollingUI.x = serialised.cx || 0;
   scrollingUI.y = serialised.cy || 0;
   updateScroll();
+  window.graphUpdateListeners.forEach(listener => {listener()});
 }
 
 function exportProject() {

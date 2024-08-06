@@ -1,6 +1,6 @@
 window.library = {};
 window.documentation = {};
-
+window.graphUpdateListeners = [];
 function addNode(namespace, data = {}) {
   if (!namespace) {
     return;

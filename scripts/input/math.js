@@ -244,15 +244,36 @@ addNode("root", {
     <br>125 root 3 = 5;
     <br>36 root 2 = 6;`,
 });
-addNode("mod", {
-  alias: ["Modulo", "remainder", "%"],
-  inputs: ["N", "Mod"],
-  func: (n, mod) => {
-    return [parseFloat(n) % parseFloat(mod)];
+addNode("distance_euclidean", {
+  alias: ["Euclidean Distance", "euclidean", "euclid", "distance", "dist"],
+  inputs: ["Δx", "Δy"],
+  func: (x, y) => {
+    const dx = parseFloat(x);
+    const dy = parseFloat(y);
+    return [Math.sqrt(dx * dx + dy * dy)];
   },
   color: "darkcyan",
-  doc: `Finds the remainder of 'N' over 'Mod'. Eg:
-    <br> 0 mod 2 = 0;
-    <br> 1 mod 2 = 1;
-    <br> 2 mod 2 = 0;`,
+  doc: `Returns the Euclidean distance of delta x and delta y.`,
+});
+addNode("distance_manhattan", {
+  alias: ["Manhattan Distance", "manhattan", "manhat", "mdist"],
+  inputs: ["Δx", "Δy"],
+  func: (x, y) => {
+    const dx = parseFloat(x);
+    const dy = parseFloat(y);
+    return [Math.sqrt(dx * dx + dy * dy)];
+  },
+  color: "darkcyan",
+  doc: `Returns the Manhattan distance of delta x and delta y.`,
+});
+addNode("distance_chebyshev", {
+  alias: ["Chebyshev Distance", "chebyshev", "cheb"],
+  inputs: ["Δx", "Δy"],
+  func: (x, y) => {
+    const dx = parseFloat(x);
+    const dy = parseFloat(y);
+    return [Math.max(Math.abs(dx), Math.abs(dy))];
+  },
+  color: "darkcyan",
+  doc: `Returns the Chebyshev distance of delta x and delta y.`,
 });

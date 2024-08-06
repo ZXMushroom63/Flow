@@ -43,6 +43,15 @@ addNode("power", {
   color: "darkcyan",
   doc: "Returns Base to the power Exponent and then returns it.",
 });
+addNode("modulo", {
+  alias: ["Modulo", "mod", "%", "remainder"],
+  inputs: ["A", "B"],
+  func: (a, b) => {
+    return [parseFloat(a) % parseFloat(b)];
+  },
+  color: "darkcyan",
+  doc: "Returns Base to the power Exponent and then returns it.",
+});
 addNode("mathif", {
   alias: ["Math If"],
   inputs: ["A", "B", "A>B", "A=B", "A<B"],
