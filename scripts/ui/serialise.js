@@ -78,6 +78,9 @@ function deserialise(serialised) {
   zoomIndex = serialised.zoomIndex || 1;
 
   serialised.nodes.forEach((nodeData) => {
+    if (!window.library[nodeData.type]) {
+      console.log(nodeData.type);
+    }
     var n = addNodeToCanvas(
       window.library[nodeData.type] || window.library["unknown"],
       0,

@@ -35,10 +35,28 @@ addNode("sqrt", {
   doc: `Returns the square-root of x.`,
 });
 addNode("log", {
-  alias: ["Logarithm"],
+  alias: ["Logarithm (10)"],
   inputs: ["X"],
   func: (x) => {
     return [Math.log10(x)];
+  },
+  color: "darkred",
+  doc: `Returns the logarithm of x.`,
+});
+addNode("log2", {
+  alias: ["Logarithm (2)"],
+  inputs: ["X"],
+  func: (x) => {
+    return [Math.log2(x)];
+  },
+  color: "darkred",
+  doc: `Returns the logarithm of x.`,
+});
+addNode("log_e", {
+  alias: ["Logarithm (e)"],
+  inputs: ["X"],
+  func: (x) => {
+    return [Math.log(x)];
   },
   color: "darkred",
   doc: `Returns the logarithm of x.`,
@@ -51,6 +69,15 @@ addNode("cbrt", {
   },
   color: "darkred",
   doc: `Returns the cube-root of x.`,
+});
+addNode("sign", {
+  alias: ["Sign", "symbol", "negative", "positive"],
+  inputs: ["N"],
+  func: (x) => {
+    return [Math.sign(x)];
+  },
+  color: "darkred",
+  doc: `Returns the sign of N; 1 if positive, -1 if negative.`,
 });
 addNode("floor", {
   alias: ["Floor", "truncate", "round down"],

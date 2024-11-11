@@ -50,8 +50,8 @@ addNode("rgb2hsl", {
         ? l === r
           ? (g - b) / s
           : l === g
-          ? 2 + (b - r) / s
-          : 4 + (r - g) / s
+            ? 2 + (b - r) / s
+            : 4 + (r - g) / s
         : 0;
       return [
         60 * h < 0 ? 60 * h + 360 : 60 * h,
@@ -64,4 +64,15 @@ addNode("rgb2hsl", {
   color: "fuchsia",
   outputs: ["H", "S", "L"],
   doc: "Converts red, green and blue inputs into hue, saturation and lightness.",
+});
+addNode("mixbox", {
+  alias: ["Mixbox Lerp", "Kubelka-Munk Lerp", "CMYK-Like", "PBR"],
+  inputs: ["R1", "G1", "B1", "R2", "G2", "B2", "k"],
+  func: function (r1, g1, b1, r2, g2, b2, k) {
+    return mixbox.lerp([r1, g1, b1], [r2, g2, b2], k)
+  },
+  color: "fuchsia",
+  outputs: ["R", "G", "B"],
+  usespkg: ["libs/mixbox.js"],
+  doc: "Blends two RGB values together using the Mixbox library.",
 });

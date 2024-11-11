@@ -58,6 +58,7 @@ html {
     background-color: darkslategray;
     border: 3px solid black;
     overflow: hidden;
+    width: max-content;
 }
 
 .node .input {
@@ -318,4 +319,30 @@ input[imageInput]::before {
     margin-right: auto;
     width: 50%;
     padding: 0.2rem;
+}
+table.outlineTable {
+    color: white;
+    border-collapse: collapse;
+    align-items: center;
+}
+table.outlineTable tr {
+    padding: 0;
+    border-collapse: collapse;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+table.outlineTable td {
+    padding: 4px;
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+    text-align: center;
+}
+.node .output.staticOutput::before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    position: absolute;
+    background-color: limegreen;
 }

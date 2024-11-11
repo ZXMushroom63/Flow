@@ -1,7 +1,9 @@
 var extensionMap = {
     "logic": ["extensions/logic.js"],
     "3D Viewer": ["libs/three.min.js", "extensions/3dviewer.js"],
-    "Functions": ["libs/fnmap.js", "extensions/functions.js"]
+    "Functions": ["libs/fnmap.js", "extensions/functions.js"],
+    "Keyboard": ["extensions/keymap.js"],
+    "Strings": ["extensions/strings.js"]
 }
 window.extensionsLoaded = false;
 window.extensionCounter = 0;
@@ -9,6 +11,10 @@ window.extensionTotal = 0;
 function getTotal(extensions) {
     var total = 0;
     extensions.forEach((extension)=>{
+        if (!extensionMap[extension]) {
+            total += 1;
+            return;
+        }
         total += extensionMap[extension].length;
     });
     return total;
@@ -17,10 +23,33 @@ if (localStorage.getItem("extensions")) {
     var extensions = JSON.parse(localStorage.getItem("extensions"));
     window.extensionTotal = getTotal(extensions);
     extensions.forEach(extension => {
+        if (!extensionMap[extension]) {
+            var s = document.createElement("script");
+            s.src = extension;
+            s.onload = ()=>{
+                window.extensionCounter++;
+                if (window.extensionCounter >= window.extensionTotal) {
+                    window.extensionsLoaded = true;
+                }
+            }
+            s.onerror = ()=>{
+                window.extensionCounter++;
+                if (window.extensionCounter >= window.extensionTotal) {
+                    window.extensionsLoaded = true;
+                }
+            }
+            document.head.append(s);
+        }
         extensionMap[extension].forEach((script)=>{
             var s = document.createElement("script");
             s.src = script;
             s.onload = ()=>{
+                window.extensionCounter++;
+                if (window.extensionCounter >= window.extensionTotal) {
+                    window.extensionsLoaded = true;
+                }
+            }
+            s.onerror = ()=>{
                 window.extensionCounter++;
                 if (window.extensionCounter >= window.extensionTotal) {
                     window.extensionsLoaded = true;

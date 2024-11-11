@@ -98,11 +98,11 @@ addNode("output", {
     let getVal = self.getValue;
     function run() {
       setTimeout(() => {
-        display.innerText = (parseFloat(getVal()[0]) || 0.0).toFixed(3);
-        if (display.innerText.length > 7) {
+        display.innerText = Number.isNaN(parseFloat(getVal()[0])) ? getVal()[0] : (parseFloat(getVal()[0]) || 0.0).toFixed(3);
+        if (display.innerText.length > 7 && !Number.isNaN(parseFloat(getVal()[0]))) {
           display.innerText = display.innerText.split(".")[0];
         }
-        if (display.innerText.length > 7) {
+        if (display.innerText.length > 7 && !Number.isNaN(parseFloat(getVal()[0]))) {
           display.innerText = parseFloat(display.innerText).toExponential(2);
         }
         run();

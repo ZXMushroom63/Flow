@@ -11,7 +11,7 @@ addNode("soundwave", {
     "wavetype",
   ],
   color: "darkviolet",
-  inputs: ["Frequency (Hz)", "Volume (0.0-1.0)", "Wave Type ∿:0|⎍:1|△:2|⊿:3"],
+  inputs: ["Frequency (Hz)", "Amplitude (0.0-1.0)", "Wave Type ∿:0|⎍:1|△:2|⊿:3"],
   outputs: [],
   doc: `The Soundwave Node is used for making audio. It has three inputs: 
   <br>Frequency: The pitch of the sound, in Hertz. Default is 256 Hz, middle C. 
