@@ -7,3 +7,12 @@ addNode("strings/join", {
     color: "darkcyan",
     doc: "Adds inputs A and B together and then returns it.",
 });
+addNode("strings/length", {
+    alias: ["String Length"],
+    inputs: ["A"],
+    func: (a) => {
+        return [`${a}`.length];
+    },
+    color: "darkcyan",
+    doc: "Adds inputs A and B together and then returns it.",
+});
