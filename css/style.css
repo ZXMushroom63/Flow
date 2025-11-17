@@ -3,6 +3,10 @@
     touch-action: none !important;
 }
 
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
 body,
 html {
     margin: 0;
